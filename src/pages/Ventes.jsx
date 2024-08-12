@@ -1,7 +1,8 @@
 import React from "react";
+import Sidebar from "../components/navigation/Sidebar";
 
 const Ventes = () => {
-  return <div>Ventes</div>;
+  return <Sidebar>Ventes</Sidebar>;
 };
 
 export default Ventes;
