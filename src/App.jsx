@@ -6,6 +6,7 @@ import Achats from "./pages/Achats";
 import Stock from "./pages/Stock";
 import Depenses from "./pages/Depenses";
 import Clients from "./pages/Clients";
+import MesVendeurs from "./pages/MesVendeurs";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/stock" element={<Stock />} />
         <Route path="/depenses" element={<Depenses />} />
         <Route path="/clients" element={<Clients />} />
+        <Route path="/mes-vendeurs" element={<MesVendeurs />} />
       </Routes>
     </BrowserRouter>
   );

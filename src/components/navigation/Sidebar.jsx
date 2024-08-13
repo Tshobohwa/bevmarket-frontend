@@ -1,5 +1,9 @@
 import React from "react";
 import SideBarLink from "./SideBarLink";
+import { AiFillShop } from "react-icons/ai";
+import { FaMoneyBillTransfer, FaUserGroup } from "react-icons/fa6";
+import { FaWarehouse } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 const Sidebar = ({ children }) => {
   return (
@@ -10,19 +14,42 @@ const Sidebar = ({ children }) => {
         </h1>
         <ul className="flex flex-col gap-4">
           <li>
-            <SideBarLink path={"/"} name={"Ventes"} />
+            <SideBarLink
+              path={"/"}
+              name={"Ventes"}
+              icon={<AiFillShop size={18} />}
+            />
           </li>
           <li>
-            <SideBarLink path={"/depenses"} name={"Depenses"} />
+            <SideBarLink
+              path={"/depenses"}
+              name={"Depenses"}
+              icon={<FaMoneyBillTransfer size={18} />}
+            />
           </li>
           <li>
             <SideBarLink path={"/achats"} name={"Achats"} />
           </li>
           <li>
-            <SideBarLink path={"/stock"} name={"Stock"} />
+            <SideBarLink
+              path={"/stock"}
+              name={"Stock"}
+              icon={<FaWarehouse size={18} />}
+            />
           </li>
           <li>
-            <SideBarLink path={"/clients"} name={"Clients"} />
+            <SideBarLink
+              path={"/mes-vendeurs"}
+              name={"Mes Vendeurs"}
+              icon={<FaUser size={18} />}
+            />
+          </li>
+          <li>
+            <SideBarLink
+              path={"/clients"}
+              name={"Clients"}
+              icon={<FaUserGroup size={18} />}
+            />
           </li>
         </ul>
       </nav>
