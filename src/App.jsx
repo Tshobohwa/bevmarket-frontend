@@ -7,19 +7,23 @@ import Stock from "./pages/Stock";
 import Depenses from "./pages/Depenses";
 import Clients from "./pages/Clients";
 import MesVendeurs from "./pages/MesVendeurs";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Ventes />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/achats" element={<Achats />} />
-        <Route path="/stock" element={<Stock />} />
-        <Route path="/depenses" element={<Depenses />} />
-        <Route path="/clients" element={<Clients />} />
-        <Route path="/mes-vendeurs" element={<MesVendeurs />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Ventes />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/achats" element={<Achats />} />
+          <Route path="/stock" element={<Stock />} />
+          <Route path="/depenses" element={<Depenses />} />
+          <Route path="/clients" element={<Clients />} />
+          <Route path="/mes-vendeurs" element={<MesVendeurs />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
