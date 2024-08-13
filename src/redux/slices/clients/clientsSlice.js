@@ -6,7 +6,9 @@ const clientsSlice = createSlice({
   name: "clients",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase();
+  },
 });
 
 export default clientsSlice.reducer;
