@@ -3,6 +3,8 @@ import Sidebar from "../components/navigation/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { getClients } from "../redux/slices/clients/clientsActions";
 import NewClient from "../components/popups/NewClient";
+import RoundedInputWithIcon from "../components/Inputs/RoundedInputWithIcon";
+import { BiSearch } from "react-icons/bi";
 
 const Clients = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,10 @@ const Clients = () => {
       <header className="w-full flex justify-between items-center">
         <h1 className="text-4xl font-semibold text-black-900">Clients</h1>
         <div className="flex gap-4 items-center">
+          <RoundedInputWithIcon
+            placeholder={"Chercher client"}
+            icon={<BiSearch size={24} />}
+          />
           <button
             className="h-[3rem] rounded-full px-[1.5rem] bg-primary-900 text-white font-semibold"
             onClick={() => setAddingClient(true)}
@@ -30,7 +36,7 @@ const Clients = () => {
           </button>
         </div>
       </header>
-      <section className="w-full mt-4">
+      <section className="w-full mt-4 bg-white p-4 border border-primary-300 rounded-md">
         <table className="w-full">
           <thead className="w-full">
             <tr className="w-full h-[3rem] bg-secondary-800 text-white border border-secondary-800">
@@ -41,7 +47,7 @@ const Clients = () => {
           </thead>
           <tbody>
             {clients.map((client, index) => (
-              <tr className="h-[3rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-300 hover:cursor-pointer">
+              <tr className="h-[3rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-100 hover:cursor-pointer">
                 <td className="pl-4 border-r border-r-primary-600">
                   {index + 1}
                 </td>
