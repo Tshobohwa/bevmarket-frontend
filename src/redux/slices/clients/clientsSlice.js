@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getClients } from "./clientsActions";
 
 const initialState = {};
 
@@ -7,7 +8,9 @@ const clientsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase();
+    builder.addCase(getClients.fulfilled, (state, { payload }) => {
+      return { ...state, clients: payload };
+    });
   },
 });
 

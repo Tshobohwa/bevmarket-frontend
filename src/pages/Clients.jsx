@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../components/navigation/Sidebar";
+import { useDispatch } from "react-redux";
+import { getClients } from "../redux/slices/clients/clientsActions";
 
 const Clients = () => {
+  const dispatch = useDispatch();
+  dispatch(getClients());
+  useEffect(() => {
+    dispatch(getClients());
+  }, []);
   return (
     <Sidebar>
       <header className="w-full">
