@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/navigation/Sidebar";
 import RoundedButton from "../components/buttons/RoundedButton";
 import RoundedInputWithIcon from "../components/Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
+import NewItem from "../components/popups/NewItem";
 
 const Stock = () => {
+  const [addingItem, setAddingItem] = useState(false);
+
   return (
     <Sidebar>
+      {addingItem && <NewItem closeHandler={() => setAddingItem(false)} />}
       <header className="w-full flex justify-between items-center">
         <h1 className="text-4xl font-semibold text-black-900">Stock</h1>
         <div className="flex gap-4 items-center">
@@ -14,7 +18,10 @@ const Stock = () => {
             placeholder={"rechercher article"}
             icon={<BiSearch size={24} />}
           />
-          <RoundedButton name={"nouvel article"} />
+          <RoundedButton
+            name={"nouvel article"}
+            onClick={() => setAddingItem(true)}
+          />
         </div>
       </header>
       <section className="w-full mt-4 bg-white p-4 border border-primary-300 rounded-md">
