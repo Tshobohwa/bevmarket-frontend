@@ -1,20 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/navigation/Sidebar";
 import { useDispatch } from "react-redux";
 import { getClients } from "../redux/slices/clients/clientsActions";
+import NewClient from "../components/popups/NewClient";
 
 const Clients = () => {
   const dispatch = useDispatch();
-  dispatch(getClients());
+
+  const [addingClient, setAddingClient] = useState(false);
+
   useEffect(() => {
     dispatch(getClients());
   }, []);
   return (
     <Sidebar>
+      {addingClient && (
+        <NewClient closeHandler={() => setAddingClient(false)} />
+      )}
       <header className="w-full flex justify-between items-center">
         <h1 className="text-4xl font-semibold text-black-900">Clients</h1>
         <div className="flex gap-4 items-center">
-          <button className="h-[3rem] rounded-full px-[1.5rem] bg-primary-900 text-white font-semibold">
+          <button
+            className="h-[3rem] rounded-full px-[1.5rem] bg-primary-900 text-white font-semibold"
+            onClick={() => setAddingClient(true)}
+          >
             nouveau client
           </button>
         </div>
