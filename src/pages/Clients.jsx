@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/navigation/Sidebar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getClients } from "../redux/slices/clients/clientsActions";
 import NewClient from "../components/popups/NewClient";
 
@@ -8,6 +8,8 @@ const Clients = () => {
   const dispatch = useDispatch();
 
   const [addingClient, setAddingClient] = useState(false);
+
+  const { clients } = useSelector((state) => state.clients);
 
   useEffect(() => {
     dispatch(getClients());
@@ -31,14 +33,24 @@ const Clients = () => {
       <section className="w-full mt-4">
         <table className="w-full">
           <thead className="w-full">
-            <tr className="w-full h-[3rem] bg-secondary-800 text-white">
-              <th className="w-[10rem] pl-4 text-start">ID</th>
+            <tr className="w-full h-[3rem] bg-secondary-800 text-white border border-secondary-800">
+              <th className="w-[10rem] pl-4 text-start">N</th>
               <th className="pl-4 text-start">Noms</th>
               <th className="pl-4 text-start w-[20rem]">telephone</th>
             </tr>
           </thead>
           <tbody>
-            <tr></tr>
+            {clients.map((client, index) => (
+              <tr className="h-[3rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-300 hover:cursor-pointer">
+                <td className="pl-4 border-r border-r-primary-600">
+                  {index + 1}
+                </td>
+                <td className="pl-4 border-r border-r-primary-600">
+                  {client.name}
+                </td>
+                <td className="pl-4">{client.phone_number}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </section>
