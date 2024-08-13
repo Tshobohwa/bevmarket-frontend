@@ -14,7 +14,7 @@ const RoundedInputWithIcon = ({
     >
       <input
         type={type}
-        className={` w-[${inputWidth}rem]`}
+        className={` w-[${inputWidth}rem] focus:outline-none`}
         placeholder={placeholder}
         onChange={onChange}
       />
