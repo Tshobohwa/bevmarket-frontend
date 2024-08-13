@@ -55,8 +55,8 @@ const NewClient = ({ closeHandler }) => {
           <InputWithLabel
             label={"Numero de telephone"}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder={"Entrer les noms"}
-            type=""
+            placeholder={"Entrer le numero de telephone"}
+            type="tel"
           />
         </div>
         <p className="text-primary-800 text-center">{error}</p>

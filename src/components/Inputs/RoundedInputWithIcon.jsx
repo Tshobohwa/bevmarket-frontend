@@ -1,20 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 const RoundedInputWithIcon = ({
-  width = 20,
   icon,
   type = "text",
   onChange,
   placeholder,
 }) => {
-  const inputWidth = width - 3;
   return (
     <div
-      className={`w-[${width}rem] h-[3rem] border border-primary-400 px-[1.5rem] rounded-full flex bg-white text-black-700 items-center justify-between  pr-[0.2rem]`}
+      className={`w-[20rem] h-[3rem] border border-primary-400 px-[1.5rem] rounded-full flex bg-white text-black-700 items-center justify-between  pr-[0.2rem]`}
     >
       <input
         type={type}
-        className={` w-[${inputWidth}rem] focus:outline-none`}
+        className={` w-[15rem] focus:outline-none`}
         placeholder={placeholder}
         onChange={onChange}
       />
