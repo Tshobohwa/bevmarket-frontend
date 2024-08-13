@@ -5,6 +5,7 @@ import { getClients } from "../redux/slices/clients/clientsActions";
 import NewClient from "../components/popups/NewClient";
 import RoundedInputWithIcon from "../components/Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
+import RoundedButton from "../components/buttons/RoundedButton";
 
 const Clients = () => {
   const dispatch = useDispatch();
@@ -28,12 +29,10 @@ const Clients = () => {
             placeholder={"Chercher client"}
             icon={<BiSearch size={24} />}
           />
-          <button
-            className="h-[3rem] rounded-full px-[1.5rem] bg-primary-900 text-white font-semibold"
+          <RoundedButton
             onClick={() => setAddingClient(true)}
-          >
-            nouveau client
-          </button>
+            name={"ajouter client"}
+          />
         </div>
       </header>
       <section className="w-full mt-4 bg-white p-4 border border-primary-300 rounded-md">
