@@ -1,31 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import InputWithLabel from "../Inputs/InputWithLabel";
 import ButtonShadow from "../buttons/ButtonShadow";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import PopupContainer from "./PopupContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { postItem } from "../../redux/slices/items/ItemsActions";
+import { initializeIsPosted } from "../../redux/slices/items/itemsSlice";
 
 const NewItem = ({ closeHandler }) => {
+  const dispatch = useDispatch();
+
   const [error, setError] = useState("");
 
   const [name, setName] = useState("");
-  const [bottles_number, setBottlesNumber] = useState(null);
-  const [capacity, setCapacity] = useState(null);
+  const [bottles_number, setBottlesNumber] = useState(0);
+  const [capacity, setCapacity] = useState(0);
 
-  const [quantity, setQuantity] = useState(null);
-  // :reduction_sale_price, :unit_sale_price, :quantity, :last_unit_buy_price, :average_unit_buy_price
-  const [reductionSalePrice, setReductionSalePrice] = useState(null);
-  const [unitSalePrice, seUnitSalePrice] = useState(null);
-  const [lastUnitBuyPrice, setLastUnitBuyPrice] = useState(null);
-  const [averageUnitBuyPrice, setAverageUnitBuyPrice] = useState(null);
+  const { isPosted } = useSelector((state) => state.items);
+
+  const [quantity, setQuantity] = useState(0);
+  const [reductionSalePrice, setReductionSalePrice] = useState(0);
+  const [unitSalePrice, seUnitSalePrice] = useState(0);
+  const [lastUnitBuyPrice, setLastUnitBuyPrice] = useState(0);
   const submitHandler = () => {
+    setError("");
+    if (
+      name === "" ||
+      quantity === 0 ||
+      capacity === 0 ||
+      bottles_number === 0 ||
+      unitSalePrice === 0 ||
+      lastUnitBuyPrice === 0 ||
+      reductionSalePrice === 0
+    ) {
+      setError("Veuillez entrer toute les valeurs");
+      return;
+    }
     const item = {
       name,
       bottles_number,
       capacity,
       capacity_unit: "Cl",
     };
+    const stock_item = {
+      reduction_sale_price: reductionSalePrice,
+      unit_sale_price: unitSalePrice,
+      last_unit_buy_price: lastUnitBuyPrice,
+      average_unit_buy_price: lastUnitBuyPrice,
+      quantity,
+    };
+    dispatch(postItem({ item, stock_item }));
   };
+
+  useEffect(() => {
+    if (!isPosted) return;
+    dispatch(initializeIsPosted());
+    closeHandler();
+  }, [isPosted]);
   return (
     <PopupContainer>
       <div className="bg-white w-[600px] flex flex-col gap-4 p-4">

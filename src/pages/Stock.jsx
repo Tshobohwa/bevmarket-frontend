@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/navigation/Sidebar";
 import RoundedButton from "../components/buttons/RoundedButton";
 import RoundedInputWithIcon from "../components/Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
 import NewItem from "../components/popups/NewItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getStock } from "../redux/slices/stock/stockActions";
+import CircularButtonWithIcon from "../components/buttons/CircularButtonWithIcon";
 
 const Stock = () => {
+  const dispatch = useDispatch();
   const [addingItem, setAddingItem] = useState(false);
+  const { stock } = useSelector((state) => state.stock);
+
+  useEffect(() => {
+    dispatch(getStock());
+  }, []);
 
   return (
     <Sidebar>
@@ -44,15 +53,33 @@ const Stock = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="h-[2.4rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-100 hover:cursor-pointer">
-              <td className="pl-4 border-r border-r-primary-600">
-                Coca cola 24 x 33cl
-              </td>
-              <td className="pl-4 border-r border-r-primary-600">40 000 CDF</td>
-              <td className="pl-4 border-r border-r-primary-600">44 000 CDF</td>
-              <td className="pl-4 border-r border-r-primary-600">42 000 CDF</td>
-              <td className="pl-4">400</td>
-            </tr>
+            {stock.map((item) => (
+              <tr className="h-[2.4rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-100">
+                <td className="pl-4 border-r border-r-primary-600 font-semibold">
+                  {item.item.name} {item.item.bottles_number} x{" "}
+                  {item.item.capacity} Cl
+                </td>
+                <td className="pl-4 border-r border-r-primary-600">
+                  {item.average_unit_buy_price} CDF
+                </td>
+                <td className="px-4 border-r border-r-primary-600">
+                  <p className="flex items-center justify-between">
+                    {item.unit_sale_price} CDF <CircularButtonWithIcon />
+                  </p>
+                </td>
+                <td className="px-4 border-r border-r-primary-600">
+                  <p className="flex items-center justify-between">
+                    {item.reduction_sale_price} CDF <CircularButtonWithIcon />
+                  </p>
+                </td>
+                <td className="px-4">
+                  <p className="flex items-center justify-between">
+                    {item.quantity}
+                    <CircularButtonWithIcon />
+                  </p>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </section>

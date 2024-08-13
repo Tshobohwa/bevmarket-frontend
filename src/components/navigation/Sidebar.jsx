@@ -4,6 +4,7 @@ import { AiFillShop } from "react-icons/ai";
 import { FaMoneyBillTransfer, FaUserGroup } from "react-icons/fa6";
 import { FaWarehouse } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 
 const Sidebar = ({ children }) => {
   return (
@@ -18,6 +19,13 @@ const Sidebar = ({ children }) => {
             <li>
               <SideBarLink
                 path={"/"}
+                name={"Tableau de bord"}
+                icon={<MdDashboard size={18} />}
+              />
+            </li>
+            <li>
+              <SideBarLink
+                path={"/ventes"}
                 name={"Ventes"}
                 icon={<AiFillShop size={18} />}
               />

@@ -7,6 +7,7 @@ import {
   postStockItem,
   updateStockItemPrice,
 } from "./stockActions";
+import { postItem } from "../items/ItemsActions";
 
 const initialState = {
   stock: [],
@@ -64,9 +65,12 @@ const stockSlice = createSlice({
       return { ...state, error, isPosting: false };
     });
 
-    // builder.addCase(postItem.fulfilled, (state, { payload }) => {
-    //   return { ...state, stock: [...state.stock, payload.stock_item] };
-    // });
+    builder.addCase(postItem.fulfilled, (state, { payload }) => {
+      return {
+        ...state,
+        stock: [...state.stock, payload.stock_item],
+      };
+    });
 
     builder.addCase(updateStockItemPrice.pending, (state) => {
       return { ...state, isUpdatingPrice: true, updatePriceError: "" };

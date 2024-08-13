@@ -9,13 +9,15 @@ import Clients from "./pages/Clients";
 import MesVendeurs from "./pages/MesVendeurs";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Ventes />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/ventes" element={<Ventes />} />
           <Route path="/login" element={<Login />} />
           <Route path="/achats" element={<Achats />} />
           <Route path="/stock" element={<Stock />} />
