@@ -7,18 +7,36 @@ import NewItem from "../components/popups/NewItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getStock } from "../redux/slices/stock/stockActions";
 import CircularButtonWithIcon from "../components/buttons/CircularButtonWithIcon";
+import { FaPlus } from "react-icons/fa6";
+import { MdModeEdit } from "react-icons/md";
+import { setCurrentStockItem } from "../redux/slices/stock/stockSlice";
+import UpdatePrices from "../components/popups/UpdatePrices";
 
 const Stock = () => {
   const dispatch = useDispatch();
   const [addingItem, setAddingItem] = useState(false);
   const { stock } = useSelector((state) => state.stock);
+  const [isModifyingPrices, setIsModifyingPrices] = useState(false);
+  const [isAddingQuantity, setIsAddingQuantity] = useState(false);
 
   useEffect(() => {
     dispatch(getStock());
   }, []);
 
+  const openModifyPriceModal = (id) => {
+    dispatch(setCurrentStockItem(id));
+    setIsModifyingPrices(true);
+  };
+
   return (
     <Sidebar>
+      {isModifyingPrices && (
+        <UpdatePrices
+          closeHandler={() => {
+            setIsModifyingPrices(false);
+          }}
+        />
+      )}
       {addingItem && <NewItem closeHandler={() => setAddingItem(false)} />}
       <header className="w-full flex justify-between items-center">
         <h1 className="text-4xl font-semibold text-black-900">Stock</h1>
@@ -64,18 +82,30 @@ const Stock = () => {
                 </td>
                 <td className="px-4 border-r border-r-primary-600">
                   <p className="flex items-center justify-between">
-                    {item.unit_sale_price} CDF <CircularButtonWithIcon />
+                    {item.unit_sale_price} CDF
+                    <CircularButtonWithIcon
+                      icon={
+                        <MdModeEdit
+                          size={18}
+                          onClick={() => openModifyPriceModal(item.id)}
+                        />
+                      }
+                    />
                   </p>
                 </td>
                 <td className="px-4 border-r border-r-primary-600">
                   <p className="flex items-center justify-between">
-                    {item.reduction_sale_price} CDF <CircularButtonWithIcon />
+                    {item.reduction_sale_price} CDF{" "}
+                    <CircularButtonWithIcon
+                      icon={<MdModeEdit size={18} />}
+                      onClick={() => openModifyPriceModal(item.id)}
+                    />
                   </p>
                 </td>
                 <td className="px-4">
                   <p className="flex items-center justify-between">
                     {item.quantity}
-                    <CircularButtonWithIcon />
+                    <CircularButtonWithIcon icon={<FaPlus size={18} />} />
                   </p>
                 </td>
               </tr>

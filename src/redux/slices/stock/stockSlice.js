@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import stock from "../../mockingData/stock";
-// import { postItem } from "./itemsSlice";
+
 import {
   addQuantityToStockItem,
   getStock,
@@ -34,6 +33,10 @@ const stockSlice = createSlice({
 
     resetHasAddedQuantityToStock: (state) => {
       return { ...state, hasAddedQuantityToStock: false };
+    },
+    setCurrentStockItem: (state, { payload }) => {
+      const currentStockItem = state.stock.find((item) => item.id === payload);
+      return { ...state, currentStockItem };
     },
   },
 
@@ -117,7 +120,10 @@ const stockSlice = createSlice({
   },
 });
 
-export const { resetHasAddedQuantityToStock, resetHasUpdatedPrice } =
-  stockSlice.actions;
+export const {
+  resetHasAddedQuantityToStock,
+  resetHasUpdatedPrice,
+  setCurrentStockItem,
+} = stockSlice.actions;
 
 export default stockSlice.reducer;
