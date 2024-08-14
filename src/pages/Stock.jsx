@@ -11,6 +11,7 @@ import { FaPlus } from "react-icons/fa6";
 import { MdModeEdit } from "react-icons/md";
 import { setCurrentStockItem } from "../redux/slices/stock/stockSlice";
 import UpdatePrices from "../components/popups/UpdatePrices";
+import AddQuantityToItem from "../components/popups/AddQuantityToItem";
 
 const Stock = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,11 @@ const Stock = () => {
     setIsModifyingPrices(true);
   };
 
+  const openAddingQuantityToSckoPopup = (id) => {
+    dispatch(setCurrentStockItem(id));
+    setIsAddingQuantity(true);
+  };
+
   return (
     <Sidebar>
       {isModifyingPrices && (
@@ -38,6 +44,9 @@ const Stock = () => {
         />
       )}
       {addingItem && <NewItem closeHandler={() => setAddingItem(false)} />}
+      {isAddingQuantity && (
+        <AddQuantityToItem closeHandler={() => setIsAddingQuantity(false)} />
+      )}
       <header className="w-full flex justify-between items-center">
         <h1 className="text-4xl font-semibold text-black-900">Stock</h1>
         <div className="flex gap-4 items-center">
@@ -105,7 +114,10 @@ const Stock = () => {
                 <td className="px-4">
                   <p className="flex items-center justify-between">
                     {item.quantity}
-                    <CircularButtonWithIcon icon={<FaPlus size={18} />} />
+                    <CircularButtonWithIcon
+                      icon={<FaPlus size={18} />}
+                      onClick={() => openAddingQuantityToSckoPopup(item.id)}
+                    />
                   </p>
                 </td>
               </tr>

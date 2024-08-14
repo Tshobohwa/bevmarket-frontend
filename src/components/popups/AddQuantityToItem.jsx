@@ -2,50 +2,41 @@ import React, { useEffect, useState } from "react";
 import PopupContainer from "./PopupContainer";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import ButtonShadow from "../buttons/ButtonShadow";
-import { useDispatch, useSelector } from "react-redux";
-import { IoClose } from "react-icons/io5";
 import InputWithLabel from "../Inputs/InputWithLabel";
-import { updateStockItemPrice } from "../../redux/slices/stock/stockActions";
-import { resetHasUpdatedPrice } from "../../redux/slices/stock/stockSlice";
+import { IoClose } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { addQuantityToStockItem } from "../../redux/slices/stock/stockActions";
+import { resetHasAddedQuantityToStock } from "../../redux/slices/stock/stockSlice";
 
-const UpdatePrices = ({ closeHandler }) => {
+const AddQuantityToItem = ({ closeHandler }) => {
   const dispatch = useDispatch();
-  const { currentStockItem, hasUpdatedPrice } = useSelector(
-    (state) => state.stock
-  );
   const [error, setError] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [unitBuyPrice, setUnitBuyPrice] = useState(0);
 
-  const [unitSalePrice, setUnitSalePrice] = useState(
-    currentStockItem.unit_sale_price
-  );
-  const [reductionSalePrice, setReductionSalePrice] = useState(
-    currentStockItem.reduction_sale_price
+  const { currentStockItem, hasAddedQuantityToStock } = useSelector(
+    (state) => state.stock
   );
 
   const submitHandler = () => {
     setError("");
-    if (unitSalePrice < 1 || reductionSalePrice < 1) {
-      setError("Entrez des prix valides superieur a zero!");
-      return;
-    }
     const stock_item = {
-      reduction_sale_price: reductionSalePrice,
-      unit_sale_price: unitSalePrice,
+      unit_buy_price: unitBuyPrice,
+      quantity,
     };
-    dispatch(updateStockItemPrice({ id: currentStockItem.id, stock_item }));
+    dispatch(addQuantityToStockItem({ id: currentStockItem.id, stock_item }));
   };
 
   useEffect(() => {
-    if (!hasUpdatedPrice) return;
-    dispatch(resetHasUpdatedPrice());
+    if (!hasAddedQuantityToStock) return;
+    dispatch(resetHasAddedQuantityToStock());
     closeHandler();
   });
-
   return (
     <PopupContainer>
       <div className="bg-white w-[500px] flex flex-col gap-4 p-4">
         <div className="flex w-full justify-between text-black-900">
-          <h2 className="text-2xl font-semibold">Modifier les prix</h2>
+          <h2 className="text-2xl font-semibold">Ajouter au stock</h2>
           <button
             className="h-[2.5rem] w-[2.5rem] items-center justify-center text-black-900"
             onClick={closeHandler}
@@ -59,26 +50,24 @@ const UpdatePrices = ({ closeHandler }) => {
         </p>
         <div className="w-full flex flex-col gap-4">
           <InputWithLabel
-            label={"Prix de vente normal"}
-            onChange={(e) => setUnitSalePrice(+e.target.value)}
-            placeholder={"Ex: 32 000"}
-            value={unitSalePrice}
+            label={"Nombre de caisses"}
+            onChange={(e) => setQuantity(+e.target.value)}
+            placeholder={"Ex: 500"}
           />
           <InputWithLabel
-            label={"Prix de vente partenaire"}
-            onChange={(e) => setReductionSalePrice(+e.target.value)}
+            label={"Prix d'achat unitaire"}
+            onChange={(e) => setUnitBuyPrice(+e.target.value)}
             placeholder={"Ex: 30 000"}
-            value={reductionSalePrice}
           />
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
           <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"confirmer"} onClick={submitHandler} />
+          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
         </div>
       </div>
     </PopupContainer>
   );
 };
 
-export default UpdatePrices;
+export default AddQuantityToItem;
