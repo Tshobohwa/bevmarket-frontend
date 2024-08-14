@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "../components/navigation/Sidebar";
+import Timefilter from "../components/filters/Timefilter";
 
 const Dashboard = () => {
   return (
@@ -8,7 +9,9 @@ const Dashboard = () => {
         <h1 className="text-4xl font-semibold text-black-900">
           Tableau de bord
         </h1>
-        <div className="flex gap-4 items-center"></div>
+        <div className="flex gap-4 items-center">
+          <Timefilter />
+        </div>
       </header>
       <section className="w-full bg-white p-4 grid grid-cols-3 my-4 border border-primary-400">
         <div className=" h-full px-4 border-r border-r-primary-500">
