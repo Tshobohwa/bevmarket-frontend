@@ -11,7 +11,7 @@ const Sidebar = ({ children }) => {
     <div className="w-full h-full">
       <header className="h-[3rem] fixed top-0 left-[240px] right-0 bg-white"></header>
       <div className="w-full h-full pl-[260px] p-4 pt-[4rem]">
-        <nav className="w-[240px] fixed left-0 top-0 bottom-0 border-r border-primary-300 px-4 py-8 bg-white">
+        <nav className="w-[240px] fixed left-0 top-0 bottom-0 border-r border-primary-300 px-4 py-8 bg-white font-poppins">
           <h1 className="text-3xl font-semibold text-secondary-950 text-center mb-8">
             Bevmarket
           </h1>
