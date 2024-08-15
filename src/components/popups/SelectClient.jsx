@@ -13,7 +13,7 @@ const SelectClient = ({ closeHandler }) => {
 
   const selectClientHandler = (id) => {
     dispatch(selectClient(id));
-    closeHandler;
+    closeHandler();
   };
 
   useEffect(() => {
