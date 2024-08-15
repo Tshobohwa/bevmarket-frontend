@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
 import RoundedInputWithIcon from "../Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
-import { getClients } from "../../redux/slices/clients/clientsActions";
-import { selectClient } from "../../redux/slices/sales/salesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getStock } from "../../redux/slices/stock/stockActions";
 
-const SelectClient = ({ closeHandler }) => {
+const AddItemToSale = ({ closeHandler }) => {
   const dispatch = useDispatch();
-  const { clients } = useSelector((state) => state.clients);
-
-  const selectClientHandler = (id) => {
-    dispatch(selectClient(id));
-    closeHandler;
-  };
-
+  const { stock } = useSelector((state) => state.stock);
   useEffect(() => {
-    dispatch(getClients());
+    dispatch(getStock());
   }, []);
   return (
     <PopupContainer>
@@ -32,24 +25,32 @@ const SelectClient = ({ closeHandler }) => {
         </div>
         <div className="w-full flex items-center justify-between  px-4">
           <h2 className="text-2xl font-semibold  text-black-900 font-poppins">
-            Selectionner le client
+            Ajouter un article
           </h2>
           <RoundedInputWithIcon
-            placeholder={"Chercher le client"}
+            placeholder={"Chercher l'article"}
             icon={<BiSearch size={24} />}
           />
         </div>
         <div className="h-[400px] w-full overflow-y-scroll border-t border-t-secondary-300">
-          {clients.map((client) => (
-            <div
-              className="w-full h-[4rem] border-b border-b-secondary-100 flex items-center pl-4 hover:bg-primary-300 hover:cursor-pointer"
-              onClick={() => selectClientHandler(client.id)}
-            >
-              <div className="w-full">
+          {stock.map((item) => (
+            <div className="w-full h-[4.5rem] border-b border-b-secondary-100 flex items-center justify-between pl-4 hover:bg-primary-300 hover:cursor-pointer">
+              <div className="flex flex-col">
                 <p className="font-semibold text-lg text-black-700">
-                  {client.name}
+                  {item.item.name} {item.item.bottles_number} x{" "}
+                  {item.item.capacity} Cl
                 </p>
-                <p className="text-sm text-black-500">{client.phone_number}</p>
+                <p className="text-sm text-black-500">
+                  quantitee: {item.quantity}
+                </p>
+              </div>
+              <div className="flex flex-col items-end">
+                <p className="text-black-500">
+                  prix de vente: {item.unit_sale_price} Fc
+                </p>
+                <p className="text-black-500">
+                  prix de vente partenaire: {item.reduction_sale_price} Fc
+                </p>
               </div>
             </div>
           ))}
@@ -59,4 +60,4 @@ const SelectClient = ({ closeHandler }) => {
   );
 };
 
-export default SelectClient;
+export default AddItemToSale;
