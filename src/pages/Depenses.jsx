@@ -37,7 +37,7 @@ const Depenses = () => {
                 {expense.amount} Fc
               </p>
               <p className="text-secondary-950">
-                {new Date(expense.created_at).toDateString()}
+                {new Date(expense.created_at).toLocaleString()}
               </p>
             </div>
             <p className="text-black-700">{expense.reason}</p>

@@ -37,7 +37,7 @@ const AddExpense = ({ closeHandler }) => {
     if (!expenseAdded) return;
     dispatch(resetExpenseAdded());
     closeHandler();
-  }, []);
+  }, [expenseAdded]);
   return (
     <PopupContainer>
       <div className="bg-white w-[500px] flex flex-col gap-4 p-4">
