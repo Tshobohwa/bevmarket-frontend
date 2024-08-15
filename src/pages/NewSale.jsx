@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import RoundedButton from "../components/buttons/RoundedButton";
 import ButtonShadow from "../components/buttons/ButtonShadow";
 import ButtonHighlight from "../components/buttons/ButtonHighlight";
 import CircularButtonWithIcon from "../components/buttons/CircularButtonWithIcon";
 import { BiPlus } from "react-icons/bi";
+import SelectClient from "../components/popups/SelectClient";
 
 const NewSale = () => {
+  const [isSelectingClient, setIsSelectingClient] = useState(false);
+  const [isAddingItem, setIsAddingItem] = useState(false);
   return (
     <div className="w-full h-full bg-primary-100 min-h-[100vh] min-w-[100vw] flex justify-center pt-[4.5rem]">
+      {isSelectingClient && (
+        <SelectClient closeHandler={() => setIsSelectingClient(false)} />
+      )}
       <header className="w-full h-[3.5rem] fixed top-0 left-0 right-0 bg-white border-b border-b-primary-300 flex items-center justify-between"></header>
       <div className="w-[600px] p-4 border border-primary-300 bg-white h-fit">
         <div className="w-full flex justify-between items-start pb-4 border-b border-b-secondary-500">
-          <RoundedButton name={"choisir le client"} />
+          <RoundedButton
+            name={"choisir le client"}
+            onClick={() => setIsSelectingClient(true)}
+          />
           <p>Date: {new Date().toLocaleString().split(",")[0]}</p>
         </div>
         <table className="w-full">
