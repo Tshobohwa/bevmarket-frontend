@@ -10,15 +10,18 @@ import { postSale } from "../redux/slices/sales/salesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { cancelNewSale } from "../redux/slices/sales/salesSlice";
+import { MdModeEdit } from "react-icons/md";
 
 const NewSale = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { newSale } = useSelector((store) => store.sales);
+  const { clients } = useSelector((state) => state.clients);
 
   const [isSelectingClient, setIsSelectingClient] = useState(false);
   const [isAddingItem, setIsAddingItem] = useState(false);
+  const [client, setClient] = useState(null);
 
   const cancelHandler = () => {
     dispatch(cancelNewSale());
@@ -51,6 +54,10 @@ const NewSale = () => {
     dispatch(postSale(sale));
   };
 
+  useEffect(() => {
+    setClient(clients.find((client) => client.id === newSale.client_id));
+  }, [newSale.client_id, clients]);
+
   useEffect(calculateTotal, [newSale.items]);
 
   return (
@@ -64,10 +71,27 @@ const NewSale = () => {
       <header className="w-full h-[3.5rem] fixed top-0 left-0 right-0 bg-white border-b border-b-primary-300 flex items-center justify-between"></header>
       <div className="w-[600px] p-4 border border-primary-300 bg-white h-fit">
         <div className="w-full flex justify-between items-start pb-4 border-b border-b-secondary-500">
-          <RoundedButton
-            name={"choisir le client"}
-            onClick={() => setIsSelectingClient(true)}
-          />
+          {client ? (
+            <div className="flex gap-4 items-center">
+              <div>
+                <p className="font-semibold font-poppins text-black-800 text-lg">
+                  {client.name}
+                </p>
+                <p className="font-poppins text-secondary-700">
+                  {client.phone_number}
+                </p>
+              </div>
+              <CircularButtonWithIcon
+                icon={<MdModeEdit size={24} />}
+                onClick={() => setIsSelectingClient(true)}
+              />
+            </div>
+          ) : (
+            <RoundedButton
+              name={"choisir le client"}
+              onClick={() => setIsSelectingClient(true)}
+            />
+          )}
           <p>Date: {new Date().toLocaleString().split(",")[0]}</p>
         </div>
         <table className="w-full">
