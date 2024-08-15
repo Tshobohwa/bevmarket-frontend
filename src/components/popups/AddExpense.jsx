@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 import InputWithLabel from "../Inputs/InputWithLabel";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import ButtonShadow from "../buttons/ButtonShadow";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { postExpense } from "../../redux/slices/expenses/expensesActions";
+import { resetExpenseAdded } from "../../redux/slices/expenses/expensesSlice";
 
 const AddExpense = ({ closeHandler }) => {
   const dispatch = useDispatch();
+
+  const { expenseAdded } = useSelector((state) => state.expenses);
 
   const [error, setError] = useState("");
   const [amount, setAmount] = useState(0);
@@ -24,8 +28,16 @@ const AddExpense = ({ closeHandler }) => {
     const expense = {
       reason,
       amount,
+      user_id: 1,
     };
+    dispatch(postExpense({ expense }));
   };
+
+  useEffect(() => {
+    if (!expenseAdded) return;
+    dispatch(resetExpenseAdded());
+    closeHandler();
+  }, []);
   return (
     <PopupContainer>
       <div className="bg-white w-[500px] flex flex-col gap-4 p-4">

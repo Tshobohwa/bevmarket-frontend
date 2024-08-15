@@ -19,7 +19,7 @@ export const getExpenses = createAsyncThunk(
 
 export const postExpense = createAsyncThunk(
   "postExpense",
-  async (expense, { rejectWithValue }) => {
+  async ({ expense }, { rejectWithValue }) => {
     try {
       const response = await axios.post(EXPENSE_URL, { expense });
       if (response.status !== 201) throw new Error("Couldn't create expense");
