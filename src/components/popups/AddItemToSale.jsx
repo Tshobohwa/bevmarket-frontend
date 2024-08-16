@@ -5,9 +5,6 @@ import RoundedInputWithIcon from "../Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { getStock } from "../../redux/slices/stock/stockActions";
-import ButtonShadow from "../buttons/ButtonShadow";
-import ButtonHighlight from "../buttons/ButtonHighlight";
-import InputWithLabel from "../Inputs/InputWithLabel";
 import SaleItemQuantityForm from "./SaleItemQuantityForm";
 
 const AddItemToSale = ({ closeHandler }) => {
@@ -71,6 +68,7 @@ const AddItemToSale = ({ closeHandler }) => {
             <div
               className="w-full h-[4.5rem] border-b border-b-secondary-100 flex items-center justify-between pl-4 hover:bg-primary-300 hover:cursor-pointer"
               onClick={() => itemClickHandler(item)}
+              key={item.id}
             >
               <div className="flex flex-col">
                 <p className="font-semibold text-lg text-black-700">

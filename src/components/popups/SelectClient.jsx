@@ -44,6 +44,7 @@ const SelectClient = ({ closeHandler }) => {
             <div
               className="w-full h-[4rem] border-b border-b-secondary-100 flex items-center pl-4 hover:bg-primary-300 hover:cursor-pointer"
               onClick={() => selectClientHandler(client.id)}
+              key={client.id}
             >
               <div className="w-full">
                 <p className="font-semibold text-lg text-black-700">
