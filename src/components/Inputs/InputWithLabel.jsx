@@ -15,7 +15,7 @@ const InputWithLabel = ({
         onChange={onChange}
         placeholder={placeholder}
         className="w-full h-[3rem] border-2 border-primary-500 placeholder:text-primary-400 px-4"
-        value={type !== "number" && value}
+        // value={type !== "number" && value}
       />
     </div>
   );

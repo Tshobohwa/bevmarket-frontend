@@ -21,7 +21,7 @@ const salesSlice = createSlice({
     },
     addItemToNewSale: (state, { payload }) => {
       const { items } = state.newSale;
-      newItems = [...items, payload];
+      const newItems = [...items, payload];
       return { ...state, newSale: { ...state.newSale, items: newItems } };
     },
     removeItemFromNewSale: (state, { payload }) => {
@@ -31,6 +31,9 @@ const salesSlice = createSlice({
     },
     cancelNewSale: (state) => {
       return { ...state, newSale: emptyNewSale };
+    },
+    resetHasPostedNewSale: (state) => {
+      return { ...state, hasPostedNewSale: false };
     },
   },
   extraReducers: (builder) => {
@@ -45,6 +48,7 @@ const salesSlice = createSlice({
         sales: [payload.sale, ...state.sales],
         isPostingSale: false,
         newSale: emptyNewSale,
+        hasPostedNewSale: true,
       };
     });
     builder.addCase(postSale.rejected, (state, { payload }) => {
@@ -58,6 +62,7 @@ export const {
   cancelNewSale,
   selectClient,
   removeItemFromNewSale,
+  resetHasPostedNewSale,
 } = salesSlice.actions;
 
 export default salesSlice.reducer;

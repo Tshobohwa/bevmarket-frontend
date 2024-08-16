@@ -9,14 +9,18 @@ import AddItemToSale from "../components/popups/AddItemToSale";
 import { postSale } from "../redux/slices/sales/salesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { cancelNewSale } from "../redux/slices/sales/salesSlice";
+import {
+  cancelNewSale,
+  resetHasPostedNewSale,
+} from "../redux/slices/sales/salesSlice";
 import { MdModeEdit } from "react-icons/md";
+import NewSaleTableRow from "../components/tableRows/NewSaleTableRow";
 
 const NewSale = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { newSale } = useSelector((store) => store.sales);
+  const { newSale, hasPostedNewSale } = useSelector((store) => store.sales);
   const { clients } = useSelector((state) => state.clients);
 
   const [isSelectingClient, setIsSelectingClient] = useState(false);
@@ -60,6 +64,12 @@ const NewSale = () => {
 
   useEffect(calculateTotal, [newSale.items]);
 
+  useEffect(() => {
+    if (!hasPostedNewSale) return;
+    dispatch(resetHasPostedNewSale());
+    navigate(-1);
+  }, [hasPostedNewSale]);
+
   return (
     <div className="w-full h-full bg-primary-100 min-h-[100vh] min-w-[100vw] flex justify-center pt-[4.5rem]">
       {isSelectingClient && (
@@ -68,7 +78,11 @@ const NewSale = () => {
       {isAddingItem && (
         <AddItemToSale closeHandler={() => setIsAddingItem(false)} />
       )}
-      <header className="w-full h-[3.5rem] fixed top-0 left-0 right-0 bg-white border-b border-b-primary-300 flex items-center justify-between"></header>
+      <header className="w-full h-[3.5rem] fixed top-0 left-0 right-0 bg-white border-b border-b-primary-300 flex items-center justify-between px-4">
+        <h1 className="text-2xl font-semibold text-black-800">
+          Nouvelle vente
+        </h1>
+      </header>
       <div className="w-[600px] p-4 border border-primary-300 bg-white h-fit">
         <div className="w-full flex justify-between items-start pb-4 border-b border-b-secondary-500">
           {client ? (
@@ -104,12 +118,9 @@ const NewSale = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="h-[2rem]">
-              <td className="text-start pl-2 w-[200px]">coca cola 24 x 33Cl</td>
-              <td className="text-start pl-2">40 000 Fc</td>
-              <td className="text-start pl-2">25</td>
-              <td className="text-start pl-2">1000 000 Fc</td>
-            </tr>
+            {newSale.items.map((saleItem) => (
+              <NewSaleTableRow saleItem={saleItem} key={saleItem.id} />
+            ))}
           </tbody>
         </table>
         <div className="flex items-center my-6 gap-4">
@@ -124,7 +135,7 @@ const NewSale = () => {
         <div className="w-full flex items-center justify-end">
           <div className="flex flex-col items-end font-poppins">
             <p className="font-semibold">Total:</p>
-            <p className=" font-semibold text-3xl text-black-800">3000000 Fc</p>
+            <p className=" font-semibold text-3xl text-black-800">{total} Fc</p>
           </div>
         </div>
         <div className="w-full grid grid-cols-2 gap-4 pt-4 border-t border-t-primary-300">
