@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postSale } from "./salesActions";
+import { getSales, postSale } from "./salesActions";
 
 const emptyNewSale = {
   client_id: null,
@@ -37,6 +37,9 @@ const salesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getSales.fulfilled, (state, { payload }) => {
+      return { ...state, sales: payload };
+    });
     builder.addCase(postSale.pending, (state) => {
       console.log("Posting sale");
       return { ...state, isPostingSale: true };
