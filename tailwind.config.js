@@ -45,6 +45,9 @@ export default {
         poppins: ["Poppins", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
+      gridTemplateColumns: {
+        "2fr-1fr": "2fr 1fr",
+      },
     },
   },
   plugins: [],

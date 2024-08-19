@@ -31,7 +31,7 @@ const Ventes = () => {
           <RoundedButton name={"nouvelle vente"} onClick={goToNewSale} />
         </div>
       </header>
-      <section className="w-full grid grid-cols-2 gap-4 mt-4 mr-8">
+      <section className=" grid grid-cols-2 gap-4 mt-4 mr-8">
         {sales.map((sale) => (
           <SaleReceipt sale={sale} />
         ))}
