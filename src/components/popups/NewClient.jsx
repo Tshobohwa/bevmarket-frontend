@@ -12,6 +12,7 @@ const NewClient = ({ closeHandler }) => {
   const dispatch = useDispatch();
   const [names, setNames] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [is_partener, setIsPartener] = useState(false); // New state for 'partenaire'
   const [error, setError] = useState("");
 
   const { clientPosted } = useSelector((state) => state.clients);
@@ -25,6 +26,7 @@ const NewClient = ({ closeHandler }) => {
     const client = {
       name: names,
       phone_number: phoneNumber,
+      is_partener: is_partener, // Include 'is_partener' in the client object
     };
     dispatch(postClient({ client }));
   };
@@ -34,6 +36,7 @@ const NewClient = ({ closeHandler }) => {
     dispatch(resetClientPosted());
     closeHandler();
   }, [clientPosted]);
+
   return (
     <PopupContainer>
       <div className="bg-white w-[500px] flex flex-col gap-4 p-4">
@@ -58,6 +61,17 @@ const NewClient = ({ closeHandler }) => {
             placeholder={"Entrer le numero de telephone"}
             type="tel"
           />
+          <div className="w-full flex items-center justify-center my-4">
+            <label className="flex items-center gap-2 text-gray-700">
+              <input
+                type="checkbox"
+                checked={is_partener}
+                onChange={(e) => setIsPartener(e.target.checked)}
+                className="form-checkbox h-5 w-5 text-primary-600 rounded border-gray-300 focus:ring-primary-500 checked:bg-primary-700"
+              />
+              <span className="text-black-800">Partenaire</span>
+            </label>
+          </div>
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
