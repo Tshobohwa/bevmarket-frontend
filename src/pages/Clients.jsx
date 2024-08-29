@@ -6,6 +6,7 @@ import NewClient from "../components/popups/NewClient";
 import RoundedInputWithIcon from "../components/Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
 import RoundedButton from "../components/buttons/RoundedButton";
+import { MdVerified } from "react-icons/md";
 
 const Clients = () => {
   const dispatch = useDispatch();
@@ -50,8 +51,11 @@ const Clients = () => {
                 <td className="pl-4 border-r border-r-primary-600">
                   {index + 1}
                 </td>
-                <td className="pl-4 border-r border-r-primary-600">
-                  {client.name}
+                <td className="pl-4 border-r border-r-primary-600 flex gap-2 items-center">
+                  <p>{client.name}</p>
+                  <span className="text-primary-600">
+                    {client.is_partener && <MdVerified />}
+                  </span>
                 </td>
                 <td className="pl-4">{client.phone_number}</td>
               </tr>
