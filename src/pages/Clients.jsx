@@ -43,6 +43,7 @@ const Clients = () => {
               <th className="w-[10rem] pl-4 text-start">N</th>
               <th className="pl-4 text-start">Noms</th>
               <th className="pl-4 text-start w-[20rem]">telephone</th>
+              <th className="pl-4 text-start w-[20rem]">Credit</th>
             </tr>
           </thead>
           <tbody>
@@ -51,13 +52,18 @@ const Clients = () => {
                 <td className="pl-4 border-r border-r-primary-600">
                   {index + 1}
                 </td>
-                <td className="pl-4 border-r border-r-primary-600 flex gap-2 items-center">
-                  <p>{client.name}</p>
-                  <span className="text-primary-600">
-                    {client.is_partener && <MdVerified />}
-                  </span>
+                <td className="pl-4 border-r border-r-primary-600">
+                  <div className=" flex gap-2 items-center">
+                    <p>{client.name}</p>
+                    <span className="text-primary-600">
+                      {client.is_partener && <MdVerified />}
+                    </span>
+                  </div>
                 </td>
-                <td className="pl-4">{client.phone_number}</td>
+                <td className="pl-4 border-r border-r-primary-600">
+                  {client.phone_number}
+                </td>
+                <td className="pl-4">{client.credit} Fc</td>
               </tr>
             ))}
           </tbody>
