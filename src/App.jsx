@@ -11,6 +11,7 @@ import store from "./redux/store";
 import Dashboard from "./pages/Dashboard";
 import NewSale from "./pages/NewSale";
 import MyEstablishement from "./pages/MyEstablishement";
+import SalePointDetails from "./pages/SalePointDetails";
 
 export default function App() {
   return (
@@ -26,6 +27,10 @@ export default function App() {
           <Route path="/mes-vendeurs" element={<MesVendeurs />} />
           <Route path="/new-sale" element={<NewSale />} />
           <Route path="/my-establishement" element={<MyEstablishement />} />
+          <Route
+            path="/my-establishement/salepoints/:id"
+            element={<SalePointDetails />}
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
