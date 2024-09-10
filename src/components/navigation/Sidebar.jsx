@@ -38,9 +38,6 @@ const Sidebar = ({ children }) => {
               />
             </li>
             <li>
-              <SideBarLink path={"/achats"} name={"Achats"} />
-            </li>
-            <li>
               <SideBarLink
                 path={"/stock"}
                 name={"Stock"}
