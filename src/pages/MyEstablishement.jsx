@@ -55,7 +55,7 @@ const MyEstablishement = () => {
           </h2>
           <div className="w-full bg-white border border-primary-400 p-4 rounded-sm">
             <table className="w-full font-poppins">
-              <thead className="bg-secondary-600">
+              <thead className="bg-secondary-600 h-[2rem] font-semibold text-white">
                 <tr>
                   <th>Noms</th>
                   <th>Telephone</th>
