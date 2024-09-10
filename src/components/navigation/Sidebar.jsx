@@ -58,6 +58,14 @@ const Sidebar = ({ children }) => {
                 icon={<FaUserGroup size={18} />}
               />
             </li>
+
+            <li>
+              <SideBarLink
+                path={"/my-establishement"}
+                name={"Mon etablisement"}
+                icon={<FaWarehouse size={18} />}
+              />
+            </li>
           </ul>
         </nav>
         {children}

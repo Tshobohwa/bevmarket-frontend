@@ -4,6 +4,7 @@ import itemsReducer from "./slices/items/itemsSlice";
 import stockReducer from "./slices/stock/stockSlice";
 import expensesReducer from "./slices/expenses/expensesSlice";
 import salesReducer from "./slices/sales/salesSlice";
+import myEstablishementReducer from "./slices/myEstablishement/myEstablishementSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     stock: stockReducer,
     expenses: expensesReducer,
     sales: salesReducer,
+    myEstablishement: myEstablishementReducer,
   },
 });
 

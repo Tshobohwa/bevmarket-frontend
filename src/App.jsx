@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Dashboard from "./pages/Dashboard";
 import NewSale from "./pages/NewSale";
+import MyEstablishement from "./pages/MyEstablishement";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/clients" element={<Clients />} />
           <Route path="/mes-vendeurs" element={<MesVendeurs />} />
           <Route path="/new-sale" element={<NewSale />} />
+          <Route path="/my-establishement" element={<MyEstablishement />} />
         </Routes>
       </BrowserRouter>
     </Provider>
