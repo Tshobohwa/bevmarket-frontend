@@ -39,9 +39,9 @@ const NewClient = ({ closeHandler }) => {
 
   return (
     <PopupContainer>
-      <div className="bg-white w-[500px] flex flex-col gap-4 p-4">
+      <div className="bg-white w-[500px] flex flex-col gap-4 p-4 rounded-md">
         <div className="flex w-full justify-between text-black-900">
-          <h2 className="text-2xl font-semibold">Noveau client</h2>
+          <h2 className="text-2xl font-semibold">Nouveau client</h2>
           <button
             className="h-[2.5rem] w-[2.5rem] items-center justify-center text-black-900"
             onClick={closeHandler}
