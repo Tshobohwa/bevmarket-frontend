@@ -28,9 +28,13 @@ export const postEstablishement = createAsyncThunk(
 
 export const postSalePoint = createAsyncThunk(
   "myEstablishemet/postSalePoint",
-  async ({ sale_point }, { rejectWithValue }) => {
+  async ({ sale_point, truck, warehouse }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(SALE_POINT_URL, { sale_point });
+      const response = await axios.post(SALE_POINT_URL, {
+        sale_point,
+        truck,
+        warehouse,
+      });
       console.log(response);
     } catch (err) {
       return rejectWithValue(err);
