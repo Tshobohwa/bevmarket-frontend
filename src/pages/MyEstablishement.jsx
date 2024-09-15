@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/navigation/Sidebar";
 import AddSalePoint from "../components/popups/AddSalePoint";
-import { IoAdd, IoLocationOutline } from "react-icons/io5";
-import { AiOutlineShop } from "react-icons/ai";
-import { BsShop, BsTruck } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import NewTruck from "../components/popups/NewTruck";
+import AddCardButton from "../components/cards/AddCardButton";
+import { useDispatch, useSelector } from "react-redux";
+import { getSalePoints } from "../redux/slices/myEstablishement/myEstablishementActions";
+import TruckCard from "../components/cards/TruckCard";
+import WarehouseCard from "../components/cards/WarehouseCard";
 
 const MyEstablishement = () => {
+  const dispatch = useDispatch();
   const [isAddingSalePoint, setIsAddingSalePoint] = useState(false);
   const [isAddingTruck, setIsAddingTruck] = useState(false);
+
+  const [warehouses, setWarehouses] = useState([]);
+  const [trucks, setTrucks] = useState([]);
+
+  const { salePoints } = useSelector((state) => state.myEstablishement);
+
+  useEffect(() => {
+    dispatch(getSalePoints());
+  }, []);
+
+  useEffect(() => {
+    setWarehouses(
+      salePoints.filter(
+        (salePoint) => salePoint.sale_point_type === "warehouse"
+      )
+    );
+    setTrucks(
+      salePoints.filter((salePoint) => salePoint.sale_point_type === "truck")
+    );
+  }, [salePoints]);
 
   return (
     <Sidebar>
@@ -29,58 +51,19 @@ const MyEstablishement = () => {
           Mes points de vente
         </h2>
         <div className="w-full grid grid-cols-4 gap-4">
-          <Link to={"my-establishement/salepoints/1"}>
-            <div className="w-full h-full bg-white border border-primary-200 p-4 rounded-2xl hover:cursor-pointer hover:shadow-lg font-poppins flex flex-col justify-between">
-              <div className="w-full flex gap-4">
-                <div className="w-[56px] h-[56px] rounded-full bg-primary-100 flex items-center justify-center text-black-600">
-                  <BsShop size={32} />
-                </div>
-                <div>
-                  <p className="font-semibold text-lg">Depot Katoyi</p>
-                  <div className="flex gap-1 items-end text-primary-500">
-                    <IoLocationOutline size={24} />
-                    <p>Katoyi</p>
-                  </div>
-                </div>
-              </div>
-              <p className="text-end">employees: 60</p>
-            </div>
-          </Link>
-          <div
-            className="w-full bg-white border border-primary-200 flex flex-col items-center h-[9rem] justify-center hover:cursor-pointer hover:shadow-lg rounded-2xl font-poppins"
-            onClick={() => setIsAddingSalePoint(true)}
-          >
-            <IoAdd size={56} />
-            <p>Ajouter</p>
-          </div>
+          {warehouses.map((warehouse) => (
+            <WarehouseCard salePoint={warehouse} key={warehouse.id} />
+          ))}
+          <AddCardButton onClick={() => setIsAddingSalePoint(true)} />
         </div>
         <h2 className="font-poppins text-2xl font-semibold text-black-900 py-4">
           Mes camions
         </h2>
         <div className="w-full grid grid-cols-4 gap-4">
-          <Link to={"my-establishement/salepoints/1"}>
-            <div className="w-full h-full bg-white border border-primary-200 p-4 rounded-2xl hover:cursor-pointer hover:shadow-lg font-poppins flex flex-col justify-between">
-              <div className="w-full flex gap-4">
-                <div className="w-[56px] h-[56px] rounded-full bg-primary-100 flex items-center justify-center text-black-600">
-                  <BsTruck size={32} />
-                </div>
-                <div>
-                  <p className="font-semibold text-lg">3223AC19</p>
-                  <div className="flex gap-1 items-end text-primary-500">
-                    <p>FUSO</p>
-                  </div>
-                </div>
-              </div>
-              <p className="text-end">employees: 60</p>
-            </div>
-          </Link>
-          <div
-            className="w-full bg-white border border-primary-200 flex flex-col items-center h-[9rem] justify-center hover:cursor-pointer hover:shadow-lg rounded-2xl font-poppins"
-            onClick={() => setIsAddingTruck(true)}
-          >
-            <IoAdd size={56} />
-            <p>Ajouter</p>
-          </div>
+          {trucks.map((truck) => (
+            <TruckCard salePoint={truck} key={truck.id} />
+          ))}
+          <AddCardButton onClick={() => setIsAddingTruck(true)} />
         </div>
         <div className="w-full">
           <h2 className="font-poppins text-2xl font-semibold text-black-900 py-4">

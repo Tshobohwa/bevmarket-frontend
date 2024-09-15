@@ -41,3 +41,17 @@ export const postSalePoint = createAsyncThunk(
     }
   }
 );
+
+export const getSalePoints = createAsyncThunk(
+  "myEstablishement/getSalePoints",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(SALE_POINT_URL);
+      console.log(response.data);
+      if (response.status !== 200) throw new Error("No response");
+      return response.data.data.sale_points;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

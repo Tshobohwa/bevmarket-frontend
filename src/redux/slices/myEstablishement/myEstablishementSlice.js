@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postSalePoint } from "./myEstablishementActions";
+import { getSalePoints, postSalePoint } from "./myEstablishementActions";
 
 const initialState = {
   myEstatblishement: {},
-  salesPoints: [],
+  salePoints: [],
   employees: [],
   hasPostedSalePoint: false,
 };
@@ -18,11 +18,19 @@ const myEstablishementSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(postSalePoint.fulfilled, (state, { payload }) => {
+      const salePoint = {
+        ...payload.sale_point,
+        truck: payload.truck,
+        warehouse: payload.warehouse,
+      };
       return {
         ...state,
-        salesPoints: [...state.salesPoints, payload],
+        salesPoints: [...state.salePoints, salePoint],
         hasPostedSalePoint: true,
       };
+    });
+    builder.addCase(getSalePoints.fulfilled, (state, { payload }) => {
+      return { ...state, salePoints: payload };
     });
   },
 });
