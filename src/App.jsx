@@ -12,25 +12,31 @@ import Dashboard from "./pages/Dashboard";
 import NewSale from "./pages/NewSale";
 import MyEstablishement from "./pages/MyEstablishement";
 import SalePointDetails from "./pages/SalePointDetails";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import AuthRoutes from "./routes/AuthRoutes";
 
 export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/ventes" element={<Ventes />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/stock" element={<Stock />} />
-          <Route path="/depenses" element={<Depenses />} />
-          <Route path="/clients" element={<Clients />} />
-          <Route path="/mes-vendeurs" element={<MesVendeurs />} />
-          <Route path="/new-sale" element={<NewSale />} />
-          <Route path="/myestablishement" element={<MyEstablishement />} />
-          <Route
-            path="/myestablishement/salepoints/:id"
-            element={<SalePointDetails />}
-          />
+          <Route element={<AuthRoutes />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/ventes" element={<Ventes />} />
+            <Route path="/stock" element={<Stock />} />
+            <Route path="/depenses" element={<Depenses />} />
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/mes-vendeurs" element={<MesVendeurs />} />
+            <Route path="/new-sale" element={<NewSale />} />
+            <Route path="/myestablishement" element={<MyEstablishement />} />
+            <Route
+              path="/myestablishement/salepoints/:id"
+              element={<SalePointDetails />}
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </Provider>
