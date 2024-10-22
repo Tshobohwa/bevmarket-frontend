@@ -35,7 +35,8 @@ export const postSalePoint = createAsyncThunk(
         truck,
         warehouse,
       });
-      console.log(response);
+      if (response.status !== 201) throw new Error("Couldn't post sale point");
+      return response.data.data;
     } catch (err) {
       return rejectWithValue(err);
     }

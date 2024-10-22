@@ -26,9 +26,9 @@ export default function App() {
           <Route path="/clients" element={<Clients />} />
           <Route path="/mes-vendeurs" element={<MesVendeurs />} />
           <Route path="/new-sale" element={<NewSale />} />
-          <Route path="/my-establishement" element={<MyEstablishement />} />
+          <Route path="/myestablishement" element={<MyEstablishement />} />
           <Route
-            path="/my-establishement/salepoints/:id"
+            path="/myestablishement/salepoints/:id"
             element={<SalePointDetails />}
           />
         </Routes>

@@ -31,7 +31,7 @@ const MyEstablishement = () => {
     setTrucks(
       salePoints.filter((salePoint) => salePoint.sale_point_type === "truck")
     );
-  }, [salePoints]);
+  }, [salePoints.length]);
 
   return (
     <Sidebar>

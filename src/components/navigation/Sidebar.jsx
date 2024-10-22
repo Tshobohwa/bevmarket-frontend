@@ -61,7 +61,7 @@ const Sidebar = ({ children }) => {
 
             <li>
               <SideBarLink
-                path={"/my-establishement"}
+                path={"/myestablishement"}
                 name={"Mon etablisement"}
                 icon={<FaWarehouse size={18} />}
               />
