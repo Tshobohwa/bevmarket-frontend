@@ -14,6 +14,7 @@ import MyEstablishement from "./pages/MyEstablishement";
 import SalePointDetails from "./pages/SalePointDetails";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
+import SignUp from "./pages/SignUp";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Routes>
           <Route element={<AuthRoutes />}>
             <Route path="/login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
           </Route>
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Dashboard />} />

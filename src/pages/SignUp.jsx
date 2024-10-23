@@ -5,32 +5,45 @@ import { LuUser2 } from "react-icons/lu";
 import { RiLockPasswordFill } from "react-icons/ri";
 import AuthButton from "../components/buttons/AuthButton";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/slices/user/userSlice";
+import { signup } from "../redux/slices/user/userSlice";
+import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+
   const submitHandler = () => {
+    // if ()
     const user = {
       email,
       password,
+      name,
     };
-    dispatch(login({ user }));
+    dispatch(signup({ user }));
   };
   return (
     <div className="w-full h-[100vh] bg-red-50 flex items-center justify-center">
       <div className="w-[50%] h-full flex flex-col items-center justify-center p-4">
         <h1 className="font-semibold text-primary-700 text-2xl font-poppins">
-          Se connecter
+          S'enregistrer
         </h1>
         <div className="w-[70%] grid grid-flow-row gap-4">
+          <AuthInput
+            name={"Nom"}
+            placeholder={"Entrer votre nom complet"}
+            type="text"
+            icon={<LuUser2 size={24} />}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <AuthInput
             name={"email"}
             placeholder={"Entrer votre email"}
             type="email"
-            icon={<LuUser2 size={24} />}
+            icon={<MdEmail size={24} />}
             onChange={(e) => setEmail(e.target.value)}
           />
           <AuthInput
@@ -40,14 +53,21 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <AuthButton name={"se connecter"} onClick={submitHandler} />
-          <div className="w-full flex justify-between">
-            <p>Vous n'avez pas de compte?</p>
+          <AuthInput
+            name={"Confirmer le mot de passe"}
+            placeholder={"Entrer votre mot de passe encore"}
+            icon={<RiLockPasswordFill size={24} />}
+            type="password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <AuthButton name={"s'enregistrer"} onClick={submitHandler} />
+          <div className="flex justify-between w-full">
+            <p>Vous avez deja un compte?</p>
             <Link
-              className="text-red-600 font-semibold hover:underline"
-              to={"/signup"}
+              className="font-semibold text-red-600 hover:underline"
+              to={"/login"}
             >
-              Enregistrez-vous ici
+              connectez vous ici
             </Link>
           </div>
         </div>
@@ -59,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
