@@ -4,6 +4,12 @@ import { BASE_URL } from "../../api/api";
 
 // import { toast } from "react-toastify";
 
+// Define your token
+const token = localStorage.getItem("token");
+
+// Set the Authorization header globally
+axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
 export const signup = createAsyncThunk(
   "users/signup",
   async ({ user }, { rejectWithValue }) => {
@@ -17,6 +23,10 @@ export const signup = createAsyncThunk(
       const data = response.data.data;
       localStorage.setItem("currentUser", JSON.stringify(data.current_user));
       localStorage.setItem("token", data.token);
+
+      // Set the Authorization header globally
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -39,6 +49,10 @@ export const login = createAsyncThunk(
       const data = response.data.status.data;
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
+
+      // Set the Authorization header globally
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+
       return response.data.status.data;
     } catch (error) {
       return rejectWithValue(
