@@ -18,11 +18,13 @@ const SignUp = () => {
 
   const submitHandler = () => {
     // if ()
+    console.log("Clicked");
     const user = {
       email,
       password,
       name,
     };
+    console.log(user);
     dispatch(signup({ user }));
   };
   return (
@@ -37,7 +39,7 @@ const SignUp = () => {
             placeholder={"Entrer votre nom complet"}
             type="text"
             icon={<LuUser2 size={24} />}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
           <AuthInput
             name={"email"}
