@@ -4,7 +4,7 @@
 
 /* Style for the scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -12,7 +12,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #333; /* Dark color for the scrollbar handle */
-  border-radius: 10px; /* Rounded scrollbar handle */
+  background-color: #d3d3d3; /* Dark color for the scrollbar handle */
   /* border: 3px solid red; */
 }

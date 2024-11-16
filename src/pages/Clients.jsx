@@ -7,17 +7,39 @@ import RoundedInputWithIcon from "../components/Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
 import RoundedButton from "../components/buttons/RoundedButton";
 import { MdVerified } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Clients = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const [addingClient, setAddingClient] = useState(false);
 
   const { clients } = useSelector((state) => state.clients);
 
+  const [searchText, setSearchText] = useState("");
+
+  const [filteredClients, setFilteredClients] = useState([]);
+
+  const goToClientDetails = (id) => {
+    navigate(`/clients/${id}`);
+  };
+
   useEffect(() => {
     dispatch(getClients());
   }, []);
+
+  useEffect(() => {
+    setFilteredClients(
+      clients.filter((client) =>
+        (client.name + client.phone_number)
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
+      )
+    );
+  }, [clients, searchText]);
+
   return (
     <Sidebar>
       {addingClient && (
@@ -29,6 +51,8 @@ const Clients = () => {
           <RoundedInputWithIcon
             placeholder={"Chercher client"}
             icon={<BiSearch size={24} />}
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
           />
           <RoundedButton
             onClick={() => setAddingClient(true)}
@@ -47,8 +71,11 @@ const Clients = () => {
             </tr>
           </thead>
           <tbody>
-            {clients.map((client, index) => (
-              <tr className="h-[3rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-100 hover:cursor-pointer">
+            {filteredClients.map((client, index) => (
+              <tr
+                className="h-[3rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-100 hover:cursor-pointer"
+                onClick={() => goToClientDetails(client.id)}
+              >
                 <td className="pl-4 border-r border-r-primary-600">
                   {index + 1}
                 </td>

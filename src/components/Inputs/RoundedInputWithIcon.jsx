@@ -5,6 +5,7 @@ const RoundedInputWithIcon = ({
   type = "text",
   onChange,
   placeholder,
+  value,
 }) => {
   return (
     <div
@@ -15,6 +16,7 @@ const RoundedInputWithIcon = ({
         className={` w-[15rem] focus:outline-none`}
         placeholder={placeholder}
         onChange={onChange}
+        value={value}
       />
       <div className="w-[2.6rem] h-[2.6rem] rounded-full flex items-center justify-center text-white bg-red-800">
         {icon}

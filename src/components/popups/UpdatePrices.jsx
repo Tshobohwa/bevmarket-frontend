@@ -43,7 +43,7 @@ const UpdatePrices = ({ closeHandler }) => {
 
   return (
     <PopupContainer>
-      <div className="bg-white w-[500px] flex flex-col gap-4 p-4">
+      <div className="bg-white w-[500px] flex flex-col gap-4 p-4 rounded-lg">
         <div className="flex w-full justify-between text-black-900">
           <h2 className="text-2xl font-semibold">Modifier les prix</h2>
           <button

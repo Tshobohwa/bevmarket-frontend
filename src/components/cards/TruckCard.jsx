@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const TruckCard = ({ salePoint }) => {
   const { truck } = salePoint;
   return (
-    <Link to={`myestablishement/salepoints/${salePoint.id}`}>
+    <Link to={`/myestablishement/salepoints/${salePoint.id}`}>
       <div className="w-full h-full bg-white border border-primary-200 p-4 rounded-2xl hover:cursor-pointer hover:shadow-lg font-poppins flex flex-col justify-between">
         <div className="w-full flex gap-4">
           <div className="w-[56px] h-[56px] rounded-full bg-primary-100 flex items-center justify-center text-black-600">

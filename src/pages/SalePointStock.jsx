@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import SalepointDetailsSideBar from "../components/sidebars/SalepointDetailsSideBar";
 import { useParams } from "react-router-dom";
+import SalepointDetailsSideBar from "../components/sidebars/SalepointDetailsSideBar";
 import { useDispatch } from "react-redux";
 
-const SalePointDetails = () => {
+const SalePointStock = () => {
   const dispatch = useDispatch();
 
   const { salePointId } = useParams();
@@ -15,4 +15,4 @@ const SalePointDetails = () => {
   );
 };
 
-export default SalePointDetails;
+export default SalePointStock;

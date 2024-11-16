@@ -2,7 +2,7 @@ import axios from "axios";
 import API_URL from "../../api/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const SALES_URL = `${API_URL}/sales`;
+export const SALES_URL = `${API_URL}/sales`;
 
 export const getSales = createAsyncThunk(
   "sales/getSales",

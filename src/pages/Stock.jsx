@@ -19,6 +19,8 @@ const Stock = () => {
   const { stock } = useSelector((state) => state.stock);
   const [isModifyingPrices, setIsModifyingPrices] = useState(false);
   const [isAddingQuantity, setIsAddingQuantity] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [filteredStockItems, setFilteredStockItems] = useState([]);
 
   useEffect(() => {
     dispatch(getStock());
@@ -33,6 +35,16 @@ const Stock = () => {
     dispatch(setCurrentStockItem(id));
     setIsAddingQuantity(true);
   };
+
+  useEffect(() => {
+    setFilteredStockItems(
+      stock.filter((stockItem) =>
+        `${stockItem.item.name} ${stockItem.item.bottles_number} x ${stockItem.item.capacity} Cl`
+          .toLowerCase()
+          .includes(searchText)
+      )
+    );
+  }, [stock, searchText]);
 
   return (
     <Sidebar>
@@ -53,6 +65,7 @@ const Stock = () => {
           <RoundedInputWithIcon
             placeholder={"rechercher article"}
             icon={<BiSearch size={24} />}
+            onChange={(e) => setSearchText(e.target.value.toLowerCase())}
           />
           <RoundedButton
             name={"nouvel article"}
@@ -80,7 +93,7 @@ const Stock = () => {
             </tr>
           </thead>
           <tbody>
-            {stock.map((item) => (
+            {filteredStockItems.map((item) => (
               <tr className="h-[2.4rem] border border-primary-600 text-black-700 text-lg hover:bg-primary-100">
                 <td className="pl-4 border-r border-r-primary-600 font-semibold">
                   {item.item.name} {item.item.bottles_number} x{" "}

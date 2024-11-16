@@ -16,6 +16,8 @@ const AddItemToSale = ({ closeHandler }) => {
 
   const [isWrittingQuantity, setIsWrittingQuantity] = useState(false);
 
+  const [searchText, setSearchText] = useState("");
+
   const { stock } = useSelector((state) => state.stock);
   const { newSale } = useSelector((state) => state.sales);
 
@@ -30,12 +32,18 @@ const AddItemToSale = ({ closeHandler }) => {
 
   useEffect(() => {
     setFilteredStock(
-      stock.filter(
-        (item) =>
-          !newSale.items.some((newSaleItem) => newSaleItem.id === item.id)
-      )
+      stock
+        .filter(
+          (item) =>
+            !newSale.items.some((newSaleItem) => newSaleItem.id === item.id)
+        )
+        .filter((item) =>
+          `${item.item.name} ${item.item.bottles_number} x ${item.item.capacity} Cl`
+            .toLowerCase()
+            .includes(searchText.toLowerCase())
+        )
     );
-  }, [stock, newSale.items]);
+  }, [stock, newSale.items, searchText]);
   return (
     <PopupContainer>
       <div className="bg-white w-[650px] flex flex-col gap-4 relative">
@@ -61,6 +69,7 @@ const AddItemToSale = ({ closeHandler }) => {
           <RoundedInputWithIcon
             placeholder={"Chercher l'article"}
             icon={<BiSearch size={24} />}
+            onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
         <div className="h-[400px] w-full overflow-y-scroll border-t border-t-secondary-300">

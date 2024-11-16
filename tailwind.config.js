@@ -47,6 +47,7 @@ export default {
       },
       gridTemplateColumns: {
         "2fr-1fr": "2fr 1fr",
+        "15rem-1fr": "15rem 1fr",
       },
     },
   },

@@ -3,7 +3,7 @@ import SalepointDetailsSideBar from "../components/sidebars/SalepointDetailsSide
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const SalePointDetails = () => {
+const SalePointEmployees = () => {
   const dispatch = useDispatch();
 
   const { salePointId } = useParams();
@@ -15,4 +15,4 @@ const SalePointDetails = () => {
   );
 };
 
-export default SalePointDetails;
+export default SalePointEmployees;

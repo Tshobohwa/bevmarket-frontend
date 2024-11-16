@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,8 @@ import { selectClient } from "../../redux/slices/sales/salesSlice";
 const SelectClient = ({ closeHandler }) => {
   const dispatch = useDispatch();
   const { clients } = useSelector((state) => state.clients);
+  const [searchText, setSearchText] = useState("");
+  const [filteredClients, setFilteredClients] = useState([]);
 
   const selectClientHandler = (id) => {
     dispatch(selectClient(id));
@@ -19,6 +21,16 @@ const SelectClient = ({ closeHandler }) => {
   useEffect(() => {
     dispatch(getClients());
   }, []);
+
+  useEffect(() => {
+    setFilteredClients(
+      clients.filter((client) =>
+        (client.name + client.phone_number)
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
+      )
+    );
+  }, [clients, searchText]);
   return (
     <PopupContainer>
       <div className="bg-white w-[650px] flex flex-col gap-4">
@@ -37,10 +49,12 @@ const SelectClient = ({ closeHandler }) => {
           <RoundedInputWithIcon
             placeholder={"Chercher le client"}
             icon={<BiSearch size={24} />}
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
           />
         </div>
         <div className="h-[400px] w-full overflow-y-scroll border-t border-t-secondary-300">
-          {clients.map((client) => (
+          {filteredClients.map((client) => (
             <div
               className="w-full h-[4rem] border-b border-b-secondary-100 flex items-center pl-4 hover:bg-primary-300 hover:cursor-pointer"
               onClick={() => selectClientHandler(client.id)}

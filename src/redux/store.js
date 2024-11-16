@@ -6,6 +6,9 @@ import expensesReducer from "./slices/expenses/expensesSlice";
 import salesReducer from "./slices/sales/salesSlice";
 import myEstablishementReducer from "./slices/myEstablishement/myEstablishementSlice";
 import userReducer from "./slices/user/userSlice";
+import purchasesReducer from "./slices/purchases/purchasesSlice";
+import salePointsReducer from "./slices/salePoints/salePointsSlice";
+import salersReducer from "./slices/salersSlice/salersSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,8 +17,11 @@ const store = configureStore({
     stock: stockReducer,
     expenses: expensesReducer,
     sales: salesReducer,
+    purchases: purchasesReducer,
     myEstablishement: myEstablishementReducer,
     user: userReducer,
+    salePoints: salePointsReducer,
+    salers: salersReducer,
   },
 });
 

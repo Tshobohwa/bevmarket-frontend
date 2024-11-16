@@ -5,13 +5,19 @@ import { FaMoneyBillTransfer, FaUserGroup } from "react-icons/fa6";
 import { FaWarehouse } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/slices/user/userSlice";
 
 const Sidebar = ({ children }) => {
+  const dispatch = useDispatch();
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <div className="w-full h-full">
       <header className="h-[3rem] fixed top-0 left-[240px] right-0 bg-white"></header>
       <div className="w-full h-full pl-[260px] p-4 pt-[4rem]">
-        <nav className="w-[240px] fixed left-0 top-0 bottom-0 border-r border-primary-300 px-4 py-8 bg-white font-poppins">
+        <nav className="w-[240px] fixed left-0 top-0 bottom-0 border-r border-primary-300 px-4 py-8 bg-white font-poppins overflow-scroll">
           <h1 className="text-3xl font-semibold text-secondary-950 text-center mb-8">
             Bevmarket
           </h1>
@@ -65,6 +71,14 @@ const Sidebar = ({ children }) => {
                 name={"Mon etablisement"}
                 icon={<FaWarehouse size={18} />}
               />
+            </li>
+            <li>
+              <button
+                onClick={logoutHandler}
+                className="flex items-center justify-center gap-4 hover:bg-red-600 w-full h-[2.5rem] border border-red-600 rounded-lg"
+              >
+                <p>logout</p>
+              </button>
             </li>
           </ul>
         </nav>
