@@ -16,23 +16,35 @@ const Ventes = () => {
 
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const goToNewSale = () => {
     navigate("/new-sale");
   };
 
   useEffect(() => {
-    dispatch(getSales({ from, to, date }));
+    dispatch(getSales({ date }));
     dispatch(getStock());
-  }, [from, to, date]);
+  }, [date]);
+
+  useEffect(() => {
+    dispatch(getSales({ from, to }));
+    dispatch(getStock());
+  }, [from, to]);
 
   return (
     <Sidebar>
       <header className="h-[3.4rem] fixed top-0 left-[240px] right-0 bg-white flex items-center justify-between px-6">
         <h1 className="text-2xl font-semibold text-black-900">Ventes</h1>
         <div className="flex gap-4 items-center">
-          <Timefilter setFrom={setFrom} setTo={setTo} setDate={setDate} />
+          <Timefilter
+            setFrom={setFrom}
+            setTo={setTo}
+            setDate={setDate}
+            date={date}
+            from={from}
+            to={to}
+          />
           <RoundedButton name={"nouvelle vente"} onClick={goToNewSale} />
         </div>
       </header>
