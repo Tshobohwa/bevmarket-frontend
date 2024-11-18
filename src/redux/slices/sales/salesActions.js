@@ -6,9 +6,11 @@ export const SALES_URL = `${API_URL}/sales`;
 
 export const getSales = createAsyncThunk(
   "sales/getSales",
-  async (_, { rejectWithValue }) => {
+  async ({ from, to, date }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(SALES_URL);
+      const response = await axios.get(
+        `${SALES_URL}?from=${from}&to=${to}&date=${date}`
+      );
       if (response.status !== 200) throw new Error("Couldn't get sales");
       return response.data.data.sales;
     } catch (err) {

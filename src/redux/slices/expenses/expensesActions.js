@@ -6,9 +6,11 @@ const EXPENSE_URL = `${API_URL}/expenses`;
 
 export const getExpenses = createAsyncThunk(
   "getExpenses",
-  async (_, { rejectWithValue }) => {
+  async ({ from, to, date }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(EXPENSE_URL);
+      const response = await axios.get(
+        `${EXPENSE_URL}?from=${from}&to=${to}&date=${date}`
+      );
       if (response.status !== 200) throw new Error("couldnt get expenses");
       return response.data.data.expenses;
     } catch (err) {

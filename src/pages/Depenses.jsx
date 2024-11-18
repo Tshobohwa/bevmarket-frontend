@@ -10,12 +10,20 @@ import ExpenseReceipt from "../components/receipts/ExpenseReceipt";
 const Depenses = () => {
   const dispatch = useDispatch();
   const [isAddingExpense, setIsAddingExpense] = useState(false);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const { expenses } = useSelector((state) => state.expenses);
 
   useEffect(() => {
-    dispatch(getExpenses());
-  }, []);
+    dispatch(getExpenses({ from, to, date: null }));
+  }, [from, to]);
+
+  useEffect(() => {
+    if (!date) return;
+    dispatch(getExpenses({ date, from: null, to: null }));
+  }, [date]);
 
   return (
     <Sidebar>
@@ -25,7 +33,14 @@ const Depenses = () => {
       <header className="h-[3.4rem] fixed top-0 left-[240px] right-0 bg-white flex items-center justify-between px-6">
         <h1 className="text-2xl font-semibold text-black-900">Depenses</h1>
         <div className="flex gap-4 items-center">
-          <Timefilter />
+          <Timefilter
+            setFrom={setFrom}
+            setTo={setTo}
+            setDate={setDate}
+            date={date}
+            from={from}
+            to={to}
+          />
           <RoundedButton
             name={"nouvelle depense"}
             onClick={() => setIsAddingExpense(true)}

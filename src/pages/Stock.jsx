@@ -76,7 +76,7 @@ const Stock = () => {
       <section className="w-full mt-4 bg-white p-4 border border-primary-300 rounded-md">
         <table className="w-full">
           <thead className="w-full">
-            <tr className="w-full h-[3.2rem] text-black-950  border border-primary-100">
+            <tr className="w-full h-[3rem] text-black-950  border border-primary-100">
               <th className="pl-4 text-start w-[25%] border-r border-r-white">
                 Article
               </th>
@@ -95,7 +95,7 @@ const Stock = () => {
           <tbody>
             {filteredStockItems.map((item, index) => (
               <tr
-                className={`h-[3.2rem] border border-primary-100 text-black-700 text-lg hover:bg-primary-100 ${
+                className={`h-[3rem] border border-primary-100 text-black-700 text-lg hover:bg-primary-100 ${
                   index % 2 !== 0 && "bg-primary-100/50"
                 }`}
               >

@@ -16,7 +16,8 @@ const ClientDetails = () => {
   return (
     <div>
       <ClientSideBar clientId={+clientId} />
-      <div className="fixed top-0 left-[20rem] right-0 p-4 pb-0 bg-red-100">
+      <div className="fixed top-0 left-[20rem] right-0 p-4 pb-0 bg-white">
+        <div className="w-full flex justify-between items-center"></div>
         <div className="h-12 w-full bg-white border border-red-300 grid grid-cols-2 mb-4">
           <button
             className={`w-full h-full ${

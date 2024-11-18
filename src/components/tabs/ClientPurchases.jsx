@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Timefilter from "../filters/Timefilter";
 import { useDispatch, useSelector } from "react-redux";
 import { getPurchases } from "../../redux/slices/purchases/purchasesActions";
 import SaleReceipt from "../receipts/SaleReceipt";
@@ -26,10 +25,6 @@ const ClientPurchases = ({ clientId }) => {
 
   return (
     <div className="w-full">
-      <div className="w-full flex justify-between items-center">
-        <p className="font-semibold text-xl">Achats</p>
-        <Timefilter />
-      </div>
       <section>
         <div className="grid grid-cols-2 w-full gap-4">
           {clientPurchases.map((sale) => (
