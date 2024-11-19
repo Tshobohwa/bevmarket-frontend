@@ -36,13 +36,6 @@ const Timefilter = ({ setFrom, setTo, setDate, onClick, from, to, date }) => {
           />
         </div>
       )}
-      <button
-        className="flex items-center justify-center h-[1.8rem] bg-primary-800 text-white rounded-lg m-0 text-xs px-4"
-        onClick={onClick}
-      >
-        <FiFilter size={12} />
-        <p>Filtrer</p>
-      </button>
     </div>
   );
 };

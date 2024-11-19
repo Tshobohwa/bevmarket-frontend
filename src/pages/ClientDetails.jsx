@@ -18,9 +18,9 @@ const ClientDetails = () => {
       <ClientSideBar clientId={+clientId} />
       <div className="fixed top-0 left-[17rem] right-0 pb-0 bg-white">
         <div className="w-full flex justify-between items-center"></div>
-        <div className="h-12 w-full bg-white border border-red-300 grid grid-cols-2 mb-4">
+        <div className="h-12 w-[24rem] bg-white grid grid-cols-2">
           <button
-            className={`w-full h-full ${
+            className={`w-[12rem] h-full ${
               URLSearchParams.get("tab") === "purchases" &&
               "border-b-[3px] border-red-500"
             }`}
@@ -29,7 +29,7 @@ const ClientDetails = () => {
             Achats
           </button>
           <button
-            className={`w-full h-full ${
+            className={`w-[12rem] h-full ${
               URLSearchParams.get("tab") === "rc" &&
               "border-b-[3px] border-red-500"
             }`}
