@@ -71,7 +71,7 @@ const ClientSideBar = ({ clientId }) => {
   }, [clientUpdated]);
 
   return (
-    <div className="fixed top-0 left-0 bottom-0 w-[20rem] bg-white border-r border-r-red-300 flex flex-col items-center p-4">
+    <div className="fixed top-0 left-0 bottom-0 w-[17rem] bg-white flex flex-col items-center p-4">
       <div className="w-full flex justify-between">
         <button
           className="h-[2.5rem] w-[2.5rem] rounded-md border border-red-500 text-red-500 hover:text-white hover:bg-red-500 flex items-center justify-center"
@@ -79,7 +79,6 @@ const ClientSideBar = ({ clientId }) => {
         >
           <MdArrowLeft size={48} />
         </button>
-        <p>Info client</p>
       </div>
       <div className="w-[6rem] h-[6rem] rounded-full bg-red-600 flex items-center justify-center text-6xl text-white font-semibold">
         {client.name?.slice(0)[0]}
@@ -124,13 +123,13 @@ const ClientSideBar = ({ clientId }) => {
       ) : (
         <div className="grid grid-cols-2 gap-4 w-full">
           <button
-            className="w-full h-[3rem] bg-red-200 rounded-xl my-6 text-lg font-semibold"
+            className="w-full h-[3rem] bg-red-200 rounded-md my-6"
             onClick={() => setIsUpdatingClient(false)}
           >
             annuler
           </button>
           <button
-            className="w-full h-[3rem] bg-red-600 rounded-xl my-6 text-lg text-white font-semibold"
+            className="w-full h-[3rem] bg-red-600 rounded-md my-6 text-white"
             onClick={submitHandler}
           >
             sauvegarder

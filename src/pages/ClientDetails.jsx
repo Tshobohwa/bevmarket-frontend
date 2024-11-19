@@ -16,7 +16,7 @@ const ClientDetails = () => {
   return (
     <div>
       <ClientSideBar clientId={+clientId} />
-      <div className="fixed top-0 left-[20rem] right-0 p-4 pb-0 bg-white">
+      <div className="fixed top-0 left-[17rem] right-0 pb-0 bg-white">
         <div className="w-full flex justify-between items-center"></div>
         <div className="h-12 w-full bg-white border border-red-300 grid grid-cols-2 mb-4">
           <button
@@ -39,7 +39,7 @@ const ClientDetails = () => {
           </button>
         </div>
       </div>
-      <div className="w-full pl-[21rem] pt-[6rem] pr-4">
+      <div className="w-full pl-[18rem] pt-[6rem] pr-4">
         {URLSearchParams.get("tab") === "purchases" && (
           <ClientPurchases clientId={clientId} />
         )}
