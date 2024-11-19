@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../api/api";
+import { postEstablishement } from "../myEstablishement/myEstablishementActions";
 
 // import { toast } from "react-toastify";
 
@@ -114,6 +115,16 @@ const userSlice = createSlice({
         ...state,
         currentUser: payload.current_user,
         token: payload.token,
+      };
+    });
+    builder.addCase(postEstablishement.fulfilled, (state) => {
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ ...state.currentUser, is_employed: true })
+      );
+      return {
+        ...state,
+        currentUser: { ...state.currentUser, is_employed: true },
       };
     });
   },

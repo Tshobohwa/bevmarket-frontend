@@ -18,11 +18,17 @@ export const getMyEstablishement = createAsyncThunk(
 
 export const postEstablishement = createAsyncThunk(
   "myEstablishement/postEstablishement",
-  async () => {
+  async ({ establishment, warehouse }, { rejectWithValue }) => {
     try {
-      const response = axios.post(ESTABLISHEMENT_URL);
+      const response = await axios.post(ESTABLISHEMENT_URL, {
+        establishment,
+        warehouse,
+      });
       console.log(response);
-    } catch (error) {}
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
 );
 
