@@ -17,7 +17,6 @@ const AddSalePoint = ({ closeHandler }) => {
   const [location, setLocation] = useState("");
 
   const submitHandler = () => {
-    console.log(name, location);
     dispatch(
       postSalePoint({
         sale_point: { establishment_id: 1, sale_point_type: "warehouse" },

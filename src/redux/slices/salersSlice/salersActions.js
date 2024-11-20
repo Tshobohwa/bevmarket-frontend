@@ -10,8 +10,6 @@ export const getUnemployedUsers = createAsyncThunk(
     try {
       const response = await axios.get(UNEMPLOYED_USERS_URL);
 
-      console.log(response);
-
       if (response.status !== 200)
         throw new Error("Couldn't get unemployed users");
 

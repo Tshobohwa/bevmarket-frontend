@@ -41,11 +41,9 @@ const salesSlice = createSlice({
       return { ...state, sales: payload };
     });
     builder.addCase(postSale.pending, (state) => {
-      console.log("Posting sale");
       return { ...state, isPostingSale: true };
     });
     builder.addCase(postSale.fulfilled, (state, { payload }) => {
-      console.log("Sale posted");
       return {
         ...state,
         sales: [payload.sale, ...state.sales],

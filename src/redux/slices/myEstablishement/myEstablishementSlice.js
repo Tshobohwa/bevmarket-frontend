@@ -18,13 +18,11 @@ const myEstablishementSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(postSalePoint.fulfilled, (state, { payload }) => {
-      console.log(payload);
       const salePoint = {
         ...payload.sale_point,
         truck: payload.truck,
         warehouse: payload.warehouse,
       };
-      console.log(salePoint);
       return {
         ...state,
         salePoints: [...state.salePoints, salePoint],

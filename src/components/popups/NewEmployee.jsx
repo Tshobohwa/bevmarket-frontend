@@ -20,9 +20,6 @@ const NewEmployee = ({ closeHandler }) => {
     dispatch(getSalePoints());
   }, []);
 
-  useEffect(() => {
-    console.log(salePoints);
-  }, [salePoints]);
 
   return (
     <PopupContainer>

@@ -11,7 +11,6 @@ export const getMyEstablishement = createAsyncThunk(
       const response = await axios.get(
         `${ESTABLISHEMENT_URL}/${establishement_id}`
       );
-      console.log(response);
     } catch (error) {}
   }
 );
@@ -24,7 +23,6 @@ export const postEstablishement = createAsyncThunk(
         establishment,
         warehouse,
       });
-      console.log(response);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -51,10 +49,11 @@ export const postSalePoint = createAsyncThunk(
 
 export const getSalePoints = createAsyncThunk(
   "myEstablishement/getSalePoints",
-  async (_, { rejectWithValue }) => {
+  async ({ establishment_id }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(SALE_POINT_URL);
-      console.log(response.data);
+      const response = await axios.get(
+        `${SALE_POINT_URL}?establishment_id=${establishment_id}`
+      );
       if (response.status !== 200) throw new Error("No response");
       return response.data.data.sale_points;
     } catch (error) {

@@ -14,7 +14,6 @@ const NewEstablishment = () => {
 
   const submitHandler = () => {
     if (!name) return;
-    console.log(name);
     const establishment = {
       name,
       created_by: currentUser.id,

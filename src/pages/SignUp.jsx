@@ -17,14 +17,11 @@ const SignUp = () => {
   const [name, setName] = useState("");
 
   const submitHandler = () => {
-    // if ()
-    console.log("Clicked");
     const user = {
       email,
       password,
       name,
     };
-    console.log(user);
     dispatch(signup({ user }));
   };
   return (

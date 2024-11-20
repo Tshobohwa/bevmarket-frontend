@@ -15,11 +15,9 @@ export const signup = createAsyncThunk(
   "users/signup",
   async ({ user }, { rejectWithValue }) => {
     try {
-      console.log(user);
       const response = await axios.post(`${BASE_URL}/signup`, {
         user,
       });
-      console.log(response);
       if (response.status !== 200) throw new Error("Couldn't sign up user");
       const data = response.data.data;
       localStorage.setItem("currentUser", JSON.stringify(data.current_user));
@@ -42,7 +40,6 @@ export const login = createAsyncThunk(
       const response = await axios.post(`${BASE_URL}/login`, {
         user,
       });
-      console.log(response);
       if (response.status !== 200)
         throw new Error(
           response.data ? response.data : "An error occured please try again!"

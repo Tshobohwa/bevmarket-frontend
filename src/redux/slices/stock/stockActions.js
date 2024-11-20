@@ -20,7 +20,6 @@ export const getStock = createAsyncThunk(
 export const updateStockItemPrice = createAsyncThunk(
   "stock/updateStockItemPrice",
   async ({ stock_item, id }, { rejectWithValue }) => {
-    console.log(stock_item, id);
     try {
       const response = await axios.patch(
         `${STOCK_URL}/${id}?update_mode=is_updating_price`,
@@ -39,15 +38,10 @@ export const addQuantityToStockItem = createAsyncThunk(
   "stock/addQuantityToStockItem",
   async ({ stock_item, id }, { rejectWithValue }) => {
     try {
-      console.log("Is adding quantity");
-      console.log(`${STOCK_URL}/${id}?update_mode=is_adding_to_stock`, {
-        stock_item,
-      });
       const response = await axios.patch(
         `${STOCK_URL}/${id}?update_mode=is_adding_to_stock`,
         { stock_item }
       );
-      console.log(response.status);
       if (response.status !== 200)
         throw new Error("Couldn't update stock item");
 

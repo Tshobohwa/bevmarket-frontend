@@ -19,10 +19,6 @@ const ClientPurchases = ({ clientId }) => {
     dispatch(getStock());
   }, []);
 
-  useEffect(() => {
-    console.log(clientPurchases);
-  }, [clientPurchases]);
-
   return (
     <div className="w-full">
       <section>
