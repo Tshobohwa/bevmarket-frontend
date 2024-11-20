@@ -12,6 +12,7 @@ const AddSalePoint = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
   const { hasPostedSalePoint } = useSelector((state) => state.myEstablishement);
+  const { currentUser } = useSelector((state) => state.user);
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
@@ -19,7 +20,10 @@ const AddSalePoint = ({ closeHandler }) => {
   const submitHandler = () => {
     dispatch(
       postSalePoint({
-        sale_point: { establishment_id: 1, sale_point_type: "warehouse" },
+        sale_point: {
+          establishment_id: currentUser.current_establishment_id,
+          sale_point_type: "warehouse",
+        },
         warehouse: { name, location },
       })
     );

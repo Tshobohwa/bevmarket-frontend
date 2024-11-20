@@ -19,6 +19,8 @@ const NewItem = ({ closeHandler }) => {
 
   const { isPosted } = useSelector((state) => state.items);
 
+  const { currentUser } = useSelector((state) => state.user);
+
   const [quantity, setQuantity] = useState(0);
   const [reductionSalePrice, setReductionSalePrice] = useState(0);
   const [unitSalePrice, seUnitSalePrice] = useState(0);
@@ -42,6 +44,7 @@ const NewItem = ({ closeHandler }) => {
       bottles_number,
       capacity,
       capacity_unit: "Cl",
+      establishment_id: currentUser.current_establishment_id,
     };
     const stock_item = {
       reduction_sale_price: reductionSalePrice,

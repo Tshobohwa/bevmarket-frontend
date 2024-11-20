@@ -10,6 +10,7 @@ import { postSalePoint } from "../../redux/slices/myEstablishement/myEstablishem
 
 const NewTruck = ({ closeHandler }) => {
   const { hasPostedSalePoint } = useSelector((state) => state.myEstablishement);
+  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [matricule, setMatricule] = useState("");
   const [marque, setMarque] = useState("");
@@ -18,7 +19,7 @@ const NewTruck = ({ closeHandler }) => {
       postSalePoint({
         sale_point: {
           sale_point_type: "truck",
-          establishment_id: 1,
+          establishment_id: currentUser.current_establishment_id,
         },
         truck: {
           matricule,
