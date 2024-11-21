@@ -17,6 +17,7 @@ const Clients = () => {
   const [addingClient, setAddingClient] = useState(false);
 
   const { clients } = useSelector((state) => state.clients);
+  const { currentUser } = useSelector((state) => state.user);
 
   const [searchText, setSearchText] = useState("");
 
@@ -27,7 +28,9 @@ const Clients = () => {
   };
 
   useEffect(() => {
-    dispatch(getClients());
+    dispatch(
+      getClients({ establishment_id: currentUser.current_establishment_id })
+    );
   }, []);
 
   useEffect(() => {

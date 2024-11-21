@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/navigation/Sidebar";
 import Timefilter from "../components/filters/Timefilter";
 
 const Dashboard = () => {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   return (
     <Sidebar>
       <header className="h-[3.4rem] fixed top-0 left-[240px] right-0 bg-white flex items-center justify-between px-6">
@@ -10,7 +13,14 @@ const Dashboard = () => {
           Tableau de bord
         </h1>
         <div className="flex gap-4 items-center">
-          <Timefilter />
+          <Timefilter
+            setFrom={setFrom}
+            setTo={setTo}
+            setDate={setDate}
+            date={date}
+            from={from}
+            to={to}
+          />
         </div>
       </header>
       <section className="w-full grid grid-cols-3 my-4 gap-4">

@@ -6,9 +6,11 @@ const CLIENTS_URL = `${API_URL}/clients`;
 
 export const getClients = createAsyncThunk(
   "clients/getClients",
-  async (_, { rejectWithValue }) => {
+  async ({ establishment_id }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(CLIENTS_URL);
+      const response = await axios.get(
+        `${CLIENTS_URL}?establishment_id=${establishment_id}`
+      );
       return response.data.data.clients;
     } catch (error) {
       return rejectWithValue(error);

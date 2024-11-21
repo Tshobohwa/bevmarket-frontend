@@ -16,6 +16,7 @@ const NewClient = ({ closeHandler }) => {
   const [error, setError] = useState("");
 
   const { clientPosted } = useSelector((state) => state.clients);
+  const { currentUser } = useSelector((state) => state.user);
 
   const submitHandler = () => {
     setError("");
@@ -27,6 +28,7 @@ const NewClient = ({ closeHandler }) => {
       name: names,
       phone_number: phoneNumber,
       is_partener: is_partener, // Include 'is_partener' in the client object
+      establishment_id: currentUser.current_establishment_id,
     };
     dispatch(postClient({ client }));
   };
