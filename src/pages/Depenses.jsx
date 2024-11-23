@@ -17,6 +17,7 @@ const Depenses = () => {
   const { expenses } = useSelector((state) => state.expenses);
 
   useEffect(() => {
+    if (!from || !to) return;
     dispatch(getExpenses({ from, to, date: null }));
   }, [from, to]);
 
