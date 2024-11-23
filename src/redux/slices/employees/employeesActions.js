@@ -20,3 +20,17 @@ export const getCurrentEmployee = createAsyncThunk(
     }
   }
 );
+
+export const getEmployees = createAsyncThunk(
+  "employees/getEmployees",
+  async (_, { rejectWithValue }) => {
+    try {
+      console.log("Getting employees");
+      const response = await axios.get(EMPLOYEES_URL);
+      console.log(response);
+      return response.data.data.employees;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

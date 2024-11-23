@@ -16,13 +16,10 @@ const MyEstablishement = () => {
   const [warehouses, setWarehouses] = useState([]);
   const [trucks, setTrucks] = useState([]);
 
-  const { currentUser } = useSelector((state) => state.user);
   const { salePoints } = useSelector((state) => state.myEstablishement);
 
   useEffect(() => {
-    dispatch(
-      getSalePoints({ establishment_id: currentUser.current_establishment_id })
-    );
+    dispatch(getSalePoints());
   }, []);
 
   useEffect(() => {

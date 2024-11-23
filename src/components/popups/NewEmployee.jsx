@@ -6,11 +6,14 @@ import ButtonHighlight from "../buttons/ButtonHighlight";
 import SelectWithLabel from "../selects/SelectWithLabel";
 import { useDispatch, useSelector } from "react-redux";
 import { getSalePoints } from "../../redux/slices/myEstablishement/myEstablishementActions";
+import RoundedButton from "../buttons/RoundedButton";
+import SelectUnemployedUser from "./SelectUnemployedUser";
 
 const NewEmployee = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
   const [role, setRole] = useState("employee");
+  const [isSelectingUser, setIsSelectingUser] = useState(false);
 
   const { salePoints } = useSelector((state) => state.myEstablishement);
 
@@ -19,7 +22,6 @@ const NewEmployee = ({ closeHandler }) => {
   useEffect(() => {
     dispatch(getSalePoints());
   }, []);
-
 
   return (
     <PopupContainer>
@@ -34,6 +36,15 @@ const NewEmployee = ({ closeHandler }) => {
           </button>
         </div>
         <div className="w-full flex flex-col gap-4">
+          {isSelectingUser && (
+            <SelectUnemployedUser
+              closeHandler={() => setIsSelectingUser(false)}
+            />
+          )}
+          <RoundedButton
+            name={"Selectionner l'utilisateur"}
+            onClick={() => setIsSelectingUser(true)}
+          />
           <SelectWithLabel
             options={[
               { value: "admin", name: "Administrateur" },
