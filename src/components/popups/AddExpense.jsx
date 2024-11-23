@@ -12,6 +12,8 @@ const AddExpense = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
   const { expenseAdded } = useSelector((state) => state.expenses);
+  const { currentUser } = useSelector((state) => state.user);
+  const { currentEmployee } = useSelector((state) => state.employees);
 
   const [error, setError] = useState("");
   const [amount, setAmount] = useState(0);
@@ -28,7 +30,9 @@ const AddExpense = ({ closeHandler }) => {
     const expense = {
       reason,
       amount,
-      user_id: 1,
+      user_id: currentUser.id,
+      establishment_id: currentUser.current_establishment_id,
+      sale_point_id: currentEmployee.sale_point_id,
     };
     dispatch(postExpense({ expense }));
   };

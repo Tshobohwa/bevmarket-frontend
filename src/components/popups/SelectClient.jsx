@@ -10,6 +10,8 @@ import { selectClient } from "../../redux/slices/sales/salesSlice";
 const SelectClient = ({ closeHandler }) => {
   const dispatch = useDispatch();
   const { clients } = useSelector((state) => state.clients);
+  const { currentUser } = useSelector((state) => state.user);
+
   const [searchText, setSearchText] = useState("");
   const [filteredClients, setFilteredClients] = useState([]);
 
@@ -19,7 +21,9 @@ const SelectClient = ({ closeHandler }) => {
   };
 
   useEffect(() => {
-    dispatch(getClients());
+    dispatch(
+      getClients({ establishment_id: currentUser.current_establishment_id })
+    );
   }, []);
 
   useEffect(() => {

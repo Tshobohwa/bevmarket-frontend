@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import PopupContainer from "./PopupContainer";
 import ButtonShadow from "../buttons/ButtonShadow";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import { IoClose } from "react-icons/io5";
+import InputWithLabel from "../Inputs/InputWithLabel";
+import formatNumber from "../../utils/formatNumber";
+import { useDispatch } from "react-redux";
+import { postSale } from "../../redux/slices/sales/salesActions";
 
-const SalePayementPopup = ({ closeHandler }) => {
-  const submitHandler = () => {};
+const SalePayementPopup = ({ closeHandler, total, sale }) => {
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
+  const [totalPayed, setTotalPayed] = useState(0);
+  const [credit, setCredit] = useState(total);
+  const submitHandler = () => {
+    if (!totalPayed) {
+      setError("Entrez un montant valide de payement");
+      return;
+    }
+    const finalSale = { ...sale, credit };
+    dispatch(postSale({ sale: finalSale }));
+  };
+  const totalPayedChangeHandler = (e) => {
+    const value = +e.target.value;
+    setTotalPayed(value);
+    setCredit(total - value);
+  };
   return (
     <PopupContainer>
-      <div className="bg-white w-[500px] flex flex-col gap-4 p-4 rounded-lg">
+      <div className="bg-white w-[620px] flex flex-col gap-4 p-4 rounded-lg">
         <div className="flex w-full justify-between text-black-900">
           <h2 className="text-2xl font-semibold">Confirmer la vente</h2>
-          <p>Pour effectuer cette vente</p>
           <button
             className="h-[2.5rem] w-[2.5rem] items-center justify-center text-black-900"
             onClick={closeHandler}
@@ -19,14 +38,21 @@ const SalePayementPopup = ({ closeHandler }) => {
             <IoClose size={32} />
           </button>
         </div>
-        <p className="font-semibold text-center text-lg"></p>
+        <p>
+          Pour effectuer cette vente le client doit vous payer{" "}
+          {formatNumber(total)} FC. Combien a-t-il paye? Cela permettra de
+          calculer la dette qui reste.
+        </p>
         <div className="w-full flex flex-col gap-4">
           <InputWithLabel
-          // label={"Prix de vente partenaire"}
-          // onChange={(e) => setReductionSalePrice(+e.target.value)}
-          // placeholder={"Ex: 30 000"}
-          // value={reductionSalePrice}
+            label={"Total paye par le client"}
+            onChange={(e) => totalPayedChangeHandler(e)}
+            placeholder={`Ex: ${total}`}
+            value={totalPayed}
           />
+        </div>
+        <div>
+          <p>Reste a payer {credit} Fc</p>
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">

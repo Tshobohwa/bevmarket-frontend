@@ -21,7 +21,7 @@ export const getSales = createAsyncThunk(
 
 export const postSale = createAsyncThunk(
   "salesSlice/postSlice",
-  async (sale, { rejectWithValue }) => {
+  async ({ sale }, { rejectWithValue }) => {
     try {
       const response = await axios.post(SALES_URL, { sale });
       if (response.status !== 201) throw new Error("Couldn't post sale");

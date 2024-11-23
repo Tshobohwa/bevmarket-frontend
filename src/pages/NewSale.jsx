@@ -15,6 +15,7 @@ import {
 } from "../redux/slices/sales/salesSlice";
 import { MdModeEdit } from "react-icons/md";
 import NewSaleTableRow from "../components/tableRows/NewSaleTableRow";
+import SalePayementPopup from "../components/popups/SalePayementPopup";
 
 const NewSale = () => {
   const navigate = useNavigate();
@@ -22,10 +23,13 @@ const NewSale = () => {
 
   const { newSale, hasPostedNewSale } = useSelector((store) => store.sales);
   const { clients } = useSelector((state) => state.clients);
+  const { currentEmployee } = useSelector((state) => state.employees);
 
   const [isSelectingClient, setIsSelectingClient] = useState(false);
   const [isAddingItem, setIsAddingItem] = useState(false);
   const [client, setClient] = useState(null);
+  const [isPaying, setIsPaying] = useState(false);
+  const [sale, setSale] = useState({});
 
   const cancelHandler = () => {
     dispatch(cancelNewSale());
@@ -44,9 +48,11 @@ const NewSale = () => {
   };
 
   const postNewSale = () => {
-    const sale = {
+    setSale({
       user_id: 1,
       client_id: newSale.client_id,
+      sale_point_id: currentEmployee.sale_point_id,
+      establishment_id: currentEmployee.establishment_id,
       sale_items: newSale.items.map((item) => {
         return {
           quantity: item.quantity,
@@ -54,8 +60,9 @@ const NewSale = () => {
           stock_item_id: item.id,
         };
       }),
-    };
-    dispatch(postSale(sale));
+    });
+    setIsPaying(true);
+    // dispatch(postSale(sale));
   };
 
   useEffect(() => {
@@ -77,6 +84,14 @@ const NewSale = () => {
       )}
       {isAddingItem && (
         <AddItemToSale closeHandler={() => setIsAddingItem(false)} />
+      )}
+
+      {isPaying && (
+        <SalePayementPopup
+          closeHandler={() => setIsPaying(false)}
+          total={total}
+          sale={sale}
+        />
       )}
       <header className="w-full h-[3.5rem] fixed top-0 left-0 right-0 bg-white border-b border-b-primary-300 flex items-center justify-between px-4">
         <h1 className="text-2xl font-semibold text-black-800">
