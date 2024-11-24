@@ -14,6 +14,7 @@ const NewEmployee = ({ closeHandler }) => {
 
   const [role, setRole] = useState("employee");
   const [isSelectingUser, setIsSelectingUser] = useState(false);
+  const [currentUnemployedUser, setCurrentUnemployedUser] = useState(null);
 
   const { salePoints } = useSelector((state) => state.myEstablishement);
 
@@ -39,6 +40,8 @@ const NewEmployee = ({ closeHandler }) => {
           {isSelectingUser && (
             <SelectUnemployedUser
               closeHandler={() => setIsSelectingUser(false)}
+              currentUnemployedUser={currentUnemployedUser}
+              setCurrentUnemployedUser={setCurrentUnemployedUser}
             />
           )}
           <RoundedButton

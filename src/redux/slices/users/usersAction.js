@@ -17,3 +17,5 @@ export const getUnemployedUsers = createAsyncThunk(
     }
   }
 );
+
+export const postEmployee

@@ -6,13 +6,22 @@ import RoundedInputWithIcon from "../Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
 import { getUnemployedUsers } from "../../redux/slices/users/usersAction";
 
-const SelectUnemployedUser = ({ closeHandler }) => {
+const SelectUnemployedUser = ({
+  closeHandler,
+  currentUnemployedUser,
+  setCurrentUnemployedUser,
+}) => {
   const dispatch = useDispatch();
 
   const { unemployedUsers } = useSelector((state) => state.users);
 
   const [searchText, setSearchText] = useState("");
   const [filteredUnemployeds, setFilteredUnemployeds] = useState([]);
+
+  const setCurrentUnemployedUserHandler = (unemployedUser) => {
+    setCurrentUnemployedUser(unemployedUser);
+    closeHandler();
+  };
 
   useEffect(() => {
     dispatch(getUnemployedUsers());
@@ -54,7 +63,7 @@ const SelectUnemployedUser = ({ closeHandler }) => {
           {filteredUnemployeds.map((unemployedUser) => (
             <div
               className="w-full h-[5rem] border-b border-b-secondary-100 flex items-center pl-4 hover:bg-primary-300 hover:cursor-pointer"
-              // onClick={() => SelectUnemployedUserHandler(unemployedUser.id)}
+              onClick={setCurrentUnemployedUserHandler(unemployedUser)}
               key={unemployedUser.id}
             >
               <div className="w-full">
