@@ -4,13 +4,29 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import RoundedInputWithIcon from "../Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
-import { getClients } from "../../redux/slices/clients/clientsActions";
+import { getUnemployedUsers } from "../../redux/slices/users/usersAction";
 
 const SelectUnemployedUser = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
+  const { unemployedUsers } = useSelector((state) => state.users);
+
   const [searchText, setSearchText] = useState("");
   const [filteredUnemployeds, setFilteredUnemployeds] = useState([]);
+
+  useEffect(() => {
+    dispatch(getUnemployedUsers());
+  }, []);
+
+  useEffect(() => {
+    setFilteredUnemployeds(
+      unemployedUsers.filter((user) =>
+        `${user.name} ${user.email}`
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText, unemployedUsers]);
 
   return (
     <PopupContainer>
@@ -35,17 +51,17 @@ const SelectUnemployedUser = ({ closeHandler }) => {
           />
         </div>
         <div className="h-[400px] w-full overflow-y-scroll border-t border-t-secondary-300">
-          {filteredUnemployeds.map((client) => (
+          {filteredUnemployeds.map((unemployedUser) => (
             <div
-              className="w-full h-[4rem] border-b border-b-secondary-100 flex items-center pl-4 hover:bg-primary-300 hover:cursor-pointer"
-              onClick={() => SelectUnemployedUserHandler(client.id)}
-              key={client.id}
+              className="w-full h-[5rem] border-b border-b-secondary-100 flex items-center pl-4 hover:bg-primary-300 hover:cursor-pointer"
+              // onClick={() => SelectUnemployedUserHandler(unemployedUser.id)}
+              key={unemployedUser.id}
             >
               <div className="w-full">
                 <p className="font-semibold text-lg text-black-700">
-                  {client.name}
+                  {unemployedUser.name}
                 </p>
-                <p className="text-sm text-black-500">{client.phone_number}</p>
+                <p className="text-sm text-black-500">{unemployedUser.email}</p>
               </div>
             </div>
           ))}

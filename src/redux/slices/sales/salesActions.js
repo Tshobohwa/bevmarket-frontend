@@ -14,7 +14,7 @@ export const getSales = createAsyncThunk(
       if (response.status !== 200) throw new Error("Couldn't get sales");
       return response.data.data.sales;
     } catch (err) {
-      return rejectWithValue(err);
+      return rejectWithValue(err.message);
     }
   }
 );

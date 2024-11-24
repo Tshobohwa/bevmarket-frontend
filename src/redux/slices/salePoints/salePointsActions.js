@@ -14,7 +14,7 @@ export const getSalePoint = createAsyncThunk(
 
       return response.data.data.sale_point;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

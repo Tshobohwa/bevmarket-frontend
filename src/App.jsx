@@ -61,10 +61,10 @@ export default function App() {
                 element={<SalePointStock />}
               />
             </Route>
-          </Route>
-          <Route element={<UnemployedRoutes />}>
-            <Route element={<Starting />} path="/starting" />
-            <Route element={<NewEstablishment />} path="/newestablishment" />
+            <Route element={<UnemployedRoutes />}>
+              <Route element={<Starting />} path="/starting" />
+              <Route element={<NewEstablishment />} path="/newestablishment" />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

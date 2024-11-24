@@ -8,8 +8,6 @@ const initialState = {
   employees: [],
 };
 
-console.log(initialState);
-
 const employeesSlice = createSlice({
   name: "employees",
   initialState,

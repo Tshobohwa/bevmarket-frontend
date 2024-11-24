@@ -25,7 +25,7 @@ export const postEstablishement = createAsyncThunk(
       });
       return response.data.data;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -42,7 +42,7 @@ export const postSalePoint = createAsyncThunk(
       if (response.status !== 201) throw new Error("Couldn't post sale point");
       return response.data.data;
     } catch (err) {
-      return rejectWithValue(err);
+      return rejectWithValue(err.message);
     }
   }
 );
@@ -55,7 +55,7 @@ export const getSalePoints = createAsyncThunk(
       if (response.status !== 200) throw new Error("No response");
       return response.data.data.sale_points;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

@@ -14,7 +14,7 @@ export const getPurchases = createAsyncThunk(
       if (response.status !== 200) throw new Error("Couldn't get purchases");
       return response.data.data.purchases;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

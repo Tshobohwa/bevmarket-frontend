@@ -10,6 +10,7 @@ import purchasesReducer from "./slices/purchases/purchasesSlice";
 import salePointsReducer from "./slices/salePoints/salePointsSlice";
 import salersReducer from "./slices/salersSlice/salersSlice";
 import employeesReducer from "./slices/employees/employeesSlice";
+import usersReducer from "./slices/users/usersSlice";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     salePoints: salePointsReducer,
     salers: salersReducer,
     employees: employeesReducer,
+    users: usersReducer,
   },
 });
 

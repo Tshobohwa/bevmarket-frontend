@@ -13,7 +13,7 @@ export const getClients = createAsyncThunk(
       );
       return response.data.data.clients;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -26,7 +26,7 @@ export const getClient = createAsyncThunk(
       if (response.status !== 200) throw new Error("Couldn't get client");
       return response.data.data.client;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -39,7 +39,7 @@ export const postClient = createAsyncThunk(
       if (response.status !== 201) throw new Error("Couldn't create client");
       return response.data.data.client;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -54,7 +54,7 @@ export const updateClient = createAsyncThunk(
       if (response.status !== 200) throw new Error("Couldn't update client");
       return response.data.data.client;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

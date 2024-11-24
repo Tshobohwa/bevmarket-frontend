@@ -11,12 +11,9 @@ export const getCurrentEmployee = createAsyncThunk(
       const response = await axios.get(
         `${EMPLOYEES_URL}?establishment_id=${establishment_id}&user_id=${user_id}`
       );
-      console.log(response.data.data.current_employee);
-      console.log(response.data);
-      console.log(establishment_id, user_id);
       return response.data.data.current_employee;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -25,12 +22,21 @@ export const getEmployees = createAsyncThunk(
   "employees/getEmployees",
   async (_, { rejectWithValue }) => {
     try {
-      console.log("Getting employees");
       const response = await axios.get(EMPLOYEES_URL);
-      console.log(response);
       return response.data.data.employees;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const postEmployee = createAsyncThunk(
+  "employees/createEmployee",
+  async ({ employee }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(EMPLOYEES_URL, { employee });
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
