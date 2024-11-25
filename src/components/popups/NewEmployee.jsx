@@ -8,21 +8,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSalePoints } from "../../redux/slices/myEstablishement/myEstablishementActions";
 import RoundedButton from "../buttons/RoundedButton";
 import SelectUnemployedUser from "./SelectUnemployedUser";
+import CircularButtonWithIcon from "../buttons/CircularButtonWithIcon";
+import { FaPen } from "react-icons/fa";
+import { postEmployee } from "../../redux/slices/employees/employeesActions";
 
 const NewEmployee = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
   const [role, setRole] = useState("employee");
+  const [salePointId, setSalePointId] = useState(null);
   const [isSelectingUser, setIsSelectingUser] = useState(false);
   const [currentUnemployedUser, setCurrentUnemployedUser] = useState(null);
 
   const { salePoints } = useSelector((state) => state.myEstablishement);
+  const { currentUser } = useSelector((state) => state.user);
 
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    dispatch(
+      postEmployee({
+        employee: {
+          user_id: currentUnemployedUser.id,
+          sale_point_id: salePointId,
+          role,
+          establishment_id: currentUser.current_establishment_id,
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     dispatch(getSalePoints());
   }, []);
+
+  useEffect(() => {
+    if (!salePoints[0]) return;
+    setSalePointId(salePoints[0].id);
+  }, [salePoints]);
 
   return (
     <PopupContainer>
@@ -44,14 +65,31 @@ const NewEmployee = ({ closeHandler }) => {
               setCurrentUnemployedUser={setCurrentUnemployedUser}
             />
           )}
-          <RoundedButton
-            name={"Selectionner l'utilisateur"}
-            onClick={() => setIsSelectingUser(true)}
-          />
+          {currentUnemployedUser ? (
+            <div className="my-5 flex items-center gap-4">
+              <div>
+                <p className="font-semibold text-black-900">
+                  {currentUnemployedUser.name}
+                </p>
+                <p className="text-secondary-700">
+                  {currentUnemployedUser.email}
+                </p>
+              </div>
+              <CircularButtonWithIcon
+                icon={<FaPen size={18} />}
+                onClick={() => setIsSelectingUser(true)}
+              />
+            </div>
+          ) : (
+            <RoundedButton
+              name={"Selectionner l'utilisateur"}
+              onClick={() => setIsSelectingUser(true)}
+            />
+          )}
           <SelectWithLabel
             options={[
-              { value: "admin", name: "Administrateur" },
               { value: "employee", name: "Employee" },
+              { value: "admin", name: "Administrateur" },
             ]}
             label={"Role"}
             onChange={(e) => setRole(e.target.value)}

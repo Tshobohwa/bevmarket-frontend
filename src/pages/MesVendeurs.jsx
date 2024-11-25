@@ -6,6 +6,52 @@ import RoundedInputWithIcon from "../components/Inputs/RoundedInputWithIcon";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployees } from "../redux/slices/employees/employeesActions";
+import ButtonHighlight from "../components/buttons/ButtonHighlight";
+import ButtonShadow from "../components/buttons/ButtonShadow";
+import UpdateEmployeePopup from "../components/popups/UpdateEmployeePopup";
+
+const EmployeeRow = ({ employee, index }) => {
+  const [isUpdatingEmployee, setIsUpdatingEmployee] = useState(false);
+  const [isRemovingEmployee, setIsRemovingEmployee] = useState(false);
+  return (
+    <tr
+      className={`h-[3rem] border border-primary-200 text-black-700 text-lg hover:bg-primary-100 ${
+        index % 2 === 0 && "bg-primary-100/25"
+      }`}
+    >
+      <td className="pl-4">{index + 1}</td>
+      <td className="pl-4">
+        <div className="text-black-950">
+          <p>{employee.user.name}</p>
+          <p className=" text-sm text-secondary-700">{employee.user.email}</p>
+        </div>
+      </td>
+
+      {isUpdatingEmployee && (
+        <UpdateEmployeePopup
+          closeHandler={() => setIsUpdatingEmployee(false)}
+          employee={employee}
+        />
+      )}
+      <td className="pl-4">{employee.role}</td>
+      <td className="pl-4">{employee.sale_point.name}</td>
+      <td>
+        <div className="w-full h-full flex items-center gap-4 justify-center px-4">
+          <ButtonHighlight
+            name={"Modifier"}
+            height="h-[2.2rem]"
+            onClick={() => setIsUpdatingEmployee(true)}
+          />
+          <ButtonShadow
+            name={"Lisencier"}
+            height="h-[2.2rem]"
+            onClick={() => setIsRemovingEmployee(true)}
+          />
+        </div>
+      </td>
+    </tr>
+  );
+};
 
 const MesVendeurs = () => {
   const dispatch = useDispatch();
@@ -27,6 +73,7 @@ const MesVendeurs = () => {
           .includes(searchText.toLowerCase())
       )
     );
+    console.log(employees);
   }, [employees, searchText]);
 
   return (
@@ -54,8 +101,7 @@ const MesVendeurs = () => {
           <thead className="w-full">
             <tr className="w-full h-[3rem] font-semibold text-black-700 border border-secondary-200 rounded-t-lg">
               <th className="w-[5rem] pl-4 text-start rounded-tl-lg">N</th>
-              <th className="pl-4 text-start">Noms</th>
-              <th className="pl-4 text-start">Email</th>
+              <th className="pl-4 text-start">Vendeur</th>
               <th className="pl-4 text-start">role</th>
               <th className="pl-4 text-start">point de vente</th>
               <th className="pl-4 text-start rounded-tr-lg">Actions</th>
@@ -63,23 +109,7 @@ const MesVendeurs = () => {
           </thead>
           <tbody>
             {filteredEmployees.map((employee, index) => (
-              <tr
-                className={`h-[3rem] border border-primary-200 text-black-700 text-lg hover:bg-primary-100 hover:cursor-pointer ${
-                  index % 2 === 0 && "bg-primary-100/25"
-                }`}
-                // onClick={() => goToemployeeDetails(employee.id)}
-              >
-                <td className="pl-4">{index + 1}</td>
-                <td className="pl-4">
-                  <div className=" flex gap-2 items-center text-black-950">
-                    <p>{employee.user.name}</p>
-                  </div>
-                </td>
-                <td className="pl-4 text-black-500">{employee.user.email}</td>
-                <td className="pl-4">{employee.role}</td>
-                <td className="pl-4">{employee.sale_point.name}</td>
-                <td className="pl-4">{employee.credit} Fc</td>
-              </tr>
+              <EmployeeRow employee={employee} index={index} />
             ))}
           </tbody>
         </table>

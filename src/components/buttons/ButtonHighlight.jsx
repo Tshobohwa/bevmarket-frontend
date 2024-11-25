@@ -1,9 +1,14 @@
 import React from "react";
 
-const ButtonHighlight = ({ name, onClick, isActive = true }) => {
+const ButtonHighlight = ({
+  name,
+  onClick,
+  isActive = true,
+  height = "h-[3rem]",
+}) => {
   return (
     <button
-      className={`h-[3rem] w-full font-[500] font-poppins rounded-lg hover:bg-primary-800 text-white text-lg ${
+      className={`${height} w-full font-[500] font-poppins rounded-lg hover:bg-primary-800 text-white text-lg ${
         isActive ? "bg-primary-900" : "bg-red-900/20"
       }`}
       onClick={onClick}

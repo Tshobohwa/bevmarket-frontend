@@ -1,16 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCurrentEmployee, getEmployees } from "./employeesActions";
+import {
+  getCurrentEmployee,
+  getEmployees,
+  postEmployee,
+} from "./employeesActions";
 import { toast } from "react-toastify";
 
 const initialState = {
   currentEmployee: JSON.parse(localStorage.getItem("currentEmployee")),
   isGettingCurrentEmployee: false,
   employees: [],
+  isPostingEmployee: false,
+  hasPostedEmployee: false,
 };
 
 const employeesSlice = createSlice({
   name: "employees",
   initialState,
+  reducers: {
+    resetHasPostedEmployee: (state) => {
+      return { ...state, hasPostedEmployee: false };
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getCurrentEmployee.pending, (state) => {
       return { ...state, isGettingCurrentEmployee: true };
@@ -37,7 +48,27 @@ const employeesSlice = createSlice({
       );
       return state;
     });
+
+    builder.addCase(postEmployee.pending, (state) => {
+      return { ...state, isPostingEmployee: true };
+    });
+
+    builder.addCase(postEmployee.fulfilled, (state, { payload }) => {
+      return {
+        ...state,
+        isPostingEmployee: false,
+        hasPostedEmployee: true,
+        employees: [...state.employees, payload],
+      };
+    });
+
+    builder.addCase(postEmployee.rejected, (state) => {
+      toast.error("Une erreur est survenue. Action non terminee!");
+      return { ...state, isPostingEmployee: false };
+    });
   },
 });
+
+export const { hasPostedEmployee } = employeesSlice.actions;
 
 export default employeesSlice.reducer;

@@ -19,6 +19,7 @@ const SelectUnemployedUser = ({
   const [filteredUnemployeds, setFilteredUnemployeds] = useState([]);
 
   const setCurrentUnemployedUserHandler = (unemployedUser) => {
+    console.log("Clicked clicked");
     setCurrentUnemployedUser(unemployedUser);
     closeHandler();
   };
@@ -63,7 +64,7 @@ const SelectUnemployedUser = ({
           {filteredUnemployeds.map((unemployedUser) => (
             <div
               className="w-full h-[5rem] border-b border-b-secondary-100 flex items-center pl-4 hover:bg-primary-300 hover:cursor-pointer"
-              onClick={setCurrentUnemployedUserHandler(unemployedUser)}
+              onClick={() => setCurrentUnemployedUserHandler(unemployedUser)}
               key={unemployedUser.id}
             >
               <div className="w-full">
