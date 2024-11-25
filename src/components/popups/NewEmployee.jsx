@@ -93,6 +93,7 @@ const NewEmployee = ({ closeHandler }) => {
             ]}
             label={"Role"}
             onChange={(e) => setRole(e.target.value)}
+            value={role}
           />
           <SelectWithLabel
             label={"Point de vente"}
@@ -105,6 +106,8 @@ const NewEmployee = ({ closeHandler }) => {
                     : `${salePoint.warehouse?.name} (${salePoint.warehouse?.location})`,
               };
             })}
+            onChange={(e) => setSalePointId(e.target.value)}
+            value={salePointId}
           />
         </div>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
