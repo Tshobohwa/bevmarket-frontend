@@ -17,3 +17,16 @@ export const getUnemployedUsers = createAsyncThunk(
     }
   }
 );
+
+export const getCurrentUser = createAsyncThunk(
+  "users/getCurrentUserInfo",
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${USERS_URL}/current_user`);
+      if (response.status !== 200) throw new Error("Couldn't get current user");
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

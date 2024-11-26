@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopupContainer from "./PopupContainer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoClose } from "react-icons/io5";
 import ButtonShadow from "../buttons/ButtonShadow";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import SelectWithLabel from "../selects/SelectWithLabel";
+import { getSalePoints } from "../../redux/slices/myEstablishement/myEstablishementActions";
 
 const UpdateEmployeePopup = ({ closeHandler, employee }) => {
   const dispatch = useDispatch();
+
+  const { salePoints } = useSelector((state) => state.myEstablishement);
 
   const [role, setRole] = useState(employee.role);
   const [salePointId, setSalePointId] = useState(employee.sale_point_id);
@@ -16,6 +19,10 @@ const UpdateEmployeePopup = ({ closeHandler, employee }) => {
     { name: "Administrateur", value: "admin" },
     { name: "Employee", value: "employee" },
   ];
+
+  useEffect(() => {
+    dispatch(getSalePoints());
+  }, []);
 
   const submitHandler = () => {};
 
@@ -36,10 +43,23 @@ const UpdateEmployeePopup = ({ closeHandler, employee }) => {
             <p className="font-semibold">{employee.user.name}</p>
             <p className="text-secondary-700 text-sm">{employee.user.email}</p>
           </div>
-          <SelectWithLabel label={"Role"} options={roleOptions} value={role} />
+          <SelectWithLabel
+            label={"Role"}
+            options={roleOptions}
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          />
           <SelectWithLabel
             label={"Point de vente"}
-            options={[]}
+            options={salePoints.map((salePoint) => {
+              return {
+                value: salePoint.id,
+                name:
+                  salePoint.sale_point_type === "truck"
+                    ? `${salePoint.truck?.matricule} (${salePoint.truck?.marque})`
+                    : `${salePoint.warehouse?.name} (${salePoint.warehouse?.location})`,
+              };
+            })}
             onChange={(e) => setSalePointId(e.target.value)}
             value={salePointId}
           />

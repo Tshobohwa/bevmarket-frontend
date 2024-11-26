@@ -65,23 +65,6 @@ const MyEstablishement = () => {
           ))}
           <AddCardButton onClick={() => setIsAddingTruck(true)} />
         </div>
-        <div className="w-full">
-          <h2 className="font-poppins text-2xl font-semibold text-black-900 py-4">
-            Mes vendeurs
-          </h2>
-          <div className="w-full bg-white border border-primary-400 p-4 rounded-sm">
-            <table className="w-full font-poppins">
-              <thead className="bg-secondary-600 h-[2rem] font-semibold text-white">
-                <tr>
-                  <th>Noms</th>
-                  <th>Telephone</th>
-                  <th>Role</th>
-                  <th>Point de vente</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-        </div>
       </div>
     </Sidebar>
   );

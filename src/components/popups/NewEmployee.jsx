@@ -11,6 +11,7 @@ import SelectUnemployedUser from "./SelectUnemployedUser";
 import CircularButtonWithIcon from "../buttons/CircularButtonWithIcon";
 import { FaPen } from "react-icons/fa";
 import { postEmployee } from "../../redux/slices/employees/employeesActions";
+import { resetHasPostedEmployee } from "../../redux/slices/employees/employeesSlice";
 
 const NewEmployee = ({ closeHandler }) => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const NewEmployee = ({ closeHandler }) => {
 
   const { salePoints } = useSelector((state) => state.myEstablishement);
   const { currentUser } = useSelector((state) => state.user);
+  const { hasPostedEmployee } = useSelector((state) => state.employees);
 
   const submitHandler = () => {
     dispatch(
@@ -44,6 +46,12 @@ const NewEmployee = ({ closeHandler }) => {
     if (!salePoints[0]) return;
     setSalePointId(salePoints[0].id);
   }, [salePoints]);
+
+  useEffect(() => {
+    if (!hasPostedEmployee) return;
+    dispatch(resetHasPostedEmployee());
+    closeHandler();
+  }, [hasPostedEmployee]);
 
   return (
     <PopupContainer>

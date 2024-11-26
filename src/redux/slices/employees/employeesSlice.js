@@ -69,6 +69,6 @@ const employeesSlice = createSlice({
   },
 });
 
-export const { hasPostedEmployee } = employeesSlice.actions;
+export const { resetHasPostedEmployee } = employeesSlice.actions;
 
 export default employeesSlice.reducer;
