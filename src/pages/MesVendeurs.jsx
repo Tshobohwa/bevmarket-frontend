@@ -66,11 +66,13 @@ const EmployeeRow = ({ employee, index }) => {
             name={"Modifier"}
             height="h-[2.2rem]"
             onClick={() => setIsUpdatingEmployee(true)}
+            text="sm"
           />
           <ButtonShadow
             name={"Licencier"}
             height="h-[2.2rem]"
             onClick={() => setIsRemovingEmployee(true)}
+            text="sm"
           />
         </div>
       </td>

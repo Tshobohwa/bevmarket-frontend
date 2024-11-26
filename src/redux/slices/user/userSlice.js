@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../api/api";
 import { postEstablishement } from "../myEstablishement/myEstablishementActions";
+import { getUser } from "../users/usersAction";
 
 // import { toast } from "react-toastify";
 
@@ -123,6 +124,10 @@ const userSlice = createSlice({
         ...state,
         currentUser: { ...state.currentUser, is_employed: true },
       };
+    });
+    builder.addCase(getUser.fulfilled, (state, { payload }) => {
+      if (state.currentUser.id !== payload.user.id) return;
+      localStorage.setItem("currentUser", JSON.stringify(payload.user));      return { ...state, currentUser: payload.currentUser };
     });
   },
 });

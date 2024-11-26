@@ -1,9 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AuthButton from "../components/buttons/AuthButton";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../redux/slices/users/usersAction";
 
 const Starting = () => {
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -11,6 +13,22 @@ const Starting = () => {
   const goToNewEstablishment = () => {
     navigate("/newestablishment");
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentUser) {
+        dispatch(
+          getUser({
+            user_id: currentUser.id,
+          })
+        );
+      }
+    }, 10000);
+
+    console.log(currentUser);
+    return () => clearInterval(interval);
+  }, [dispatch, currentUser]);
+
   return (
     <div className="w-screen h-screen flex items-center justify-center px-[20vw] py-[10vh]">
       <div>

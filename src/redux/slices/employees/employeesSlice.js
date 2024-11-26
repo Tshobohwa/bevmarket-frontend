@@ -5,6 +5,7 @@ import {
   postEmployee,
 } from "./employeesActions";
 import { toast } from "react-toastify";
+import { getUser } from "../users/usersAction";
 
 const initialState = {
   currentEmployee: JSON.parse(localStorage.getItem("currentEmployee")),
@@ -65,6 +66,11 @@ const employeesSlice = createSlice({
     builder.addCase(postEmployee.rejected, (state) => {
       toast.error("Une erreur est survenue. Action non terminee!");
       return { ...state, isPostingEmployee: false };
+    });
+    builder.addCase(getUser.fulfilled, (state, { payload }) => {
+      if (!payload.employee) return;
+      localStorage.setItem("currentEmployee", JSON.stringify(payload.employee));
+      return { ...state, currentEmployee: payload.employee };
     });
   },
 });
