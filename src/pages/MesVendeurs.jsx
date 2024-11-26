@@ -9,6 +9,7 @@ import { getEmployees } from "../redux/slices/employees/employeesActions";
 import ButtonHighlight from "../components/buttons/ButtonHighlight";
 import ButtonShadow from "../components/buttons/ButtonShadow";
 import UpdateEmployeePopup from "../components/popups/UpdateEmployeePopup";
+import RemoveEmployeePopup from "../components/popups/RemoveEmployeePopup";
 
 const EmployeeRow = ({ employee, index }) => {
   const [isUpdatingEmployee, setIsUpdatingEmployee] = useState(false);
@@ -33,6 +34,12 @@ const EmployeeRow = ({ employee, index }) => {
           employee={employee}
         />
       )}
+      {isRemovingEmployee && (
+        <RemoveEmployeePopup
+          closeHandler={() => setIsRemovingEmployee(false)}
+          employee={employee}
+        />
+      )}
       <td className="pl-4">{employee.role}</td>
       <td className="pl-4">{employee.sale_point.name}</td>
       <td>
@@ -43,7 +50,7 @@ const EmployeeRow = ({ employee, index }) => {
             onClick={() => setIsUpdatingEmployee(true)}
           />
           <ButtonShadow
-            name={"Lisencier"}
+            name={"Licencier"}
             height="h-[2.2rem]"
             onClick={() => setIsRemovingEmployee(true)}
           />

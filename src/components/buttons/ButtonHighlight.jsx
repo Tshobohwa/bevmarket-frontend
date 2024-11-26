@@ -8,7 +8,7 @@ const ButtonHighlight = ({
 }) => {
   return (
     <button
-      className={`${height} w-full font-[500] font-poppins rounded-lg hover:bg-primary-800 text-white text-lg ${
+      className={`${height} w-full font-[500] font-poppins rounded-lg hover:bg-primary-800 text-white ${
         isActive ? "bg-primary-900" : "bg-red-900/20"
       }`}
       onClick={onClick}
