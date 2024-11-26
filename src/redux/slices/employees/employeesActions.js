@@ -23,6 +23,7 @@ export const getEmployees = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(EMPLOYEES_URL);
+      console.log(response);
       return response.data.data.employees;
     } catch (error) {
       return rejectWithValue(error.message);
