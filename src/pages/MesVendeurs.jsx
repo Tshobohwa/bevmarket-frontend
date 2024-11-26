@@ -41,7 +41,25 @@ const EmployeeRow = ({ employee, index }) => {
         />
       )}
       <td className="pl-4">{employee.role}</td>
-      <td className="pl-4">{employee.sale_point.name}</td>
+      <td className="pl-4">
+        {employee.sale_point.sale_point_type === "warehouse" && (
+          <div className="flex flex-col">
+            <p>{employee.sale_point.warehouse.name}</p>
+
+            <p className="text-sm text-secondary-700">
+              {employee.sale_point.warehouse.location}
+            </p>
+          </div>
+        )}
+        {employee.sale_point.sale_point_type === "truck" && (
+          <div className="flex flex-col">
+            <p>{employee.sale_point.truck.matricule}</p>
+            <p className="text-sm text-secondary-700">
+              {employee.sale_point.truck.marque}
+            </p>
+          </div>
+        )}
+      </td>
       <td>
         <div className="w-full h-full flex items-center gap-4 justify-center px-4">
           <ButtonHighlight
@@ -116,7 +134,11 @@ const MesVendeurs = () => {
           </thead>
           <tbody>
             {filteredEmployees.map((employee, index) => (
-              <EmployeeRow employee={employee} index={index} />
+              <EmployeeRow
+                employee={employee}
+                index={index}
+                key={employee.id}
+              />
             ))}
           </tbody>
         </table>
