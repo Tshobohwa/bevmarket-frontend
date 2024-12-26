@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postExpense } from "../../redux/slices/expenses/expensesActions";
 import { resetExpenseAdded } from "../../redux/slices/expenses/expensesSlice";
 
+// eslint-disable-next-line react/prop-types
 const AddExpense = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
@@ -18,15 +19,19 @@ const AddExpense = ({ closeHandler }) => {
   const [error, setError] = useState("");
   const [amount, setAmount] = useState(0);
   const [reason, setReason] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = () => {
     setError("");
+
     if (!reason || amount < 1) {
       setError(
         "Entrez de valeurs valides de montant et une raison de la depense"
       );
       return;
     }
+
+    setIsLoading(true);
     const expense = {
       reason,
       amount,
@@ -34,14 +39,16 @@ const AddExpense = ({ closeHandler }) => {
       establishment_id: currentUser.current_establishment_id,
       sale_point_id: currentEmployee.sale_point_id,
     };
-    dispatch(postExpense({ expense }));
+
+    dispatch(postExpense({ expense }))
+        .then(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!expenseAdded) return;
     dispatch(resetExpenseAdded());
     closeHandler();
-  }, [expenseAdded]);
+  }, [closeHandler, dispatch, expenseAdded]);
   return (
     <PopupContainer>
       <div className="bg-white w-[500px] flex flex-col gap-4 p-4">
@@ -68,8 +75,8 @@ const AddExpense = ({ closeHandler }) => {
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
-          <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
+          <ButtonShadow name={"Annuler"} onClick={closeHandler} />
+          <ButtonHighlight name={"Ajouter"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

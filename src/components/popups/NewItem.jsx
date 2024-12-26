@@ -7,7 +7,9 @@ import PopupContainer from "./PopupContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { postItem } from "../../redux/slices/items/ItemsActions";
 import { initializeIsPosted } from "../../redux/slices/items/itemsSlice";
+import {toast} from "react-toastify";
 
+// eslint-disable-next-line react/prop-types
 const NewItem = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
@@ -25,20 +27,25 @@ const NewItem = ({ closeHandler }) => {
   const [reductionSalePrice, setReductionSalePrice] = useState(0);
   const [unitSalePrice, seUnitSalePrice] = useState(0);
   const [lastUnitBuyPrice, setLastUnitBuyPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  
   const submitHandler = () => {
     setError("");
     if (
-      name === "" ||
-      quantity === 0 ||
-      capacity === 0 ||
-      bottles_number === 0 ||
-      unitSalePrice === 0 ||
-      lastUnitBuyPrice === 0 ||
-      reductionSalePrice === 0
+      !name ||
+      ! quantity||
+      ! capacity||
+      ! bottles_number||
+      ! unitSalePrice||
+      ! lastUnitBuyPrice||
+      ! reductionSalePrice
     ) {
+      toast.warning("Veuillez entrer toute les valeurs");
       setError("Veuillez entrer toute les valeurs");
       return;
     }
+
+    setIsLoading(true);
     const item = {
       name,
       bottles_number,
@@ -46,6 +53,7 @@ const NewItem = ({ closeHandler }) => {
       capacity_unit: "Cl",
       establishment_id: currentUser.current_establishment_id,
     };
+
     const stock_item = {
       reduction_sale_price: reductionSalePrice,
       unit_sale_price: unitSalePrice,
@@ -53,14 +61,16 @@ const NewItem = ({ closeHandler }) => {
       average_unit_buy_price: lastUnitBuyPrice,
       quantity,
     };
-    dispatch(postItem({ item, stock_item }));
+
+    dispatch(postItem({ item, stock_item }))
+        .then(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!isPosted) return;
     dispatch(initializeIsPosted());
     closeHandler();
-  }, [isPosted]);
+  }, [closeHandler, dispatch, isPosted]);
   return (
     <PopupContainer>
       <div className="bg-white w-[600px] flex flex-col gap-4 p-4">
@@ -121,8 +131,8 @@ const NewItem = ({ closeHandler }) => {
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
-          <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
+          <ButtonShadow name={"Annuler"} onClick={closeHandler} />
+          <ButtonHighlight name={"Ajouter"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

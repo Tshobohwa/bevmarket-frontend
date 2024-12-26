@@ -13,6 +13,7 @@ import { FaPen } from "react-icons/fa";
 import { postEmployee } from "../../redux/slices/employees/employeesActions";
 import { resetHasPostedEmployee } from "../../redux/slices/employees/employeesSlice";
 
+// eslint-disable-next-line react/prop-types
 const NewEmployee = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
@@ -20,12 +21,14 @@ const NewEmployee = ({ closeHandler }) => {
   const [salePointId, setSalePointId] = useState(null);
   const [isSelectingUser, setIsSelectingUser] = useState(false);
   const [currentUnemployedUser, setCurrentUnemployedUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { salePoints } = useSelector((state) => state.myEstablishement);
   const { currentUser } = useSelector((state) => state.user);
   const { hasPostedEmployee } = useSelector((state) => state.employees);
 
   const submitHandler = () => {
+    setIsLoading(true);
     dispatch(
       postEmployee({
         employee: {
@@ -35,12 +38,12 @@ const NewEmployee = ({ closeHandler }) => {
           establishment_id: currentUser.current_establishment_id,
         },
       })
-    );
+    ).then(() => setIsLoading(false));
   };
 
   useEffect(() => {
     dispatch(getSalePoints());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!salePoints[0]) return;
@@ -51,7 +54,7 @@ const NewEmployee = ({ closeHandler }) => {
     if (!hasPostedEmployee) return;
     dispatch(resetHasPostedEmployee());
     closeHandler();
-  }, [hasPostedEmployee]);
+  }, [closeHandler, dispatch, hasPostedEmployee]);
 
   return (
     <PopupContainer>
@@ -120,7 +123,7 @@ const NewEmployee = ({ closeHandler }) => {
         </div>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
           <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
+          <ButtonHighlight name={"ajouter"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>
