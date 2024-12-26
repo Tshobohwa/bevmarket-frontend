@@ -25,7 +25,6 @@ const Starting = () => {
       }
     }, 10000);
 
-    console.log(currentUser);
     return () => clearInterval(interval);
   }, [dispatch, currentUser]);
 

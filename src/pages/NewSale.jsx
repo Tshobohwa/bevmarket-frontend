@@ -75,7 +75,7 @@ const NewSale = () => {
     if (!hasPostedNewSale) return;
     dispatch(resetHasPostedNewSale());
     navigate(-1);
-  }, [hasPostedNewSale]);
+  }, [dispatch, hasPostedNewSale, navigate]);
 
   return (
     <div className="w-full h-full bg-primary-100 min-h-[100vh] min-w-[100vw] flex justify-center pt-[4.5rem]">

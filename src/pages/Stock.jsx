@@ -24,7 +24,7 @@ const Stock = () => {
 
   useEffect(() => {
     dispatch(getStock());
-  }, []);
+  }, [dispatch]);
 
   const openModifyPriceModal = (id) => {
     dispatch(setCurrentStockItem(id));
@@ -63,7 +63,7 @@ const Stock = () => {
         <h1 className="text-2xl font-semibold text-black-900">Stock</h1>
         <div className="flex gap-4 items-center">
           <RoundedInputWithIcon
-            placeholder={"rechercher article"}
+            placeholder={"Rechercher article"}
             icon={<BiSearch size={24} />}
             onChange={(e) => setSearchText(e.target.value.toLowerCase())}
           />
@@ -98,6 +98,7 @@ const Stock = () => {
                 className={`h-[3rem] border border-primary-100 text-black-700 text-lg hover:bg-primary-100 ${
                   index % 2 !== 0 && "bg-primary-100/50"
                 }`}
+                key={index}
               >
                 <td className="pl-4 font-semibold text-black-950">
                   {item.item.name} {item.item.bottles_number} x{" "}

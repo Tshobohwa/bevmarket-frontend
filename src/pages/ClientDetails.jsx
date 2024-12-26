@@ -15,7 +15,7 @@ const ClientDetails = () => {
 
   useEffect(() => {
     if (!URLSearchParams.get("tab")) setURLSearchParams({ tab: "purchases" });
-  }, []);
+  }, [URLSearchParams, setURLSearchParams]);
 
   return (
     <div>

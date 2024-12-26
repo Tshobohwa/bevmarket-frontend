@@ -31,7 +31,7 @@ const Clients = () => {
     dispatch(
       getClients({ establishment_id: currentUser.current_establishment_id })
     );
-  }, []);
+  }, [currentUser.current_establishment_id, dispatch]);
 
   useEffect(() => {
     setFilteredClients(
@@ -81,6 +81,7 @@ const Clients = () => {
                 className={`h-[3rem] border border-primary-200 text-black-700 text-lg hover:bg-primary-100 hover:cursor-pointer ${
                   index % 2 === 0 && "bg-primary-100/25"
                 }`}
+                key={index}
                 onClick={() => goToClientDetails(client.id)}
               >
                 <td className="pl-4">{index + 1}</td>
