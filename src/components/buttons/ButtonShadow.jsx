@@ -1,5 +1,6 @@
 import React from "react";
 
+// eslint-disable-next-line react/prop-types
 const ButtonShadow = ({ name, onClick, height = "h-[3rem]", text = "" }) => {
   return (
     <button
