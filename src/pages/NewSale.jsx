@@ -6,7 +6,7 @@ import CircularButtonWithIcon from "../components/buttons/CircularButtonWithIcon
 import { BiPlus } from "react-icons/bi";
 import SelectClient from "../components/popups/SelectClient";
 import AddItemToSale from "../components/popups/AddItemToSale";
-import { postSale } from "../redux/slices/sales/salesActions";
+// import { postSale } from "../redux/slices/sales/salesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -30,6 +30,7 @@ const NewSale = () => {
   const [client, setClient] = useState(null);
   const [isPaying, setIsPaying] = useState(false);
   const [sale, setSale] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const cancelHandler = () => {
     dispatch(cancelNewSale());
@@ -48,6 +49,7 @@ const NewSale = () => {
   };
 
   const postNewSale = () => {
+
     setSale({
       user_id: 1,
       client_id: newSale.client_id,
@@ -61,8 +63,11 @@ const NewSale = () => {
         };
       }),
     });
+
     setIsPaying(true);
-    // dispatch(postSale(sale));
+    setIsLoading(true);
+    // dispatch(postSale(sale))
+    //    .then(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -128,7 +133,7 @@ const NewSale = () => {
             <tr>
               <th className="text-start pl-2 w-[200px]">Article</th>
               <th className="text-start pl-2">PVU</th>
-              <th className="text-start pl-2">Quantitee</th>
+              <th className="text-start pl-2">Quantitée</th>
               <th className="text-start pl-2">PVT</th>
             </tr>
           </thead>
@@ -154,8 +159,8 @@ const NewSale = () => {
           </div>
         </div>
         <div className="w-full grid grid-cols-2 gap-4 pt-4 border-t border-t-primary-300">
-          <ButtonShadow name={"annuler"} onClick={cancelHandler} />
-          <ButtonHighlight name={"confirmer"} onClick={postNewSale} />
+          <ButtonShadow name={"Annuler"} onClick={cancelHandler} />
+          <ButtonHighlight name={"Confirmer"} onClick={postNewSale} isLoading={isLoading} />
         </div>
       </div>
     </div>

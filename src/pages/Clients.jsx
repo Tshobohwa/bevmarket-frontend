@@ -59,7 +59,7 @@ const Clients = () => {
           />
           <RoundedButton
             onClick={() => setAddingClient(true)}
-            name={"ajouter client"}
+            name={"Ajouter client"}
           />
         </div>
       </header>
