@@ -3,8 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../../api/api";
 import { postEstablishement } from "../myEstablishement/myEstablishementActions";
 import { getUser } from "../users/usersAction";
-
-// import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 
 // Define your token
 const token = localStorage.getItem("token");
@@ -16,10 +15,15 @@ export const signup = createAsyncThunk(
   "users/signup",
   async ({ user }, { rejectWithValue }) => {
     try {
+
       const response = await axios.post(`${BASE_URL}/signup`, {
         user,
       });
-      if (response.status !== 200) throw new Error("Couldn't sign up user");
+
+      if (response.status !== 200) {
+        return rejectWithValue("Impossible d'inscrire l'utilisateur");
+      }
+
       const data = response.data.data;
       localStorage.setItem("currentUser", JSON.stringify(data.current_user));
       localStorage.setItem("token", data.token);
@@ -41,10 +45,14 @@ export const login = createAsyncThunk(
       const response = await axios.post(`${BASE_URL}/login`, {
         user,
       });
+
       if (response.status !== 200)
-        throw new Error(
-          response.data ? response.data : "An error occured please try again!"
+      {
+        return rejectWithValue(
+            response.data ? response.data : "Une erreur est survenue, veuillez réessayer !"
         );
+      }
+
       const data = response.data.status.data;
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
@@ -55,7 +63,7 @@ export const login = createAsyncThunk(
       return response.data.status.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "An Error occured please try again!"
+        error.response?.data || "Une erreur est survenue, veuillez réessayer !"
       );
     }
   }
@@ -69,7 +77,7 @@ export const login = createAsyncThunk(
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 //       if (response.status !== 200 || response.status !== 401)
-//         throw new Error("Couldn't logout");
+//         return rejectWithValue("Couldn't logout");
 //       return true;
 //     } catch (error) {
 //       return rejectWithValue(error);
@@ -105,7 +113,7 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(login.rejected, (state, { payload }) => {
-      //   toast.error(payload);
+      toast.error(payload);
       return { ...state, isPending: false };
     });
     builder.addCase(signup.fulfilled, (state, { payload }) => {

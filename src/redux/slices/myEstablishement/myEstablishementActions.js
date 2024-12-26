@@ -39,7 +39,7 @@ export const postSalePoint = createAsyncThunk(
         truck,
         warehouse,
       });
-      if (response.status !== 201) throw new Error("Couldn't post sale point");
+      if (response.status !== 201) return rejectWithValue("Couldn't post sale point");
       return response.data.data;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -52,7 +52,7 @@ export const getSalePoints = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${SALE_POINT_URL}`);
-      if (response.status !== 200) throw new Error("No response");
+      if (response.status !== 200) return rejectWithValue("No response");
       return response.data.data.sale_points;
     } catch (error) {
       return rejectWithValue(error.message);

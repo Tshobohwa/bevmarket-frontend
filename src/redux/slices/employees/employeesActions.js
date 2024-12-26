@@ -36,7 +36,7 @@ export const postEmployee = createAsyncThunk(
   async ({ employee }, { rejectWithValue }) => {
     try {
       const response = await axios.post(EMPLOYEES_URL, { employee });
-      if (response.status !== 201) throw new Error("couldn't post employee");
+      if (response.status !== 201) return rejectWithValue("couldn't post employee");
       return response.data.data.employee;
     } catch (error) {
       return rejectWithValue(error.message);
