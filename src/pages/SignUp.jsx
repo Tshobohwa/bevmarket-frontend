@@ -8,22 +8,39 @@ import { useDispatch } from "react-redux";
 import { signup } from "../redux/slices/user/userSlice";
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
+import {toast} from "react-toastify";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
 
   const submitHandler = () => {
+
+    if (!name || !email || !password) {
+      toast.warning("Remplisser toute les données");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.warning("Vos deux mot de passe doivent être les mêmes !!");
+      return;
+    }
+
+    setIsLoading(true);
     const user = {
       email,
       password,
       name,
     };
-    dispatch(signup({ user }));
+
+    dispatch(signup({ user }))
+        .then(() => setIsLoading(false));
   };
+
   return (
     <div className="w-full h-[100vh] bg-red-50 flex items-center justify-center">
       <div className="w-[50%] h-full flex flex-col items-center justify-center p-4">
@@ -59,14 +76,15 @@ const SignUp = () => {
             type="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <AuthButton name={"s'enregistrer"} onClick={submitHandler} />
+          <AuthButton name={"s'enregistrer"} onClick={submitHandler} loading={isLoading} />
+
           <div className="flex justify-between w-full">
             <p>Vous avez deja un compte?</p>
             <Link
               className="font-semibold text-red-600 hover:underline"
               to={"/login"}
             >
-              connectez vous ici
+              connectez-vous ici
             </Link>
           </div>
         </div>

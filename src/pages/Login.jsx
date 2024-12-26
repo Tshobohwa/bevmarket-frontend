@@ -7,18 +7,31 @@ import AuthButton from "../components/buttons/AuthButton";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/user/userSlice";
 import { Link } from "react-router-dom";
+import {toast} from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const submitHandler = () => {
+
+    if (!email || !password) {
+      toast.warning("Remplisser toutes les donnees");
+      return;
+    }
+
+    setIsLoading(true);
     const user = {
       email,
       password,
     };
-    dispatch(login({ user }));
+
+    dispatch(login({ user }))
+        .then(() => setIsLoading(false));
   };
+
   return (
     <div className="w-full h-[100vh] bg-red-50 flex items-center justify-center">
       <div className="w-[50%] h-full flex flex-col items-center justify-center p-4">
@@ -40,9 +53,11 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <AuthButton name={"se connecter"} onClick={submitHandler} />
+
+          <AuthButton name={"se connecter"} onClick={submitHandler} loading={isLoading} />
+
           <div className="w-full flex justify-between">
-            <p>Vous n'avez pas de compte?</p>
+            <p>N'avez-vous pas de compte?</p>
             <Link
               className="text-red-600 font-semibold hover:underline"
               to={"/signup"}
