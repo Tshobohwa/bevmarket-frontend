@@ -14,20 +14,20 @@ const Starting = () => {
     navigate("/newestablishment");
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (currentUser) {
-        dispatch(
-          getUser({
-            user_id: currentUser.id,
-          })
-        );
-      }
-    }, 10000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (currentUser) {
+  //       dispatch(
+  //         getUser({
+  //           user_id: currentUser.id,
+  //         })
+  //       );
+  //     }
+  //   }, 10000);
 
-    console.log(currentUser);
-    return () => clearInterval(interval);
-  }, [dispatch, currentUser]);
+  //   console.log(currentUser);
+  //   return () => clearInterval(interval);
+  // }, [dispatch, currentUser]);
 
   return (
     <div className="w-screen h-screen flex items-center justify-center px-[20vw] py-[10vh]">
