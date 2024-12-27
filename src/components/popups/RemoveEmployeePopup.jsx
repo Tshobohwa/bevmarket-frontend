@@ -35,7 +35,7 @@ const RemoveEmployeePopup = ({ closeHandler, employee }) => {
         </div>
         <div className="w-full grid grid-cols-2 gap-4">
           <ButtonShadow name={"Annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"Licencier"} onClick={submitHandler} isloading={isLoading} />
+          <ButtonHighlight name={"Licencier"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>
