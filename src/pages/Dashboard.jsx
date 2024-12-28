@@ -138,7 +138,7 @@ const Dashboard = () => {
                 return (
                   <div className="w-full grid grid-cols-3 my-2">
                     <p className="font-semibold">
-                      {item.name} {item.capacity} Cl x {item.bottles_number}
+                      {item?.name} {item?.capacity} Cl x {item?.bottles_number}
                     </p>
                     <p>{saleItemsTotal.quantity}</p>
                     <p>{saleItemsTotal.price}</p>
