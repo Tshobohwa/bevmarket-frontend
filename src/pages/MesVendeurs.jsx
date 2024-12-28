@@ -11,6 +11,7 @@ import ButtonShadow from "../components/buttons/ButtonShadow";
 import UpdateEmployeePopup from "../components/popups/UpdateEmployeePopup";
 import RemoveEmployeePopup from "../components/popups/RemoveEmployeePopup";
 
+// eslint-disable-next-line react/prop-types
 const EmployeeRow = ({ employee, index }) => {
   const [isUpdatingEmployee, setIsUpdatingEmployee] = useState(false);
   const [isRemovingEmployee, setIsRemovingEmployee] = useState(false);
@@ -23,7 +24,9 @@ const EmployeeRow = ({ employee, index }) => {
       <td className="pl-4">{index + 1}</td>
       <td className="pl-4">
         <div className="text-black-950">
+          {/* eslint-disable-next-line react/prop-types */}
           <p>{employee.user.name}</p>
+          {/* eslint-disable-next-line react/prop-types */}
           <p className=" text-sm text-secondary-700">{employee.user.email}</p>
         </div>
       </td>
@@ -40,21 +43,28 @@ const EmployeeRow = ({ employee, index }) => {
           employee={employee}
         />
       )}
+      {/* eslint-disable-next-line react/prop-types */}
       <td className="pl-4">{employee.role}</td>
       <td className="pl-4">
+        {/* eslint-disable-next-line react/prop-types */}
         {employee.sale_point.sale_point_type === "warehouse" && (
           <div className="flex flex-col">
+            {/* eslint-disable-next-line react/prop-types */}
             <p>{employee.sale_point.warehouse.name}</p>
 
             <p className="text-sm text-secondary-700">
+              {/* eslint-disable-next-line react/prop-types */}
               {employee.sale_point.warehouse.location}
             </p>
           </div>
         )}
+        {/* eslint-disable-next-line react/prop-types */}
         {employee.sale_point.sale_point_type === "truck" && (
           <div className="flex flex-col">
+            {/* eslint-disable-next-line react/prop-types */}
             <p>{employee.sale_point.truck.matricule}</p>
             <p className="text-sm text-secondary-700">
+              {/* eslint-disable-next-line react/prop-types */}
               {employee.sale_point.truck.marque}
             </p>
           </div>
@@ -90,7 +100,7 @@ const MesVendeurs = () => {
 
   useEffect(() => {
     dispatch(getEmployees());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setFilteredEmployees(

@@ -1,5 +1,6 @@
 import React from "react";
 
+// eslint-disable-next-line react/prop-types
 const CircularButtonWithIcon = ({ onClick, icon }) => {
   return (
     <button

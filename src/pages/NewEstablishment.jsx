@@ -3,6 +3,7 @@ import InputWithLabel from "../components/Inputs/InputWithLabel";
 import ButtonHighlight from "../components/buttons/ButtonHighlight";
 import { useDispatch, useSelector } from "react-redux";
 import { postEstablishement } from "../redux/slices/myEstablishement/myEstablishementActions";
+import {toast} from "react-toastify";
 
 const NewEstablishment = () => {
   const dispatch = useDispatch();
@@ -11,9 +12,15 @@ const NewEstablishment = () => {
   const [name, setName] = useState("");
   const [salePointName, setSalePointName] = useState("");
   const [salePointAddress, setSalePointAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = () => {
-    if (!name) return;
+    if (!name) {
+      toast.warning("Vous devez donner un nom");
+      return;
+    }
+
+    setIsLoading(true);
     const establishment = {
       name,
       created_by: currentUser.id,
@@ -24,7 +31,8 @@ const NewEstablishment = () => {
       location: salePointAddress,
     };
 
-    dispatch(postEstablishement({ establishment, warehouse }));
+    dispatch(postEstablishement({ establishment, warehouse }))
+        .then(() => setIsLoading(false));
   };
 
   return (
@@ -61,8 +69,9 @@ const NewEstablishment = () => {
             value={salePointAddress}
           />
           <ButtonHighlight
-            name={"creer l'etablissement"}
+            name={"Creer l'etablissement"}
             onClick={submitHandler}
+            isLoading={isLoading}
           />
         </div>
       </div>

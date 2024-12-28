@@ -1,12 +1,8 @@
 import React from "react";
+import {ClipLoader} from "react-spinners";
 
-const ButtonHighlight = ({
-  name,
-  onClick,
-  isActive = true,
-  text = "1rem",
-  height = "h-[3rem]",
-}) => {
+// eslint-disable-next-line react/prop-types
+const ButtonHighlight = ({name, onClick, isActive = true, text = "1rem", height = "h-[3rem]", isLoading = false}) => {
   return (
     <button
       className={`${height} w-full text-${text} font-poppins rounded-lg hover:bg-primary-800 text-white ${
@@ -14,7 +10,7 @@ const ButtonHighlight = ({
       }`}
       onClick={onClick}
     >
-      {name}
+      {isLoading ? (<ClipLoader size={25} color={"#fff"} />) : name}
     </button>
   );
 };

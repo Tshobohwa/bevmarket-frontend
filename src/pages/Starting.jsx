@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthButton from "../components/buttons/AuthButton";
 import { useNavigate } from "react-router-dom";
@@ -6,12 +6,15 @@ import { getUser } from "../redux/slices/users/usersAction";
 
 const Starting = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
   const goToNewEstablishment = () => {
+    setIsLoading(true);
     navigate("/newestablishment");
+    setIsLoading(false);
   };
 
   // useEffect(() => {
@@ -24,10 +27,6 @@ const Starting = () => {
   //       );
   //     }
   //   }, 10000);
-
-  //   console.log(currentUser);
-  //   return () => clearInterval(interval);
-  // }, [dispatch, currentUser]);
 
   return (
     <div className="w-screen h-screen flex items-center justify-center px-[20vw] py-[10vh]">
@@ -52,6 +51,7 @@ const Starting = () => {
           <div></div>
           <AuthButton
             name={"Creer un etablissement"}
+            loading={isLoading}
             onClick={goToNewEstablishment}
           />
         </div>

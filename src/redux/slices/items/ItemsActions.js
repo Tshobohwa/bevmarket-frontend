@@ -9,7 +9,10 @@ export const getItems = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(ITEMS_URL);
-      if (response.status !== 200) throw new Error("Couldn't get items");
+      if (response.status !== 200) {
+          return rejectWithValue("Impossible d'obtenir les articles");
+      }
+      
       return response.data.data.items;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -22,7 +25,11 @@ export const postItem = createAsyncThunk(
   async ({ item, stock_item }, { rejectWithValue }) => {
     try {
       const response = await axios.post(ITEMS_URL, { item, stock_item });
-      if (response.status !== 201) throw new Error("Couldn't post item");
+
+      if (response.status !== 201)  {
+          return rejectWithValue("Impossible de publier l'article");
+      }
+
       return response.data.data;
     } catch (err) {
       return rejectWithValue(err.message);

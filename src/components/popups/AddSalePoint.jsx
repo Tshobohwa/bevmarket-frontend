@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postSalePoint } from "../../redux/slices/myEstablishement/myEstablishementActions";
 import { resetHasPostedSalePoint } from "../../redux/slices/myEstablishement/myEstablishementSlice";
 
+// eslint-disable-next-line react/prop-types
 const AddSalePoint = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
@@ -16,8 +17,10 @@ const AddSalePoint = ({ closeHandler }) => {
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = () => {
+    setIsLoading(true);
     dispatch(
       postSalePoint({
         sale_point: {
@@ -26,14 +29,14 @@ const AddSalePoint = ({ closeHandler }) => {
         },
         warehouse: { name, location },
       })
-    );
+    ).then(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!hasPostedSalePoint) return;
     dispatch(resetHasPostedSalePoint());
     closeHandler();
-  }, [hasPostedSalePoint]);
+  }, [closeHandler, dispatch, hasPostedSalePoint]);
   return (
     <PopupContainer>
       <div className="w-[30rem] p-4 bg-white flex flex-col gap-4 rounded-md">
@@ -57,7 +60,7 @@ const AddSalePoint = ({ closeHandler }) => {
         />
         <div className="grid grid-cols-2 gap-4">
           <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
+          <ButtonHighlight name={"Ajouter"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

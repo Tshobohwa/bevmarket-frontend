@@ -78,7 +78,7 @@ const Dashboard = () => {
             from={from}
             to={to}
           />
-          <RoundedButton name={"Rafraichir"} />
+          <RoundedButton name={"Rafraîchir"} />
         </div>
       </header>
       <section className="w-full grid grid-cols-3 my-4 gap-4">
