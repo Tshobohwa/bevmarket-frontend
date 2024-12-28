@@ -8,11 +8,13 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/user/userSlice";
 import { RxDashboard } from "react-icons/rx";
 
+// eslint-disable-next-line react/prop-types
 const Sidebar = ({ children }) => {
   const dispatch = useDispatch();
   const logoutHandler = () => {
     dispatch(logout());
   };
+
   return (
     <div className="w-full h-full">
       <div className="w-full h-full pl-[260px] p-4 pt-[4rem]">
@@ -81,6 +83,8 @@ const Sidebar = ({ children }) => {
             </li>
           </ul>
         </nav>
+
+        {/* Child components */}
         {children}
       </div>
     </div>

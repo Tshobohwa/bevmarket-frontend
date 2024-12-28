@@ -13,6 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import { getSalePoint } from "../../redux/slices/salePoints/salePointsActions";
 
+// eslint-disable-next-line react/prop-types
 const SalepointDetailsSideBar = ({ salePointId }) => {
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ const SalepointDetailsSideBar = ({ salePointId }) => {
 
   useEffect(() => {
     dispatch(getSalePoint({ salePointId }));
-  }, []);
+  }, [dispatch, salePointId]);
 
   return (
     <div className="fixed top-0 left-0 bottom-0 w-[270px] bg-white p-4">

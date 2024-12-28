@@ -17,7 +17,7 @@ const Dashboard = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const [saleItems, setSaleItems] = useState([]);
-  const [saleItemsTotal, setsaleItemsTotal] = useState([]);
+  const [saleItemsTotal, setSaleItemsTotal] = useState([]);
 
   const [quantity, setQuantity] = useState(0);
   const [totalSales, setTotalSales] = useState(0);
@@ -26,7 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getSales({ from, to, date }));
     dispatch(getExpenses({ from, to, date }));
-  }, [date, from, to]);
+  }, [date, dispatch, from, to]);
 
   useEffect(() => {
     const saleItems = [];
@@ -65,8 +65,7 @@ const Dashboard = () => {
   }, [expenses]);
 
   useEffect(() => {
-    setsaleItemsTotal(saleItems);
-    console.log(saleItems);
+    setSaleItemsTotal(saleItems);
   }, [saleItems]);
 
   return (
@@ -133,10 +132,10 @@ const Dashboard = () => {
                 <p>Quantitee</p>
                 <p>Prix Total</p>
               </div>
-              {saleItemsTotal.map((saleItemsTotal) => {
+              {saleItemsTotal.map((saleItemsTotal, index) => {
                 const item = saleItemsTotal.stock_item.item;
                 return (
-                  <div className="w-full grid grid-cols-3 my-2">
+                  <div className="w-full grid grid-cols-3 my-2" key={index}>
                     <p className="font-semibold">
                       {item.name} {item.capacity} Cl x {item.bottles_number}
                     </p>
