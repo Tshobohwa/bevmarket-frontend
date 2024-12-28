@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getStock } from "../../redux/slices/stock/stockActions";
 import SaleItemQuantityForm from "./SaleItemQuantityForm";
 
+// eslint-disable-next-line react/prop-types
 const AddItemToSale = ({ closeHandler }) => {
   const dispatch = useDispatch();
 
@@ -14,7 +15,7 @@ const AddItemToSale = ({ closeHandler }) => {
 
   const [currentItem, setCurrentItem] = useState(null);
 
-  const [isWrittingQuantity, setIsWrittingQuantity] = useState(false);
+  const [isWritingQuantity, setIsWritingQuantity] = useState(false);
 
   const [searchText, setSearchText] = useState("");
 
@@ -23,12 +24,12 @@ const AddItemToSale = ({ closeHandler }) => {
 
   const itemClickHandler = (item) => {
     setCurrentItem(item);
-    setIsWrittingQuantity(true);
+    setIsWritingQuantity(true);
   };
 
   useEffect(() => {
     dispatch(getStock());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setFilteredStock(
@@ -44,14 +45,15 @@ const AddItemToSale = ({ closeHandler }) => {
         )
     );
   }, [stock, newSale.items, searchText]);
+  
   return (
     <PopupContainer>
       <div className="bg-white w-[650px] flex flex-col gap-4 relative">
-        {isWrittingQuantity && (
+        {isWritingQuantity && (
           <SaleItemQuantityForm
             currentItem={currentItem}
             closeHandler={closeHandler}
-            cancelHandler={() => setIsWrittingQuantity(false)}
+            cancelHandler={() => setIsWritingQuantity(false)}
           />
         )}
         <div className="flex w-full justify-end  p-4">

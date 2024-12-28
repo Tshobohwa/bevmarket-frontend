@@ -15,7 +15,7 @@ const EmployedRoutes = () => {
         user_id: currentUser.id,
       })
     );
-  }, [currentUser]);
+  }, [currentUser, dispatch]);
 
   return currentUser.is_employed ? <Outlet /> : <Navigate to="/starting" />;
 };

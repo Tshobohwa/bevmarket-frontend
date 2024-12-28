@@ -19,7 +19,7 @@ const SaleItemQuantityForm = ({ currentItem, closeHandler, cancelHandler }) => {
       return;
     }
 
-    setIsLoading(true);
+    // setIsLoading(true);
     dispatch(
       addItemToNewSale({
         // eslint-disable-next-line react/prop-types
@@ -28,7 +28,7 @@ const SaleItemQuantityForm = ({ currentItem, closeHandler, cancelHandler }) => {
         unit_sale_price: currentItem.unit_sale_price,
         quantity: saleQuantity,
       })
-    ).then(() => setIsLoading(false));
+    )
     closeHandler();
   };
 

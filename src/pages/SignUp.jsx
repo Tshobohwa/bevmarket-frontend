@@ -76,7 +76,7 @@ const SignUp = () => {
             type="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <AuthButton name={"s'enregistrer"} onClick={submitHandler} loading={isLoading} />
+          <AuthButton name={"S'enregistrer"} onClick={submitHandler} loading={isLoading} />
 
           <div className="flex justify-between w-full">
             <p>Vous avez deja un compte?</p>

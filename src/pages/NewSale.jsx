@@ -50,6 +50,7 @@ const NewSale = () => {
 
   const postNewSale = () => {
 
+    setIsLoading(true);
     setSale({
       user_id: 1,
       client_id: newSale.client_id,
@@ -64,8 +65,8 @@ const NewSale = () => {
       }),
     });
 
+    setIsLoading(false);
     setIsPaying(true);
-    setIsLoading(true);
     // dispatch(postSale(sale))
     //    .then(() => setIsLoading(false));
   };
