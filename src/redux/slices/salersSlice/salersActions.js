@@ -11,7 +11,7 @@ export const getUnemployedUsers = createAsyncThunk(
       const response = await axios.get(UNEMPLOYED_USERS_URL);
 
       if (response.status !== 200)
-        throw new Error("Couldn't get unemployed users");
+        return rejectWithValue("Couldn't get unemployed users");
 
       return response.data.data.unemployed_users;
     } catch (error) {

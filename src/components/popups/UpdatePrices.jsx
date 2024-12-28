@@ -7,7 +7,9 @@ import { IoClose } from "react-icons/io5";
 import InputWithLabel from "../Inputs/InputWithLabel";
 import { updateStockItemPrice } from "../../redux/slices/stock/stockActions";
 import { resetHasUpdatedPrice } from "../../redux/slices/stock/stockSlice";
+import {toast} from "react-toastify";
 
+// eslint-disable-next-line react/prop-types
 const UpdatePrices = ({ closeHandler }) => {
   const dispatch = useDispatch();
   const { currentStockItem, hasUpdatedPrice } = useSelector(
@@ -21,25 +23,31 @@ const UpdatePrices = ({ closeHandler }) => {
   const [reductionSalePrice, setReductionSalePrice] = useState(
     currentStockItem.reduction_sale_price
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = () => {
     setError("");
     if (unitSalePrice < 1 || reductionSalePrice < 1) {
+      toast.error("Entrez des prix valides superieur a zero!")
       setError("Entrez des prix valides superieur a zero!");
       return;
     }
+
+    setIsLoading(true);
     const stock_item = {
       reduction_sale_price: reductionSalePrice,
       unit_sale_price: unitSalePrice,
     };
-    dispatch(updateStockItemPrice({ id: currentStockItem.id, stock_item }));
+
+    dispatch(updateStockItemPrice({ id: currentStockItem.id, stock_item }))
+        .then(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!hasUpdatedPrice) return;
     dispatch(resetHasUpdatedPrice());
     closeHandler();
-  });
+  }, [closeHandler, dispatch, hasUpdatedPrice]);
 
   return (
     <PopupContainer>
@@ -73,8 +81,8 @@ const UpdatePrices = ({ closeHandler }) => {
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
-          <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"confirmer"} onClick={submitHandler} />
+          <ButtonShadow name={"Annuler"} onClick={closeHandler} />
+          <ButtonHighlight name={"Confirmer"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

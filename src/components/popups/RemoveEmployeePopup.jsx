@@ -4,8 +4,17 @@ import ButtonShadow from "../buttons/ButtonShadow";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import { IoClose } from "react-icons/io5";
 
+// eslint-disable-next-line react/prop-types
 const RemoveEmployeePopup = ({ closeHandler, employee }) => {
-  const submitHandler = () => {};
+  // TODO: @Salomon
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const submitHandler = () => {
+    setIsLoading(true);
+    // dispatch(...).then(() => setIsLoading(false));
+    setIsLoading(false);
+  };
+
   return (
     <PopupContainer>
       <div className="w-[500px] rounded-lg bg-white p-4 flex flex-col gap-4">
@@ -18,6 +27,7 @@ const RemoveEmployeePopup = ({ closeHandler, employee }) => {
         <div>
           <p className="text-sm">
             Voulez vous licencier le vendeur{" "}
+            {/* eslint-disable-next-line react/prop-types */}
             <span className="font-semibold">{employee.user.name}</span> ? il ne
             sera plus a mesurer d'effectuer des ventes ou toute autre operation
             pour votre etablissement.
@@ -25,7 +35,7 @@ const RemoveEmployeePopup = ({ closeHandler, employee }) => {
         </div>
         <div className="w-full grid grid-cols-2 gap-4">
           <ButtonShadow name={"Annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"Licencier"} onClick={submitHandler} />
+          <ButtonHighlight name={"Licencier"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

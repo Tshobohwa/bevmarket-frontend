@@ -9,7 +9,7 @@ export const getStock = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(STOCK_URL);
-      if (response.status !== 200) throw new Error("No response");
+      if (response.status !== 200) return rejectWithValue("No response");
       return response.data.data.stock_items;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -26,7 +26,7 @@ export const updateStockItemPrice = createAsyncThunk(
         { stock_item }
       );
       if (response.status !== 200)
-        throw new Error("Couldn't udpate stock item");
+        return rejectWithValue("Couldn't udpate stock item");
       return response.data.data.stock_item;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -43,7 +43,7 @@ export const addQuantityToStockItem = createAsyncThunk(
         { stock_item }
       );
       if (response.status !== 200)
-        throw new Error("Couldn't update stock item");
+        return rejectWithValue("Couldn't update stock item");
 
       return response.data.data.stock_item;
     } catch (err) {
@@ -58,7 +58,7 @@ export const postStockItem = createAsyncThunk(
     try {
       const response = await axios.post(STOCK_URL, { stockItem });
       if (response.data?.status !== 201)
-        throw new Error("Couldn't post stock item");
+        return rejectWithValue("Couldn't post stock item");
       return response.data.data.stockItem;
     } catch (err) {
       return rejectWithValue(err.message);

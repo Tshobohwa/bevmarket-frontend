@@ -47,7 +47,7 @@ const clientsSlice = createSlice({
       return { ...state, isUpdatingClient: true };
     });
     builder.addCase(updateClient.fulfilled, (state, { payload }) => {
-      toast.success("Client modifie avec success !");
+      toast.success("Client modifié avec success !");
       return {
         ...state,
         isUpdatingClient: false,

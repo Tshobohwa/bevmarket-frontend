@@ -20,7 +20,7 @@ const MyEstablishement = () => {
 
   useEffect(() => {
     dispatch(getSalePoints());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setWarehouses(
@@ -31,7 +31,7 @@ const MyEstablishement = () => {
     setTrucks(
       salePoints.filter((salePoint) => salePoint.sale_point_type === "truck")
     );
-  }, [salePoints.length]);
+  }, [salePoints, salePoints.length]);
 
   return (
     <Sidebar>

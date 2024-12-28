@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/navigation/Sidebar";
 import RoundedButton from "../components/buttons/RoundedButton";
@@ -19,12 +20,12 @@ const Depenses = () => {
   useEffect(() => {
     if (!from || !to) return;
     dispatch(getExpenses({ from, to, date: null }));
-  }, [from, to]);
+  }, [dispatch, from, to]);
 
   useEffect(() => {
     if (!date) return;
     dispatch(getExpenses({ date, from: null, to: null }));
-  }, [date]);
+  }, [date, dispatch]);
 
   return (
     <Sidebar>
@@ -43,7 +44,7 @@ const Depenses = () => {
             to={to}
           />
           <RoundedButton
-            name={"nouvelle depense"}
+            name={"Nouvelle depense"}
             onClick={() => setIsAddingExpense(true)}
           />
         </div>

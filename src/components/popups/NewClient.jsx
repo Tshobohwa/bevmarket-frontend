@@ -7,37 +7,45 @@ import ButtonShadow from "../buttons/ButtonShadow";
 import { useDispatch, useSelector } from "react-redux";
 import { postClient } from "../../redux/slices/clients/clientsActions";
 import { resetClientPosted } from "../../redux/slices/clients/clientsSlice";
+import {toast} from "react-toastify";
 
+// eslint-disable-next-line react/prop-types
 const NewClient = ({ closeHandler }) => {
   const dispatch = useDispatch();
   const [names, setNames] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [is_partener, setIsPartener] = useState(false); // New state for 'partenaire'
+  const [isPartner, setIsPartner] = useState(false); // New state for 'partenaire'
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { clientPosted } = useSelector((state) => state.clients);
   const { currentUser } = useSelector((state) => state.user);
 
   const submitHandler = () => {
     setError("");
-    if (names === "" || phoneNumber === "") {
-      setError("Entrer le nom et le numero de telephone svp");
+    if (!names || !phoneNumber) {
+      toast.warning("Entrer le nom et le numéro de telephone");
+      setError("Entrer le nom et le numero de telephone");
       return;
     }
+
+    setIsLoading(true);
     const client = {
       name: names,
       phone_number: phoneNumber,
-      is_partener: is_partener, // Include 'is_partener' in the client object
+      is_partener: isPartner, // Include 'is_partner' in the client object
       establishment_id: currentUser.current_establishment_id,
     };
-    dispatch(postClient({ client }));
+
+    dispatch(postClient({ client }))
+        .then(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!clientPosted) return;
     dispatch(resetClientPosted());
     closeHandler();
-  }, [clientPosted]);
+  }, [clientPosted, closeHandler, dispatch]);
 
   return (
     <PopupContainer>
@@ -67,8 +75,8 @@ const NewClient = ({ closeHandler }) => {
             <label className="flex items-center gap-2 text-gray-700">
               <input
                 type="checkbox"
-                checked={is_partener}
-                onChange={(e) => setIsPartener(e.target.checked)}
+                checked={isPartner}
+                onChange={(e) => setIsPartner(e.target.checked)}
                 className="form-checkbox h-5 w-5 text-primary-600 rounded border-gray-300 focus:ring-primary-500 checked:bg-primary-700"
               />
               <span className="text-black-800">Partenaire</span>
@@ -77,8 +85,8 @@ const NewClient = ({ closeHandler }) => {
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
-          <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
+          <ButtonShadow name={"Annuler"} onClick={closeHandler} />
+          <ButtonHighlight name={"Ajouter"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

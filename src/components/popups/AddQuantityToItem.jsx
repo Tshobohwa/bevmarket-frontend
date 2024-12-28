@@ -8,11 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addQuantityToStockItem } from "../../redux/slices/stock/stockActions";
 import { resetHasAddedQuantityToStock } from "../../redux/slices/stock/stockSlice";
 
+// eslint-disable-next-line react/prop-types
 const AddQuantityToItem = ({ closeHandler }) => {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [unitBuyPrice, setUnitBuyPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { currentStockItem, hasAddedQuantityToStock } = useSelector(
     (state) => state.stock
@@ -20,11 +22,15 @@ const AddQuantityToItem = ({ closeHandler }) => {
 
   const submitHandler = () => {
     setError("");
+
+    setIsLoading(true);
     const stock_item = {
       unit_buy_price: unitBuyPrice,
       quantity,
     };
-    dispatch(addQuantityToStockItem({ id: currentStockItem.id, stock_item }));
+
+    dispatch(addQuantityToStockItem({ id: currentStockItem.id, stock_item }))
+        .then(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -63,7 +69,7 @@ const AddQuantityToItem = ({ closeHandler }) => {
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
           <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
+          <ButtonHighlight name={"Ajouter"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

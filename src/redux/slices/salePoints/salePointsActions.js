@@ -10,7 +10,7 @@ export const getSalePoint = createAsyncThunk(
     try {
       const response = await axios.get(`${SALE_POINTS_URL}/${salePointId}`);
 
-      if (response.status !== 200) throw new Error("Couldn't get salePoint");
+      if (response.status !== 200) return rejectWithValue("Couldn't get salePoint");
 
       return response.data.data.sale_point;
     } catch (error) {
