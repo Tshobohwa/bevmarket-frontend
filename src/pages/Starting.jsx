@@ -17,19 +17,16 @@ const Starting = () => {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (currentUser) {
-        dispatch(
-          getUser({
-            user_id: currentUser.id,
-          })
-        );
-      }
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [dispatch, currentUser]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (currentUser) {
+  //       dispatch(
+  //         getUser({
+  //           user_id: currentUser.id,
+  //         })
+  //       );
+  //     }
+  //   }, 10000);
 
   return (
     <div className="w-screen h-screen flex items-center justify-center px-[20vw] py-[10vh]">
