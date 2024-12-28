@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const [saleItems, setSaleItems] = useState([]);
+  const [saleItemsTotal, setsaleItemsTotal] = useState([]);
 
   const [quantity, setQuantity] = useState(0);
   const [totalSales, setTotalSales] = useState(0);
@@ -63,6 +64,11 @@ const Dashboard = () => {
     setTotalExpenses(totalExpenses);
   }, [expenses]);
 
+  useEffect(() => {
+    setsaleItemsTotal(saleItems);
+    console.log(saleItems);
+  }, [saleItems]);
+
   return (
     <Sidebar>
       <header className="h-[3.4rem] fixed top-0 left-[240px] right-0 bg-white flex items-center justify-between px-6">
@@ -105,7 +111,7 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      <section className="w-full p-4 bg-white rounded-lg border border-secondary-300 my-4">
+      {/* <section className="w-full p-4 bg-white rounded-lg border border-secondary-300 my-4">
         <div className="flex gap-8">
           <div className="flex gap-1 items-center">
             <div className="w-4 h-4 rounded-full bg-primary-900"></div>
@@ -114,44 +120,36 @@ const Dashboard = () => {
           <div className="flex gap-1 items-center">
             <div className="w-4 h-4 rounded-full bg-black-900"></div>
             <p>Depenses</p>
-          </div>
+          </div>a
         </div>
-      </section>
+      </section> */}
       <section className="w-full grid grid-cols-2fr-1fr gap-4">
         <div className="w-full p-4 rounded-[1.5rem] bg-white border border-primary-200">
           <h2 className="font-semibold">Articles vendus</h2>
           <div className="flex flex-col items-center">
-            <div className="w-[75%]">
-              <div className="w-full grid grid-cols-3 my-2">
+            <div className="w-[85%]">
+              <div className="w-full grid grid-cols-3 my-2 gap-2">
                 <p className="font-semibold">Article</p>
                 <p>Quantitee</p>
                 <p>Prix Total</p>
               </div>
-              <div className="w-full grid grid-cols-3 my-2">
-                <p className="font-semibold">Coca cola 33 x 24 Cl</p>
-                <p>40</p>
-                <p>1 200 000 Fc</p>
-              </div>
-              <div className="w-full grid grid-cols-3 my-2">
-                <p className="font-semibold">Coca cola 33 x 24 Cl</p>
-                <p>40</p>
-                <p>1 200 000 Fc</p>
-              </div>
-              <div className="w-full grid grid-cols-3 my-2">
-                <p className="font-semibold">Coca cola 33 x 24 Cl</p>
-                <p>40</p>
-                <p>1 200 000 Fc</p>
-              </div>
-              <div className="w-full grid grid-cols-3 my-2">
-                <p className="font-semibold">Coca cola 33 x 24 Cl</p>
-                <p>40</p>
-                <p>1 200 000 Fc</p>
-              </div>
+              {saleItemsTotal.map((saleItemsTotal) => {
+                const item = saleItemsTotal.stock_item.item;
+                return (
+                  <div className="w-full grid grid-cols-3 my-2">
+                    <p className="font-semibold">
+                      {item.name} {item.capacity} Cl x {item.bottles_number}
+                    </p>
+                    <p>{saleItemsTotal.quantity}</p>
+                    <p>{saleItemsTotal.price}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="w-full mt-4 flex items-end flex-col">
-            <p>Nombre total des caisses: 500</p>
-            <p>Montant Total: 18 000 000 Fc</p>
+            <p>Nombre total des caisses: {quantity}</p>
+            <p>Montant Total: {totalSales} Fc</p>
           </div>
         </div>
         <div className="w-full p-4 rounded-[1.5rem] bg-white border border-primary-200">

@@ -9,8 +9,11 @@ import { getUser } from "../users/usersAction";
 // Define your token
 const token = localStorage.getItem("token");
 
-// Set the Authorization header globally
-axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+if (token) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+} else {
+  delete axios.defaults.headers.common["Authorization"];
+}
 
 export const signup = createAsyncThunk(
   "users/signup",
@@ -105,7 +108,6 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(login.rejected, (state, { payload }) => {
-      //   toast.error(payload);
       return { ...state, isPending: false };
     });
     builder.addCase(signup.fulfilled, (state, { payload }) => {
@@ -127,7 +129,8 @@ const userSlice = createSlice({
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       if (state.currentUser.id !== payload.user.id) return;
-      localStorage.setItem("currentUser", JSON.stringify(payload.user));      return { ...state, currentUser: payload.currentUser };
+      localStorage.setItem("currentUser", JSON.stringify(payload.user));
+      return { ...state, currentUser: payload.currentUser };
     });
   },
 });
