@@ -7,13 +7,17 @@ import ButtonHighlight from "../buttons/ButtonHighlight";
 import SelectWithLabel from "../selects/SelectWithLabel";
 import { getSalePoints } from "../../redux/slices/myEstablishement/myEstablishementActions";
 
+// eslint-disable-next-line react/prop-types
 const UpdateEmployeePopup = ({ closeHandler, employee }) => {
   const dispatch = useDispatch();
 
   const { salePoints } = useSelector((state) => state.myEstablishement);
 
+  // eslint-disable-next-line react/prop-types
   const [role, setRole] = useState(employee.role);
+  // eslint-disable-next-line react/prop-types
   const [salePointId, setSalePointId] = useState(employee.sale_point_id);
+  const [isLoading, setIsLoading] = useState(false);
 
   const roleOptions = [
     { name: "Administrateur", value: "admin" },
@@ -22,9 +26,13 @@ const UpdateEmployeePopup = ({ closeHandler, employee }) => {
 
   useEffect(() => {
     dispatch(getSalePoints());
-  }, []);
+  }, [dispatch]);
 
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    setIsLoading(true);
+    // dispatch(...).then(() => setIsLoading(true));
+    setIsLoading(false);
+  };
 
   return (
     <PopupContainer>
@@ -40,7 +48,9 @@ const UpdateEmployeePopup = ({ closeHandler, employee }) => {
         </div>
         <div className="w-full flex flex-col gap-4 py-4">
           <div>
+            {/* eslint-disable-next-line react/prop-types */}
             <p className="font-semibold">{employee.user.name}</p>
+            {/* eslint-disable-next-line react/prop-types */}
             <p className="text-secondary-700 text-sm">{employee.user.email}</p>
           </div>
           <SelectWithLabel
@@ -65,8 +75,8 @@ const UpdateEmployeePopup = ({ closeHandler, employee }) => {
           />
         </div>
         <div className="w-full grid grid-cols-2 gap-4">
-          <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"confirmer"} onClick={submitHandler} />
+          <ButtonShadow name={"Annuler"} onClick={closeHandler} />
+          <ButtonHighlight name={"Confirmer"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

@@ -25,12 +25,12 @@ const Ventes = () => {
   useEffect(() => {
     dispatch(getSales({ date }));
     dispatch(getStock());
-  }, [date]);
+  }, [date, dispatch]);
 
   useEffect(() => {
     dispatch(getSales({ from, to }));
     dispatch(getStock());
-  }, [from, to]);
+  }, [dispatch, from, to]);
 
   return (
     <Sidebar>
@@ -49,8 +49,8 @@ const Ventes = () => {
         </div>
       </header>
       <section className=" grid grid-cols-2 gap-4 mt-4">
-        {sales.map((sale) => (
-          <SaleReceipt sale={sale} />
+        {sales.map((sale, index) => (
+          <SaleReceipt sale={sale} key={index} />
         ))}
       </section>
     </Sidebar>

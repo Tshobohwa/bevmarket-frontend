@@ -8,13 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetHasPostedSalePoint } from "../../redux/slices/myEstablishement/myEstablishementSlice";
 import { postSalePoint } from "../../redux/slices/myEstablishement/myEstablishementActions";
 
+// eslint-disable-next-line react/prop-types
 const NewTruck = ({ closeHandler }) => {
   const { hasPostedSalePoint } = useSelector((state) => state.myEstablishement);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [matricule, setMatricule] = useState("");
   const [marque, setMarque] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const submitHandler = () => {
+    setIsLoading(true);
     dispatch(
       postSalePoint({
         sale_point: {
@@ -26,14 +30,15 @@ const NewTruck = ({ closeHandler }) => {
           marque,
         },
       })
-    );
+    ).then(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!hasPostedSalePoint) return;
     dispatch(resetHasPostedSalePoint());
     closeHandler();
-  }, [hasPostedSalePoint]);
+  }, [closeHandler, dispatch, hasPostedSalePoint]);
+
   return (
     <PopupContainer>
       <div className="w-[30rem] p-4 bg-white flex flex-col gap-4 rounded-md">
@@ -54,8 +59,8 @@ const NewTruck = ({ closeHandler }) => {
           onChange={(e) => setMarque(e.target.value)}
         />
         <div className="grid grid-cols-2 gap-4">
-          <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"ajouter"} onClick={submitHandler} />
+          <ButtonShadow name={"Annuler"} onClick={closeHandler} />
+          <ButtonHighlight name={"Ajouter"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

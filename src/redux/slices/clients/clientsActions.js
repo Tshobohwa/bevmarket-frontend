@@ -23,7 +23,7 @@ export const getClient = createAsyncThunk(
   async ({ id }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${CLIENTS_URL}/${id}`);
-      if (response.status !== 200) throw new Error("Couldn't get client");
+      if (response.status !== 200) return rejectWithValue("Couldn't get client");
       return response.data.data.client;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -36,7 +36,7 @@ export const postClient = createAsyncThunk(
   async ({ client }, { rejectWithValue }) => {
     try {
       const response = await axios.post(CLIENTS_URL, { client });
-      if (response.status !== 201) throw new Error("Couldn't create client");
+      if (response.status !== 201) return rejectWithValue("Couldn't create client");
       return response.data.data.client;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -51,7 +51,7 @@ export const updateClient = createAsyncThunk(
       const response = await axios.patch(`${CLIENTS_URL}/${clientId}`, {
         client,
       });
-      if (response.status !== 200) throw new Error("Couldn't update client");
+      if (response.status !== 200) return rejectWithValue("Couldn't update client");
       return response.data.data.client;
     } catch (error) {
       return rejectWithValue(error.message);

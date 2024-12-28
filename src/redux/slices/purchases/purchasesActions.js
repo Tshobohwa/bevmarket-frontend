@@ -11,7 +11,7 @@ export const getPurchases = createAsyncThunk(
       const response = await axios.get(
         `${PURCHASES_URL}?client_id=${clientId}&from=${from}&to=${to}`
       );
-      if (response.status !== 200) throw new Error("Couldn't get purchases");
+      if (response.status !== 200) return rejectWithValue("Couldn't get purchases");
       return response.data.data.purchases;
     } catch (error) {
       return rejectWithValue(error.message);

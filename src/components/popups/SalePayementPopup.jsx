@@ -7,19 +7,27 @@ import InputWithLabel from "../Inputs/InputWithLabel";
 import formatNumber from "../../utils/formatNumber";
 import { useDispatch } from "react-redux";
 import { postSale } from "../../redux/slices/sales/salesActions";
+import {toast} from "react-toastify";
 
+// eslint-disable-next-line react/prop-types
 const SalePayementPopup = ({ closeHandler, total, sale }) => {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const [totalPayed, setTotalPayed] = useState(0);
   const [credit, setCredit] = useState(total);
+  const [isLoading, setIsLoading] = useState(false);
+
   const submitHandler = () => {
     if (!totalPayed) {
-      setError("Entrez un montant valide de payement");
+      toast.error("Entrez un montant valide.")
+      setError("Entrez un montant valide");
       return;
     }
+
+    setIsLoading(true);
     const finalSale = { ...sale, credit };
-    dispatch(postSale({ sale: finalSale }));
+    dispatch(postSale({ sale: finalSale }))
+        .then(() => setIsLoading(false));
   };
   const totalPayedChangeHandler = (e) => {
     const value = +e.target.value;
@@ -56,8 +64,8 @@ const SalePayementPopup = ({ closeHandler, total, sale }) => {
         </div>
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
-          <ButtonShadow name={"annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"confirmer"} onClick={submitHandler} />
+          <ButtonShadow name={"Annuler"} onClick={closeHandler} />
+          <ButtonHighlight name={"Confirmer"} onClick={submitHandler} isLoading={isLoading} />
         </div>
       </div>
     </PopupContainer>

@@ -1,5 +1,6 @@
 import React from "react";
 
+// eslint-disable-next-line react/prop-types
 const RoundedButton = ({ onClick, name }) => {
   return (
     <button
