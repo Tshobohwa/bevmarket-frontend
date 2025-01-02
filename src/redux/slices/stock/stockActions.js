@@ -4,6 +4,8 @@ import axios from "axios";
 
 const STOCK_URL = `${API_URL}/stock_items`;
 
+const SALE_POINT_STOCK_ITEM_URL = `$${API_URL}/sale_point_stock_item`;
+
 export const getStock = createAsyncThunk(
   "getStock",
   async (_, { rejectWithValue }) => {
@@ -63,5 +65,18 @@ export const postStockItem = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.message);
     }
+  }
+);
+
+export const getSalePointStock = createAsyncThunk(
+  "stock/getSalePointStock",
+  async ({ sale_point_id }) => {
+    const response = await axios.get(
+      `${SALE_POINT_STOCK_ITEM_URL}?sale_point_id=${sale_point_id}`
+    );
+
+    if (response.status !== 200) throw new Error("Couldn't get response");
+
+    return response.data.data.sale_point_stock_items;
   }
 );

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import {
   addQuantityToStockItem,
+  getSalePointStock,
   getStock,
   postStockItem,
   updateStockItemPrice,
@@ -12,6 +13,10 @@ const initialState = {
   stock: [],
   isGettingStock: false,
   isPosted: false,
+
+  salePointStock: [],
+  isGettingSalePointStock: false,
+
   isUpdatingPrice: false,
   hasUpdatedPrice: false,
   updatePriceError: "",
@@ -116,6 +121,22 @@ const stockSlice = createSlice({
         isAddingQuantityToStock: false,
         addingQuantityToStockError: payload,
       };
+    });
+
+    builder.addCase(getSalePointStock.pending, (state) => {
+      return { ...state, isGettingSalePointStock: true };
+    });
+
+    builder.addCase(getSalePointStock.fulfilled, (state, { payload }) => {
+      return {
+        ...state,
+        salePointStock: payload,
+        isGettingSalePointStock: false,
+      };
+    });
+
+    builder.addCase(getSalePointStock.rejected, (state) => {
+      return { ...state, isGettingSalePointStock: false };
     });
   },
 });
