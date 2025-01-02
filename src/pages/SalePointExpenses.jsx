@@ -8,6 +8,7 @@ const SalePointExpenses = () => {
   return (
     <div>
       <SalepointDetailsSideBar salePointId={salePointId} />
+      <div className="ml-[270px]">Les modifications iront ici</div>
     </div>
   );
 };
