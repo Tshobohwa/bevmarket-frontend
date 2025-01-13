@@ -27,17 +27,8 @@ const ClientPurchases = ({ clientId }) => {
       (purchase) => purchase.sale_items
     );
 
-    console.log("---------------------------------------------------------");
-    console.log(salesItems);
-    console.log("---------------------------------------------------------");
-
     setSaleItems(salesItems);
   }, [clientPurchases]);
-
-  useEffect(() => {
-    console.log(clientPurchases);
-    console.log(saleItems);
-  }, [saleItems]);
 
   return (
     <div className="w-full">

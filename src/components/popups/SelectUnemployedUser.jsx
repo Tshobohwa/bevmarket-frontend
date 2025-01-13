@@ -19,7 +19,6 @@ const SelectUnemployedUser = ({
   const [filteredUnemployeds, setFilteredUnemployeds] = useState([]);
 
   const setCurrentUnemployedUserHandler = (unemployedUser) => {
-    console.log("Clicked clicked");
     setCurrentUnemployedUser(unemployedUser);
     closeHandler();
   };

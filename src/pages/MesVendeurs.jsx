@@ -110,7 +110,6 @@ const MesVendeurs = () => {
           .includes(searchText.toLowerCase())
       )
     );
-    console.log(employees);
   }, [employees, searchText]);
 
   return (
