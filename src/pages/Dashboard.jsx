@@ -5,6 +5,8 @@ import RoundedButton from "../components/buttons/RoundedButton";
 import { useDispatch, useSelector } from "react-redux";
 import { getSales } from "../redux/slices/sales/salesActions";
 import { getExpenses } from "../redux/slices/expenses/expensesActions";
+import SalesSummaryCard from "./SalesSummaryCard";
+import formatNumber from "../utils/formatNumber";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -91,7 +93,7 @@ const Dashboard = () => {
           <div>
             <h2 className="text-primary-900">ventes</h2>
             <p className="font-semibold text-black-900 text-4xl">
-              {totalSales} Fc
+              {formatNumber(totalSales)} Fc
             </p>
           </div>
         </div>
@@ -99,14 +101,16 @@ const Dashboard = () => {
           <div>
             <h2 className="text-primary-900">Depenses</h2>
             <p className="font-semibold text-black-900 text-4xl">
-              {totalExpenses} Fc
+              {formatNumber(totalExpenses)} Fc
             </p>
           </div>
         </div>
         <div className="px-4 border border-primary-200 font-poppins bg-white h-[10rem] rounded-[1.5rem] flex justify-center flex-col items-center">
           <div>
             <h2 className="text-primary-900">Caisses vendues</h2>
-            <p className="font-semibold text-black-900 text-4xl">{quantity}</p>
+            <p className="font-semibold text-black-900 text-4xl">
+              {formatNumber(quantity)}
+            </p>
           </div>
         </div>
       </section>
@@ -123,34 +127,7 @@ const Dashboard = () => {
         </div>
       </section> */}
       <section className="w-full grid grid-cols-2fr-1fr gap-4">
-        <div className="w-full p-4 rounded-[1.5rem] bg-white border border-primary-200">
-          <h2 className="font-semibold">Articles vendus</h2>
-          <div className="flex flex-col items-center">
-            <div className="w-[85%]">
-              <div className="w-full grid grid-cols-3 my-2 gap-2">
-                <p className="font-semibold">Article</p>
-                <p>Quantitee</p>
-                <p>Prix Total</p>
-              </div>
-              {saleItemsTotal.map((saleItemsTotal, index) => {
-                const item = saleItemsTotal.stock_item.item;
-                return (
-                  <div className="w-full grid grid-cols-3 my-2" key={index}>
-                    <p className="font-semibold">
-                      {item?.name} {item?.capacity} Cl x {item?.bottles_number}
-                    </p>
-                    <p>{saleItemsTotal.quantity}</p>
-                    <p>{saleItemsTotal.price}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="w-full mt-4 flex items-end flex-col">
-            <p>Nombre total des caisses: {quantity}</p>
-            <p>Montant Total: {totalSales} Fc</p>
-          </div>
-        </div>
+        <SalesSummaryCard sales={saleItemsTotal} />
         <div className="w-full p-4 rounded-[1.5rem] bg-white border border-primary-200">
           <h2 className="font-semibold">Points de vente</h2>
         </div>
