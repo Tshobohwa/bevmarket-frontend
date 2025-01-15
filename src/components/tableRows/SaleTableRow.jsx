@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 const SaleTableRow = ({ saleItem }) => {
   const { stock } = useSelector((state) => state.stock);
 
+  // TO BE FIXED (item name, bottle_numbers, and capacity should be taken from saleItem not from stock)
+
   const [item, setItem] = useState();
 
   useEffect(() => {
