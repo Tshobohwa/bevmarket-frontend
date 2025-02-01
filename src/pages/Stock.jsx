@@ -12,15 +12,21 @@ import { MdModeEdit } from "react-icons/md";
 import { setCurrentStockItem } from "../redux/slices/stock/stockSlice";
 import UpdatePrices from "../components/popups/UpdatePrices";
 import AddQuantityToItem from "../components/popups/AddQuantityToItem";
+import { useSearchParams } from "react-router-dom";
 
 const Stock = () => {
   const dispatch = useDispatch();
+  const [URLSearchParams, setURLSearchParams] = useSearchParams();
   const [addingItem, setAddingItem] = useState(false);
   const { stock } = useSelector((state) => state.stock);
   const [isModifyingPrices, setIsModifyingPrices] = useState(false);
   const [isAddingQuantity, setIsAddingQuantity] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [filteredStockItems, setFilteredStockItems] = useState([]);
+
+  useEffect(() => {
+    if (!URLSearchParams.get("tab")) setURLSearchParams({ tab: "available" });
+  }, [URLSearchParams, setURLSearchParams]);
 
   useEffect(() => {
     dispatch(getStock());
@@ -59,21 +65,36 @@ const Stock = () => {
       {isAddingQuantity && (
         <AddQuantityToItem closeHandler={() => setIsAddingQuantity(false)} />
       )}
-      <header className="h-[3.4rem] fixed top-0 left-[240px] right-0 bg-white flex items-center justify-between px-6">
-        <h1 className="text-2xl font-semibold text-black-900">Stock</h1>
-        <div className="flex gap-4 items-center">
-          <RoundedInputWithIcon
-            placeholder={"Rechercher article"}
-            icon={<BiSearch size={24} />}
-            onChange={(e) => setSearchText(e.target.value.toLowerCase())}
-          />
-          <RoundedButton
-            name={"nouvel article"}
-            onClick={() => setAddingItem(true)}
-          />
+      <header className="h-[3.4rem] fixed top-0 left-[240px] right-0 bg-white flex items-center justify-between">
+        <div className="flex gap-4">
+          <button
+            className="font-medium text-black-900 px-6 border-b-4 border-b-primary-900 h-[3.4rem]"
+            onClick={() => setURLSearchParams({ tab: "available" })}
+          >
+            Stock disponible
+          </button>
+          <button
+            className="font-medium text-black-900 px-6 h-[3.4rem]"
+            onClick={() => setURLSearchParams({ tab: "history" })}
+          >
+            Historique du stock
+          </button>
         </div>
       </header>
       <section className="w-full mt-4 bg-white p-4 border border-primary-300 rounded-md">
+        <div className="w-full flex justify-end mb-4">
+          <div className="flex gap-4 items-center">
+            <RoundedInputWithIcon
+              placeholder={"Rechercher article"}
+              icon={<BiSearch size={24} />}
+              onChange={(e) => setSearchText(e.target.value.toLowerCase())}
+            />
+            <RoundedButton
+              name={"nouvel article"}
+              onClick={() => setAddingItem(true)}
+            />
+          </div>
+        </div>
         <table className="w-full">
           <thead className="w-full">
             <tr className="w-full h-[3rem] text-black-950  border border-primary-100">
