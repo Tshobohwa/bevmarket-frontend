@@ -11,6 +11,7 @@ import UpdatePrices from "../popups/UpdatePrices";
 import NewItem from "../popups/NewItem";
 import AddQuantityToItem from "../popups/AddQuantityToItem";
 import { FaPlus } from "react-icons/fa6";
+import formatNumber from "../../utils/formatNumber";
 
 const StockAvailable = () => {
   const dispatch = useDispatch();
@@ -99,14 +100,16 @@ const StockAvailable = () => {
                 }`}
                 key={index}
               >
-                <td className="pl-4 font-semibold text-black-950">
+                <td className="pl-4 font-semibold text-black-950 text-[0.8rem]">
                   {item.item.name} {item.item.bottles_number} x{" "}
                   {item.item.capacity} Cl
                 </td>
-                <td className="pl-4">{item.average_unit_buy_price} CDF</td>
+                <td className="pl-4 text-[0.8rem]">
+                  {formatNumber(item.average_unit_buy_price)} Fc
+                </td>
                 <td className="px-4">
-                  <p className="flex items-center justify-between">
-                    {item.unit_sale_price} CDF
+                  <p className="flex items-center justify-between text-[0.8rem]">
+                    {formatNumber(item.unit_sale_price)} Fc
                     <CircularButtonWithIcon
                       icon={
                         <MdModeEdit
@@ -118,8 +121,8 @@ const StockAvailable = () => {
                   </p>
                 </td>
                 <td className="px-4">
-                  <p className="flex items-center justify-between">
-                    {item.reduction_sale_price} CDF{" "}
+                  <p className="flex items-center justify-between text-[0.8rem]">
+                    {formatNumber(item.reduction_sale_price)} Fc{" "}
                     <CircularButtonWithIcon
                       icon={<MdModeEdit size={18} />}
                       onClick={() => openModifyPriceModal(item.id)}
@@ -127,8 +130,8 @@ const StockAvailable = () => {
                   </p>
                 </td>
                 <td className="px-4">
-                  <p className="flex items-center justify-between">
-                    {item.quantity}
+                  <p className="flex items-center justify-between text-[0.8rem]">
+                    {formatNumber(item.quantity)}
                     <CircularButtonWithIcon
                       icon={<FaPlus size={18} />}
                       onClick={() => openAddingQuantityToSckoPopup(item.id)}
