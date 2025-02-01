@@ -68,13 +68,19 @@ const Stock = () => {
       <header className="h-[3.4rem] fixed top-0 left-[240px] right-0 bg-white flex items-center justify-between">
         <div className="flex gap-4">
           <button
-            className="font-medium text-black-900 px-6 border-b-4 border-b-primary-900 h-[3.4rem]"
+            className={`font-medium text-black-900 px-6 ${
+              URLSearchParams.get("tab") === "available" &&
+              "border-b-[3px] border-red-500"
+            } h-[3.4rem]`}
             onClick={() => setURLSearchParams({ tab: "available" })}
           >
             Stock disponible
           </button>
           <button
-            className="font-medium text-black-900 px-6 h-[3.4rem]"
+            className={`font-medium text-black-900 px-6 ${
+              URLSearchParams.get("tab") === "history" &&
+              "border-b-[3px] border-red-500"
+            } h-[3.4rem]`}
             onClick={() => setURLSearchParams({ tab: "history" })}
           >
             Historique du stock
