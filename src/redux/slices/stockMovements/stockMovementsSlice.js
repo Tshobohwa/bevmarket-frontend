@@ -12,9 +12,14 @@ const stockMovementsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(getStockMovements.pending, (state) => {
-      return { ...state, isGettingStockMovements: true };
+      return {
+        ...state,
+        isGettingStockMovements: true,
+        stockMovementsError: "",
+      };
     });
     builder.addCase(getStockMovements.fulfilled, (state, { payload }) => {
+      console.log(payload);
       return {
         ...state,
         isGettingStockMovements: false,
@@ -30,3 +35,5 @@ const stockMovementsSlice = createSlice({
     });
   },
 });
+
+export default stockMovementsSlice.reducer;
