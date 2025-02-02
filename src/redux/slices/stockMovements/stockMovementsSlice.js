@@ -16,6 +16,7 @@ const stockMovementsSlice = createSlice({
         ...state,
         isGettingStockMovements: true,
         stockMovementsError: "",
+        stockMovements: [],
       };
     });
     builder.addCase(getStockMovements.fulfilled, (state, { payload }) => {
