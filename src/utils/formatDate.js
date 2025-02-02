@@ -2,7 +2,7 @@ const formatDate = (receivedDate, reversed = false) => {
   const [year, month, day] = receivedDate.replaceAll("-", "/").split("/");
   const months = {
     1: "Jan",
-    2: "Feb",
+    2: "Fev",
     3: "Mar",
     4: "Avr",
     5: "Mai",
@@ -11,7 +11,7 @@ const formatDate = (receivedDate, reversed = false) => {
     8: "Aou",
     9: "Sep",
     "01": "Jan",
-    "02": "Feb",
+    "02": "Fev",
     "03": "Mar",
     "04": "Avr",
     "05": "Mai",
