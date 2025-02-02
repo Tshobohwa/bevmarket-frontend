@@ -28,6 +28,14 @@ const StockHistory = () => {
           setTo={setTo}
         />
       </div>
+      <div className="grid grid-cols-2 w-full h-full mt-4">
+        <div>
+          <p>Resumee</p>
+        </div>
+        <div className="overflow-y-scroll">s
+          <p>Historique</p>
+        </div>
+      </div>
     </section>
   );
 };
