@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Timefilter from "../filters/Timefilter";
+import { useDispatch } from "react-redux";
+import { getStockMovements } from "../../redux/slices/stockMovements/stockMovementsActions";
 
 const StockHistory = () => {
+  const dispatch = useDispatch();
+
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [from, setFrom] = useState(new Date().toISOString().split("T")[0]);
   const [to, setTo] = useState(new Date().toISOString().split("T")[0]);
+
+  useEffect(() => {
+    dispatch(getStockMovements({ date, from, to }));
+  }, [date, from, to]);
   return (
     <section className="w-full p-4 rounded-md bg-white border border-secondary-300 mt-4">
       <div className="w-full flex justify-between items-center">
@@ -32,8 +40,8 @@ const StockHistory = () => {
         <div>
           <p>Resumee</p>
         </div>
-        <div className="overflow-y-scroll">s
-          <p>Historique</p>
+        <div className="overflow-y-scroll">
+          s<p>Historique</p>
         </div>
       </div>
     </section>
