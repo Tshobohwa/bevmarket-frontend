@@ -78,7 +78,7 @@ const Sidebar = ({ children }) => {
                 onClick={logoutHandler}
                 className="flex items-center justify-center gap-4 hover:bg-red-600 w-full h-[2.5rem] border border-red-600 rounded-lg"
               >
-                <p>logout</p>
+                <p>Se deconnecter</p>
               </button>
             </li>
           </ul>
