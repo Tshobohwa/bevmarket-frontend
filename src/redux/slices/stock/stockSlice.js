@@ -8,6 +8,7 @@ import {
   updateStockItemPrice,
 } from "./stockActions";
 import { postItem } from "../items/ItemsActions";
+import { toast } from "react-toastify";
 
 const initialState = {
   stock: [],
@@ -61,6 +62,7 @@ const stockSlice = createSlice({
     });
 
     builder.addCase(postStockItem.fulfilled, (state, { payload }) => {
+      toast.success("Nouvel article ajoutee avec succes!");
       return {
         ...state,
         stock: [...state.stock, payload],
@@ -70,6 +72,9 @@ const stockSlice = createSlice({
     });
 
     builder.addCase(postStockItem.rejected, (state, { error }) => {
+      toast.error(
+        "Une erreur est survenue! Nouvel article non ajoutee au stock"
+      );
       return { ...state, error, isPosting: false };
     });
 
@@ -85,6 +90,7 @@ const stockSlice = createSlice({
     });
 
     builder.addCase(updateStockItemPrice.fulfilled, (state, { payload }) => {
+      toast.success("Prix de l'article mis a jour!");
       let { stock } = state;
       // Filter the item matching the payload and changing it in the stock
       stock = stock.map((item) => (item.id === payload.id ? payload : item));
@@ -92,6 +98,7 @@ const stockSlice = createSlice({
     });
 
     builder.addCase(updateStockItemPrice.rejected, (state, { payload }) => {
+      toast.error("Une erreur est survenue! Prix de l'article non mis a jour.");
       return { ...state, isUpdatingPrice: false, updatePriceError: payload };
     });
 
@@ -105,6 +112,7 @@ const stockSlice = createSlice({
 
     builder.addCase(addQuantityToStockItem.fulfilled, (state, { payload }) => {
       let { stock } = state;
+      toast.success("Quantitee ajoutee au stock avec succes");
       // Filter the item matching the payload and changing it in the stock
       stock = stock.map((item) => (item.id === payload.id ? payload : item));
       return {
@@ -116,6 +124,7 @@ const stockSlice = createSlice({
     });
 
     builder.addCase(addQuantityToStockItem.rejected, (state, { payload }) => {
+      toast.error("Une erreur est survenue! Quantitee non ajoutee au stock.");
       return {
         ...state,
         isAddingQuantityToStock: false,

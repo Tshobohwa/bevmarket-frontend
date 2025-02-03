@@ -42,9 +42,20 @@ const StockHistory = () => {
           quantity:
             Number.parseFloat(newReducedStockHistory[stock_item_id].quantity) +
             Number.parseFloat(quantity),
+          totalPrice:
+            Number.parseFloat(
+              newReducedStockHistory[stock_item_id].totalPrice
+            ) +
+            Number.parseFloat(stockMovement.quantity) *
+              Number.parseFloat(stockMovement.unit_price),
         };
       } else {
-        newReducedStockHistory[stock_item_id] = { ...stockMovement };
+        newReducedStockHistory[stock_item_id] = {
+          ...stockMovement,
+          totalPrice:
+            Number.parseFloat(stockMovement.quantity) *
+            Number.parseFloat(stockMovement.unit_price),
+        };
       }
     });
 
@@ -83,7 +94,10 @@ const StockHistory = () => {
           <p>Resumee</p>
           <div className=" bg-black-900 text-white py-2 grid grid-cols-2">
             <p className="pl-2">Article</p>
-            <p className="pl-2">Quanitee</p>
+            <div className="grid grid-cols-2">
+              <p className="pl-2">Quanitee</p>
+              <p className="pl-2">Prix total</p>
+            </div>
           </div>
           {Object.keys(reducedStockHistory).map((key, index) => {
             const stockItem = reducedStockHistory[key];
@@ -97,9 +111,12 @@ const StockHistory = () => {
                 <p className="px-2">
                   {item.name} {item.bottles_number} x {item.capacity} Cl
                 </p>
-                <p className="px-2">
-                  {formatNumber(stockItem.quantity)} Caisses
-                </p>
+                <div className="grid grid-cols-2">
+                  <p className="px-2">{formatNumber(stockItem.quantity)}</p>
+                  <p className="px-2">
+                    {formatNumber(stockItem.totalPrice)} Fc
+                  </p>
+                </div>
               </div>
             );
           })}

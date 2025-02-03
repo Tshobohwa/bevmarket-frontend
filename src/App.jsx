@@ -23,15 +23,14 @@ import UnemployedRoutes from "./routes/UnemployedRoutes";
 import EmployedRoutes from "./routes/EmployedRoutes";
 import Starting from "./pages/Starting";
 import NewEstablishment from "./pages/NewEstablishment";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <ToastContainer />
         <Routes>
           <Route element={<AuthRoutes />}>
             <Route path="/login" element={<Login />} />
@@ -72,6 +71,7 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer autoClose={5000} />
     </Provider>
   );
 }

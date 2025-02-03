@@ -7,7 +7,7 @@ import PopupContainer from "./PopupContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { postItem } from "../../redux/slices/items/ItemsActions";
 import { initializeIsPosted } from "../../redux/slices/items/itemsSlice";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
 const NewItem = ({ closeHandler }) => {
@@ -28,17 +28,17 @@ const NewItem = ({ closeHandler }) => {
   const [unitSalePrice, seUnitSalePrice] = useState(0);
   const [lastUnitBuyPrice, setLastUnitBuyPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const submitHandler = () => {
     setError("");
     if (
       !name ||
-      ! quantity||
-      ! capacity||
-      ! bottles_number||
-      ! unitSalePrice||
-      ! lastUnitBuyPrice||
-      ! reductionSalePrice
+      !quantity ||
+      !capacity ||
+      !bottles_number ||
+      !unitSalePrice ||
+      !lastUnitBuyPrice ||
+      !reductionSalePrice
     ) {
       toast.warning("Veuillez entrer toute les valeurs");
       setError("Veuillez entrer toute les valeurs");
@@ -62,8 +62,7 @@ const NewItem = ({ closeHandler }) => {
       quantity,
     };
 
-    dispatch(postItem({ item, stock_item }))
-        .then(() => setIsLoading(false));
+    dispatch(postItem({ item, stock_item })).then(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -132,7 +131,11 @@ const NewItem = ({ closeHandler }) => {
         <p className="text-primary-800 text-center">{error}</p>
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
           <ButtonShadow name={"Annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"Ajouter"} onClick={submitHandler} isLoading={isLoading} />
+          <ButtonHighlight
+            name={"Ajouter"}
+            onClick={submitHandler}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </PopupContainer>
