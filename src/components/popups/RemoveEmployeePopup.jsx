@@ -3,13 +3,14 @@ import PopupContainer from "./PopupContainer";
 import ButtonShadow from "../buttons/ButtonShadow";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteEmployee } from "../../redux/slices/employees/employeesActions";
 
 // eslint-disable-next-line react/prop-types
 const RemoveEmployeePopup = ({ closeHandler, employee }) => {
   const dispatch = useDispatch();
 
+  const { isDeletingEmployee } = useSelector((state) => state.employees);
   const submitHandler = () => {
     dispatch(deleteEmployee({ employee_id: employee.id }));
   };
@@ -37,7 +38,7 @@ const RemoveEmployeePopup = ({ closeHandler, employee }) => {
           <ButtonHighlight
             name={"Licencier"}
             onClick={submitHandler}
-            isLoading={isLoading}
+            isLoading={isDeletingEmployee}
           />
         </div>
       </div>
