@@ -79,6 +79,7 @@ const employeesSlice = createSlice({
       return { ...state, isDeletingEmployee: false };
     });
     builder.addCase(deleteEmployee.fulfilled, (state, { payload }) => {
+      toast.success("Employee efface avec succes!");
       const { employee_id } = payload;
       const employees = state.employees.filter(
         (employee) => employee.id === employee_id
@@ -86,7 +87,7 @@ const employeesSlice = createSlice({
       return { ...state, employees, isDeletingEmployee: false };
     });
     builder.addCase(deleteEmployee.rejected, (state) => {
-      toast.error("N'a pas pu virer l'employe");
+      toast.error("N'a pas pu virer l'employe!");
       return { ...state, isDeletingEmployee: false };
     });
   },

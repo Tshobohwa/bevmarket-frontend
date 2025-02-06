@@ -3,16 +3,15 @@ import PopupContainer from "./PopupContainer";
 import ButtonShadow from "../buttons/ButtonShadow";
 import ButtonHighlight from "../buttons/ButtonHighlight";
 import { IoClose } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { deleteEmployee } from "../../redux/slices/employees/employeesActions";
 
 // eslint-disable-next-line react/prop-types
 const RemoveEmployeePopup = ({ closeHandler, employee }) => {
-  // TODO: @Salomon
-  const [isLoading, setIsLoading] = React.useState(false);
+  const dispatch = useDispatch();
 
   const submitHandler = () => {
-    setIsLoading(true);
-    // dispatch(...).then(() => setIsLoading(false));
-    setIsLoading(false);
+    dispatch(deleteEmployee({ employee_id: employee.id }));
   };
 
   return (
@@ -35,7 +34,11 @@ const RemoveEmployeePopup = ({ closeHandler, employee }) => {
         </div>
         <div className="w-full grid grid-cols-2 gap-4">
           <ButtonShadow name={"Annuler"} onClick={closeHandler} />
-          <ButtonHighlight name={"Licencier"} onClick={submitHandler} isLoading={isLoading} />
+          <ButtonHighlight
+            name={"Licencier"}
+            onClick={submitHandler}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </PopupContainer>
