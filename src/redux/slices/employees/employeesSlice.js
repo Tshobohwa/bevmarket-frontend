@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  deleteEmployee,
   getCurrentEmployee,
   getEmployees,
   postEmployee,
@@ -13,6 +14,8 @@ const initialState = {
   employees: [],
   isPostingEmployee: false,
   hasPostedEmployee: false,
+
+  isDeletingEmployee: false,
 };
 
 const employeesSlice = createSlice({
@@ -72,6 +75,17 @@ const employeesSlice = createSlice({
       localStorage.setItem("currentEmployee", JSON.stringify(payload.employee));
       return { ...state, currentEmployee: payload.employee };
     });
+    builder.addCase(deleteEmployee.pending, (state) => {
+      return { ...state, isDeletingEmployee: false };
+    });
+    builder.addCase(deleteEmployee.fulfilled, (state, { payload }) => {
+      const { employee_id } = payload;
+      const employees = state.employees.filter(
+        (employee) => employee.id === employee_id
+      );
+      return { ...state, employees };
+    });
+    bui;
   },
 });
 

@@ -35,8 +35,24 @@ export const postEmployee = createAsyncThunk(
   async ({ employee }, { rejectWithValue }) => {
     try {
       const response = await axios.post(EMPLOYEES_URL, { employee });
-      if (response.status !== 201) return rejectWithValue("couldn't post employee");
+      if (response.status !== 201)
+        return rejectWithValue("couldn't post employee");
       return response.data.data.employee;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteEmployee = createAsyncThunk(
+  "employees/deleteEmployee",
+  async ({ employee_id }, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${EMPLOYEES_URL}/${employee_id}`);
+
+      if (response.status !== 204) throw new Error("Couldn't delete employee");
+
+      return { employee_id };
     } catch (error) {
       return rejectWithValue(error.message);
     }
