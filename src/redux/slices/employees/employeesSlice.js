@@ -83,9 +83,12 @@ const employeesSlice = createSlice({
       const employees = state.employees.filter(
         (employee) => employee.id === employee_id
       );
-      return { ...state, employees };
+      return { ...state, employees, isDeletingEmployee: false };
     });
-    bui;
+    builder.addCase(deleteEmployee.rejected, (state) => {
+      toast.error("N'a pas pu virer l'employe");
+      return { ...state, isDeletingEmployee: false };
+    });
   },
 });
 
