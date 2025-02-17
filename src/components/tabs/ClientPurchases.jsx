@@ -32,9 +32,9 @@ const ClientPurchases = ({ clientId }) => {
 
   return (
     <div className="w-full">
-      <section>
+      <section className="grid grid-cols-2 gap-4">
         <SalesSummaryCard sales={saleItems} />
-        <div className="grid grid-cols-2 w-full gap-4">
+        <div className="w-full gap-4">
           {clientPurchases.map((sale) => (
             <SaleReceipt sale={sale} key={sale.id} />
           ))}
